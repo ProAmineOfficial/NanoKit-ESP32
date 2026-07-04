@@ -6,9 +6,21 @@ The NanoKit board is part of the wider UMT hardware vision, but this repository'
 
 ## Repository Mission
 
-This is not a demo repository. It is the official long-term NanoKit-ESP32 ecosystem repository for educational and professional embedded systems development.
+This is not a demo repository and not a template repository. It is the official long-term NanoKit-ESP32 ecosystem repository for educational and professional embedded systems development.
 
-See [PROJECT_SPECIFICATION.md](PROJECT_SPECIFICATION.md) for the repository rules, growth model, example standards, and documentation requirements.
+See [PROJECT_SPECIFICATION.md](PROJECT_SPECIFICATION.md) for the master repository rules, growth model, example standards, documentation requirements, and Definition of Done.
+
+## Quality Contract
+
+Official content in this repository should be production-ready, educational, complete, and maintainable.
+
+- Do not leave directories empty as final work.
+- Do not add placeholder content when real educational material can be provided.
+- Build on existing work instead of overwriting it unnecessarily.
+- Every example should teach the code, wiring, algorithm, pin mapping, and troubleshooting path.
+- Every hardware example must document NanoKit pin numbers and ESP32 GPIO numbers.
+
+Use [docs/software/platformio-example-standard.md](docs/software/platformio-example-standard.md) when creating or reviewing examples.
 
 ## Repository Layout
 
