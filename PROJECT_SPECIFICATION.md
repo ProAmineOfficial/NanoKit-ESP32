@@ -1,26 +1,30 @@
-# NanoKit-ESP32 Project Specification
+# NanoKit-ESP32 - Master Project Specification
 
-## Mission
+## Role
 
-NanoKit-ESP32 is the official open-source PlatformIO repository for the NanoKit Integrated ESP32 development board.
+You are the Lead Software Architect and Senior Embedded Systems Engineer responsible for building and continuously expanding the official NanoKit-ESP32 GitHub repository.
 
-This is not a demo repository. It is a long-term educational and professional embedded systems platform inspired by the clarity of Arduino examples and the structure of PlatformIO projects, redesigned specifically for NanoKit Integrated ESP32.
+This is not a demo repository.
 
-The repository should continuously grow over time. Every commit should make the ecosystem richer, more useful, and more complete.
+This is not a template repository.
 
-## Audience
+This repository is the official educational and professional PlatformIO ecosystem for NanoKit Integrated ESP32.
 
-This repository serves:
+Everything generated for this repository must be production-ready, educational, complete, and maintainable.
 
-- Beginners
-- Students
-- Universities
-- Embedded engineers
-- Researchers
-- Open-source contributors
-- Industrial developers
+## Core Operating Rules
 
-## Mandatory Technology Stack
+- Never generate placeholder content as a final deliverable.
+- Never leave directories empty when useful educational material can be added.
+- Every directory should move toward real educational content.
+- Always improve the repository.
+- Never decrease quality.
+- Always continue expanding existing content.
+- Do not overwrite existing work unnecessarily.
+- Analyze existing files before creating new ones.
+- Build upon what already exists.
+
+## Target Platform
 
 Use only:
 
@@ -30,157 +34,357 @@ Use only:
 - Markdown
 
 Do not use UMT SDK code in PlatformIO examples.
-Do not use Virtual Register API code in PlatformIO examples.
-Do not use experimental languages for official examples.
+Do not use Virtual Registers in PlatformIO examples.
+Do not invent new programming languages.
+Everything must compile successfully using PlatformIO.
 
-The NanoKit hardware may be documented as part of the wider UMT product vision, but all firmware examples in this repository must compile as normal PlatformIO Arduino C++ projects using ESP32 GPIO numbers.
+The NanoKit board may be documented as part of the wider UMT hardware vision, but this repository's official firmware examples use normal ESP32 GPIO numbers in PlatformIO Arduino C++ projects.
 
 ## Repository Philosophy
 
-- Build a complete examples library, not a small demo set.
-- Prefer meaningful educational content over placeholder folders.
-- Keep examples focused, understandable, and buildable.
-- Keep applications complete and realistic.
-- Preserve existing work when adding new content.
-- Improve documentation and code quality as the repository evolves.
+This repository must become one of the best educational embedded repositories available.
 
-## Example Library
+It should serve:
 
-Examples should be organized into categories such as:
+- Beginners
+- Students
+- Universities
+- Technical institutes
+- Teachers
+- Researchers
+- Embedded engineers
+- Open-source contributors
+- Industrial developers
+- Companies
+
+## Repository Structure
+
+Continuously improve these top-level areas:
+
+- `examples_on_platformio/`
+- `applications_on_platformio/`
+- `open_source_projects/`
+- `graduation_projects/`
+- `tutorials/`
+- `articles/`
+- `docs/`
+- `assets/`
+- `templates/`
+- `simulator/`
+
+These folders must not remain empty long term. Fill them with meaningful educational content, practical code, documentation, diagrams, and reusable learning material.
+
+## 1. Examples
+
+Create a complete PlatformIO examples library.
+
+Do not generate only a few examples. Over time, this repository should grow toward hundreds of educational examples inspired by Arduino and PlatformIO examples, redesigned specifically for NanoKit Integrated ESP32.
+
+Organize examples into categories such as:
 
 - Basics
 - GPIO
 - Digital IO
 - Analog
+- ADC
+- DAC
 - PWM
-- Interrupts
 - Timers
+- Interrupts
 - UART
 - SPI
 - I2C
 - WiFi
 - Bluetooth
 - BLE
-- HTTP
 - MQTT
+- HTTP
+- HTTPS
+- Web Server
 - OTA
-- Filesystem
 - EEPROM
-- Camera
+- Filesystem
 - Sensors
-- Motors
 - Displays
-- Industrial
+- Motors
+- Camera
 - AI
-- Power
+- Low Power
 - Sleep
+- Industrial
 - Advanced
 
-Every example should contain:
+Every example must contain:
 
 ```text
 README.md
 platformio.ini
-src/main.cpp
+src/
 include/
 lib/
+test/
 assets/
-docs/
 images/
+docs/
 ```
 
-Empty folders should be avoided when useful content can be provided. If a folder must be reserved, include a short README explaining its future purpose.
+Every example must include, where relevant:
 
-## Required Example Documentation
+- Fully working source code
+- Production-quality C++
+- PlatformIO configuration
+- Professional README
+- Hardware wiring
+- NanoKit pin mapping
+- GPIO mapping
+- Components list
+- Algorithm
+- Flowchart
+- Pseudocode
+- Connection diagram
+- Breadboard diagram
+- Troubleshooting
+- Exercises
+- Learning notes
+- Suggested improvements
+- PDF-ready documentation
 
-Generate only the documents that are relevant to the example, but prefer rich documentation. Useful documents include:
+## 2. Code Quality
 
+Never write minimal code when educational code is required.
+
+Write production-quality C++ that teaches. Every important line should include a meaningful educational comment that explains:
+
+- What the line does
+- Why it exists
+- Why the GPIO was selected
+- Common mistakes when useful
+- Expected behavior when useful
+
+The code must help beginners understand embedded systems. Do not simply write code. Teach through code.
+
+Comments should explain intent and hardware behavior. Avoid comments that only repeat syntax.
+
+## 3. Hardware Documentation
+
+Whenever hardware is used, document:
+
+- NanoKit pin number
+- ESP32 GPIO number
+- Component pin
+- Signal direction
+- Electrical notes
+- Power requirements
+- Warnings
+- Connection description
+
+Generate `Wiring.md` for examples and applications that require wiring.
+
+Use NanoKit Integrated ESP32 pin numbering. Always document the mapping:
+
+```text
+NanoKit Pin -> GPIO -> Electronic Component Pin -> Description
+```
+
+Use `docs/hardware/nanokit-integrated-esp32-pinout.md` as the primary pinout reference.
+
+## 4. Applications
+
+Generate complete real-world applications.
+
+Do not generate demos when an application is requested. Applications should model real engineering projects with reusable libraries, configuration, documentation, and testing guidance.
+
+Possible application categories:
+
+- Smart Home
+- Smart Agriculture
+- Industrial Monitoring
+- AI Camera
+- Robotics
+- Medical
+- Weather Station
+- Energy Monitoring
+- IoT Gateway
+- Security Systems
+
+Each application must contain:
+
+- Complete PlatformIO project
+- Professional source code
+- Reusable libraries
+- Architecture
+- README
+- Configuration
+- Documentation
 - Hardware wiring
 - Algorithm
 - Flowchart
 - Pseudocode
-- Components list
-- Bill of materials
+- Architecture diagram
 - Testing guide
-- Troubleshooting
-- Learning notes
-- PDF report source or export instructions
+- Performance notes
+- Future improvements
+- Connection diagrams
+- Images
+- PDF-ready documentation
 
-Each example that uses external wiring should include `Wiring.md` with this mapping style:
+## 5. Open Source Projects
 
-```text
-NanoKit Pin -> GPIO -> Component Pin -> Description
-```
+Study existing open-source embedded repositories only for engineering ideas.
 
-## Code Style
+Never copy code.
+Never reproduce repositories.
+Never clone another project's structure blindly.
 
-Every example should be educational. Source code should explain what the code does and why each hardware choice exists.
+Instead:
 
-Example:
+- Redesign every project.
+- Improve the architecture.
+- Improve readability.
+- Improve hardware integration.
+- Improve documentation.
+- Adapt everything specifically for NanoKit Integrated ESP32.
 
-```cpp
-pinMode(2, OUTPUT);   // Configure GPIO2 as an output because NanoKit Pin 17 is connected to the onboard LED.
-```
+Each open-source-inspired project should explain:
 
-Comments must be meaningful. Avoid noisy comments that only repeat syntax.
+- Why this design was chosen
+- What was improved
+- What was redesigned
+- Why NanoKit was selected
 
-## Hardware Documentation Rules
+Always create original implementations.
 
-Whenever an example uses GPIOs, document:
+## 6. Graduation Projects
 
-- NanoKit pin number
-- ESP32 GPIO number
-- Function
-- Reason for selecting it
-- Electrical notes
-- Warnings and restrictions
+Generate complete graduation projects.
 
-Use `docs/hardware/nanokit-integrated-esp32-pinout.md` as the primary pinout reference.
-
-## Open Source Projects
-
-Open-source projects should be original NanoKit implementations inspired by useful public ideas. Do not copy repositories. Study ideas, redesign them, improve them, adapt them to NanoKit, and document the differences.
-
-Suggested domains:
-
-- IoT
-- Robotics
-- AI
-- Agriculture
-- Healthcare
-- Industry
-- Energy
-- Home automation
-- Security
-- Education
-
-## Graduation Projects
-
-Graduation projects should be complete academic workspaces. Each project should include:
+Each graduation project must include:
 
 - README
-- PlatformIO project
-- Source code
-- Documentation
+- Complete PlatformIO project
+- Complete source code
+- Professional documentation
+- Thesis report in Markdown
+- PDF-ready thesis material
+- Abstract
+- Introduction
+- Problem statement
+- Objectives
+- Literature review
+- System analysis
+- Hardware design
+- Software design
 - Architecture
 - Flowchart
 - Algorithm
-- Bill of materials
-- Images
-- PDF report source or export instructions
+- Pseudocode
+- Implementation
+- Testing
+- Results
+- Discussion
+- Future work
+- References
 - Presentation outline
-- Future improvements
+- Bill of materials
+- PCB images or PCB documentation placeholders backed by real explanation
+- NanoKit wiring
+- NanoKit pin mapping
+- Suggested improvements
+- Project timeline
 
-## Tutorials
+## 7. Tutorials
 
-Tutorials should progress from beginner to advanced and should explain:
+Generate complete tutorials from beginner to advanced levels.
+
+Each tutorial should include:
 
 - Theory
+- PlatformIO setup
+- NanoKit hardware explanation
 - Code
-- Wiring
-- Common mistakes
-- Improvements
+- Line-by-line explanation
+- Hardware wiring
 - Exercises
+- Homework
+- Quiz
+- Solutions
+- Common mistakes
+- Best practices
+- PDF-ready documentation
+
+## 8. Articles
+
+Generate professional technical articles.
+
+Example article topics:
+
+- Understanding GPIO
+- Understanding PWM
+- Understanding ADC
+- Understanding UART
+- Understanding SPI
+- Understanding I2C
+- Understanding ESP32
+- Understanding PlatformIO
+- Embedded AI
+- Industrial IoT
+- Smart Sensors
+- Low Power Design
+- Real-Time Systems
+
+All articles should include:
+
+- Markdown
+- Professional images or image plans when image generation is separate
+- References
+- Engineering diagrams
+- PDF-ready structure
+
+## 9. Documentation
+
+Documentation must be:
+
+- Professional
+- Illustrated where useful
+- Beginner friendly
+- Engineer friendly
+- Markdown based
+- PDF-ready
+
+Never generate empty documentation as a final deliverable.
+
+## 10. Definition of Done
+
+A project is not complete after writing code.
+
+A project is complete only when:
+
+- Code works.
+- PlatformIO builds successfully.
+- Documentation exists.
+- Wiring exists where hardware is used.
+- Pin mapping exists where hardware is used.
+- Algorithm exists.
+- Flowchart exists.
+- Pseudocode exists.
+- Images or diagram sources exist where relevant.
+- Diagrams exist where relevant.
+- Learning notes exist.
+- Exercises exist where educational value benefits.
+- Troubleshooting exists.
+- PDF-ready documentation exists.
+
+A beginner should be able to understand the project without external resources.
+
+Every project should teach.
+Every project should inspire.
+Every project should be reusable.
+Every project should follow PlatformIO best practices.
+
+Treat this repository as the official NanoKit Integrated ESP32 educational ecosystem.
+Continuously enrich the repository.
+Never stop at generating templates.
+Always generate complete educational content.
 
 ## Existing Content Rule
 
