@@ -19,6 +19,301 @@ See [PROJECT_SPECIFICATION.md](PROJECT_SPECIFICATION.md) for the master reposito
 
 Run `python tools/update_repository_index.py` after adding examples, applications, open-source projects, tutorials, articles, docs, assets, or templates. On this local checkout, the pre-commit hook also refreshes the generated index files automatically before commits.
 
+## Interactive Repository Tree
+
+The tree below is generated from the current repository contents. Select its title to expand or collapse it. The local pre-commit hook and the GitHub workflow refresh it automatically when projects or files are added, moved, or removed.
+
+<details>
+<summary><strong>Open current NanoKit-ESP32 tree</strong></summary>
+
+<!-- GENERATED_REPOSITORY_TREE:START -->
+```text
+NanoKit-ESP32/
+|-- .githooks/
+|   `-- pre-commit
+|-- .github/
+|   `-- workflows/
+|       `-- repository-index.yml
+|-- applications_on_platformio/
+|   |-- face_rotation_tracking_camera/
+|   |   |-- .genius/
+|   |   |   `-- README.md
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   `-- README.md
+|   |   |-- esp32/
+|   |   |   |-- docs/
+|   |   |   |   |-- Implementation_Guide.md
+|   |   |   |   `-- Wiring.md
+|   |   |   |-- include/
+|   |   |   |   `-- README.md
+|   |   |   |-- lib/
+|   |   |   |   `-- README.md
+|   |   |   |-- src/
+|   |   |   |   `-- main.cpp
+|   |   |   |-- test/
+|   |   |   |   `-- README.md
+|   |   |   `-- platformio.ini
+|   |   |-- images/
+|   |   |   `-- connection-diagram.md
+|   |   |-- vision/
+|   |   |   `-- README.md
+|   |   `-- README.md
+|   |-- industrial_monitoring/
+|   |   `-- README.md
+|   |-- smart_home_controller/
+|   |   `-- README.md
+|   |-- weather_station/
+|   |   `-- README.md
+|   `-- README.md
+|-- articles/
+|   |-- ai/
+|   |   `-- README.md
+|   |-- embedded_systems/
+|   |   `-- README.md
+|   |-- iot/
+|   |   `-- README.md
+|   |-- nanokit/
+|   |   `-- README.md
+|   |-- platformio/
+|   |   `-- README.md
+|   |-- robotics/
+|   |   `-- README.md
+|   |-- umt_platform/
+|   |   `-- README.md
+|   `-- README.md
+|-- assets/
+|   |-- banners/
+|   |   `-- .gitkeep
+|   |-- icons/
+|   |   `-- .gitkeep
+|   |-- images/
+|   |   `-- .gitkeep
+|   |-- logos/
+|   |   `-- .gitkeep
+|   |-- videos/
+|   |   `-- .gitkeep
+|   `-- README.md
+|-- docs/
+|   |-- api/
+|   |   `-- README.md
+|   |-- architecture/
+|   |   `-- README.md
+|   |-- getting_started/
+|   |   `-- README.md
+|   |-- hardware/
+|   |   |-- nanokit-integrated-esp32-pinout.md
+|   |   `-- README.md
+|   |-- installation/
+|   |   `-- README.md
+|   |-- roadmap/
+|   |   `-- README.md
+|   |-- software/
+|   |   |-- platformio-example-standard.md
+|   |   `-- README.md
+|   |-- troubleshooting/
+|   |   `-- README.md
+|   `-- README.md
+|-- examples_on_platformio/
+|   |-- camera_tracking/
+|   |   |-- .genius/
+|   |   |   `-- README.md
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   `-- connection-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- stepper_motor_control/
+|   |   |-- .genius/
+|   |   |   `-- README.md
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   `-- connection-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- ultrasonic_distance/
+|   |   |-- .genius/
+|   |   |   `-- README.md
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   `-- connection-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   `-- README.md
+|-- graduation_projects/
+|   |-- bachelor_projects/
+|   |   `-- README.md
+|   |-- capstone_projects/
+|   |   `-- README.md
+|   |-- engineering_projects/
+|   |   `-- README.md
+|   |-- institute_projects/
+|   |   `-- README.md
+|   |-- master_projects/
+|   |   `-- README.md
+|   |-- templates/
+|   |   `-- README.md
+|   |-- university_thesis/
+|   |   `-- README.md
+|   `-- README.md
+|-- open_source_projects/
+|   |-- community_projects/
+|   |   `-- README.md
+|   |-- contributor_projects/
+|   |   `-- README.md
+|   |-- hackathon_projects/
+|   |   `-- README.md
+|   |-- nanokit_drone_4x_quadcopter/
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- camera_node/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Architecture.md
+|   |   |   |-- Bill_of_Materials.md
+|   |   |   |-- Bluetooth_Protocol.md
+|   |   |   |-- Calibration.md
+|   |   |   |-- Camera_Integration.md
+|   |   |   |-- Open_Source_References.md
+|   |   |   |-- PID_Tuning.md
+|   |   |   |-- Safety.md
+|   |   |   |-- Testing.md
+|   |   |   `-- Wiring.md
+|   |   |-- firmware/
+|   |   |   |-- .vscode/
+|   |   |   |   |-- c_cpp_properties.json
+|   |   |   |   |-- extensions.json
+|   |   |   |   `-- launch.json
+|   |   |   |-- include/
+|   |   |   |   `-- README.md
+|   |   |   |-- lib/
+|   |   |   |   `-- README.md
+|   |   |   |-- src/
+|   |   |   |   `-- main.cpp
+|   |   |   |-- test/
+|   |   |   |   `-- README.md
+|   |   |   |-- .gitignore
+|   |   |   `-- platformio.ini
+|   |   |-- images/
+|   |   |   |-- camera-wiring.md
+|   |   |   |-- connection-diagram.md
+|   |   |   |-- control-loop.md
+|   |   |   |-- motor-layout.md
+|   |   |   `-- system-diagram.md
+|   |   |-- web_controller/
+|   |   |   |-- app.js
+|   |   |   |-- index.html
+|   |   |   |-- manifest.json
+|   |   |   |-- README.md
+|   |   |   `-- styles.css
+|   |   |-- project.yml
+|   |   `-- README.md
+|   |-- showcase_projects/
+|   |   `-- README.md
+|   |-- templates/
+|   |   `-- README.md
+|   `-- README.md
+|-- simulator/
+|   |-- assets/
+|   |   `-- .gitkeep
+|   |-- engine/
+|   |   `-- README.md
+|   |-- examples/
+|   |   `-- README.md
+|   |-- web/
+|   |   `-- README.md
+|   `-- README.md
+|-- templates/
+|   |-- application_template/
+|   |   `-- README.md
+|   |-- documentation_template/
+|   |   `-- README.md
+|   |-- example_template/
+|   |   `-- README.md
+|   |-- thesis_template/
+|   |   `-- README.md
+|   `-- README.md
+|-- tools/
+|   |-- sync_with_github.ps1
+|   `-- update_repository_index.py
+|-- tutorials/
+|   |-- advanced/
+|   |   `-- README.md
+|   |-- beginner/
+|   |   `-- README.md
+|   |-- intermediate/
+|   |   `-- README.md
+|   |-- projects/
+|   |   `-- README.md
+|   |-- video_links/
+|   |   `-- README.md
+|   `-- README.md
+|-- .gitignore
+|-- CHANGELOG.md
+|-- CONTRIBUTING.md
+|-- DEVELOPMENT_CREDIT.md
+|-- LICENSE
+|-- PROJECT_SPECIFICATION.md
+|-- README.md
+|-- REPOSITORY_INDEX.md
+`-- REPOSITORY_TREE.md
+```
+<!-- GENERATED_REPOSITORY_TREE:END -->
+
+</details>
+
+## How the Repository Is Built
+
+```mermaid
+flowchart TD
+  A[PROJECT_SPECIFICATION.md] --> B[PlatformIO Example Standard]
+  A --> C[NanoKit Pinout Reference]
+  B --> D[Complete Example Folder]
+  C --> D
+  D --> E[README]
+  D --> F[src/main.cpp]
+  D --> G[Wiring + Implementation Docs]
+  D --> H[Mermaid Diagrams]
+  D --> I[Assets / Include / Lib / Test Notes]
+```
+
 ## Featured Open-Source Project
 
 [NanoKit Drone 4X (Quadcopter)](open_source_projects/nanokit_drone_4x_quadcopter/README.md) is the repository's four-brushless-motor NanoKit flight-control reference. It includes PlatformIO firmware, a BLE browser controller, Quad-X motor mixing, MPU6050 calibration, PID tuning, component selection, wiring diagrams, and safety-first bench-test documentation.

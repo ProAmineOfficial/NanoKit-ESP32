@@ -1,5 +1,7 @@
 # PID Tuning - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Controller Structure
 
 The reference firmware uses three controllers:

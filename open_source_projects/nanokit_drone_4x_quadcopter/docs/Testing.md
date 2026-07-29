@@ -1,5 +1,7 @@
 # Testing - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Test Gate
 
 Do not install propellers or attempt tethered flight until every applicable check below passes. Each test must be documented with the firmware version, battery type, motor/ESC set, and result.

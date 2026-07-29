@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Developed by Amine Saoud ibn al-Bashir.
 """Generate repository tree and project catalogs for NanoKit-ESP32."""
 
 from __future__ import annotations
@@ -8,6 +9,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+ROOT_README_TREE_START = "<!-- GENERATED_REPOSITORY_TREE:START -->"
+ROOT_README_TREE_END = "<!-- GENERATED_REPOSITORY_TREE:END -->"
 
 SKIP_DIRS = {
     ".git",
@@ -103,6 +106,28 @@ Run the generator after adding, moving, or deleting examples, applications, docu
 ```
 """
     (ROOT / "REPOSITORY_TREE.md").write_text(body, encoding="utf-8", newline="\n")
+
+
+def write_root_readme_tree() -> None:
+    """Replace only the generated tree block embedded in the root README."""
+    readme = ROOT / "README.md"
+    content = readme.read_text(encoding="utf-8")
+    start_index = content.find(ROOT_README_TREE_START)
+    end_index = content.find(ROOT_README_TREE_END)
+    if start_index < 0 or end_index < 0 or end_index <= start_index:
+        raise RuntimeError("README.md is missing its generated repository tree markers.")
+
+    generated_block = (
+        f"{ROOT_README_TREE_START}\n"
+        f"```text\n{build_tree(ROOT)}\n```\n"
+        f"{ROOT_README_TREE_END}"
+    )
+    updated = (
+        content[:start_index]
+        + generated_block
+        + content[end_index + len(ROOT_README_TREE_END):]
+    )
+    readme.write_text(updated, encoding="utf-8", newline="\n")
 
 
 def write_examples_catalog() -> None:
@@ -206,6 +231,7 @@ See `REPOSITORY_TREE.md` for the full generated tree.
 def main() -> None:
     os.chdir(ROOT)
     write_repository_tree()
+    write_root_readme_tree()
     write_root_index()
     write_examples_catalog()
     write_area_catalog(

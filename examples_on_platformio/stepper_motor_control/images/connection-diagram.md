@@ -1,5 +1,7 @@
 # Connection Diagram - Stepper Motor Control
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ```mermaid
 flowchart LR
   NK[NanoKit ESP32] -->|Pin 3 / GPIO25| IN1[ULN2003 IN1]

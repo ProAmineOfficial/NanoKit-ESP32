@@ -1,5 +1,7 @@
 # Implementation Guide - Ultrasonic Distance
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Algorithm
 
 1. Hold TRIG low so the sensor starts idle.

@@ -1,5 +1,7 @@
 # Calibration - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## 1. Frame And IMU Alignment
 
 Place the Quad-X frame on a known flat surface with the nose pointing forward. The MPU6050 must be rigid and have the same forward/right/up axes as the aircraft. If it is rotated, update the sensor-axis mapping before enabling motors; PID tuning cannot compensate for a wrongly mapped IMU.

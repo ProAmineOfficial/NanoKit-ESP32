@@ -1,5 +1,7 @@
 # Wiring Guide - Camera Tracking
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Connection Table
 
 | NanoKit Pin | GPIO | Device Pin | Description |

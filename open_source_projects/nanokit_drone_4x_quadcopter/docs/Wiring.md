@@ -1,5 +1,7 @@
 # Wiring - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Flight-Control Signals
 
 | NanoKit pin | ESP32 GPIO | Connect to | Direction | Electrical note |

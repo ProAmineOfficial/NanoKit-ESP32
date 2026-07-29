@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
+# Developed by Amine Saoud ibn al-Bashir.
 set -eu
 
 python tools/update_repository_index.py
-git add REPOSITORY_TREE.md REPOSITORY_INDEX.md examples_on_platformio/README.md open_source_projects/README.md applications_on_platformio/README.md
+git add README.md REPOSITORY_TREE.md REPOSITORY_INDEX.md examples_on_platformio/README.md open_source_projects/README.md applications_on_platformio/README.md

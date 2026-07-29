@@ -1,5 +1,7 @@
 # Bluetooth Protocol - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Why ESP32 BLE
 
 The browser controller uses ESP32 BLE GATT because Web Bluetooth supports BLE GATT devices in Chromium-based browsers. An HC-05 uses Bluetooth Classic SPP and is therefore not accessible from the normal Web Bluetooth API. A native Android application may use Classic Bluetooth or a different BLE client later, but the browser reference targets BLE directly.

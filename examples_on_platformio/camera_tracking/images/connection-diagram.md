@@ -1,5 +1,7 @@
 # Connection Diagram - Camera Tracking
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ```mermaid
 flowchart LR
   VISION[Serial target coordinates] --> NK[NanoKit ESP32]

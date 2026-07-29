@@ -1,5 +1,7 @@
 # System Diagram - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ```mermaid
 flowchart LR
   Browser["NanoKit Flight Deck browser"] -->|"BLE GATT control + telemetry"| NanoKit["NanoKit flight controller"]

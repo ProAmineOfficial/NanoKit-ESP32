@@ -1,5 +1,7 @@
 # Connection Diagram - Ultrasonic Distance
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ```mermaid
 flowchart LR
   NK[NanoKit ESP32] -->|Pin 36 / GPIO5 trigger| TRIG[Ultrasonic TRIG]

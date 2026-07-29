@@ -1,5 +1,7 @@
 # Safety - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Non-Negotiable Rules
 
 1. Remove propellers for wiring, flashing, calibration, serial tests, BLE tests, motor order, and motor direction checks.

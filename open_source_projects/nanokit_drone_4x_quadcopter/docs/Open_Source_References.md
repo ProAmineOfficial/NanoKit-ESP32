@@ -1,5 +1,7 @@
 # Open-Source References - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 This project is an original, compact educational implementation. The following mature projects are studied as engineering references, not copied into this repository.
 
 | Project | Useful ideas for NanoKit Drone 4X | Licence / scope note |

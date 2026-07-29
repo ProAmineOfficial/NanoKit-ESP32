@@ -1,5 +1,5 @@
 // NanoKit Drone 4X (Quadcopter) - original educational reference firmware.
-// Developer by Amine Saud Ibn Bashir.
+// Developed by Amine Saoud ibn al-Bashir.
 // Keep propellers removed until every documented bench test has passed.
 #include <Arduino.h>
 #include <BLE2902.h>

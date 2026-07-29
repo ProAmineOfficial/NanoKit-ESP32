@@ -1,5 +1,7 @@
 # Motor Layout - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 View from above. The nose, camera, and forward flight direction are at the top of the diagram.
 
 ```mermaid

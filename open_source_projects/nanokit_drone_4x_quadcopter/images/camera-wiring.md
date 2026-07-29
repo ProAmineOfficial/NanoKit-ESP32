@@ -1,5 +1,7 @@
 # Camera Wiring - Arducam Mega 5 MP Camera Node
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ```mermaid
 flowchart LR
   Camera["Arducam Mega 5 MP SPI camera"]

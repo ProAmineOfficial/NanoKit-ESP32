@@ -1,5 +1,7 @@
 # Bill Of Materials - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Reference 3.5-inch 4S Build Class
 
 This is a selection framework, not an endorsement of one vendor. Confirm electrical compatibility against the motor/propeller manufacturer's thrust data and measured current before purchase.

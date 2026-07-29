@@ -1,5 +1,7 @@
 # Wiring Guide - Ultrasonic Distance
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Connection Table
 
 | NanoKit Pin | GPIO | Sensor Pin | Description |

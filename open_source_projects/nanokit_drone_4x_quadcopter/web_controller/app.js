@@ -1,5 +1,5 @@
 // NanoKit Drone 4X Flight Deck.
-// Developer by Amine Saud Ibn Bashir.
+// Developed by Amine Saoud ibn al-Bashir.
 // The camera stream is intentionally separate from BLE flight control.
 
 // These UUIDs must match the NanoKit flight-controller firmware exactly.

@@ -1,5 +1,7 @@
 # Implementation Guide - Camera Tracking
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Algorithm
 
 1. Configure two ESP32 LEDC channels for 50 Hz servo PWM.

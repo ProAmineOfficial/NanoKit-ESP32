@@ -1,5 +1,7 @@
 # Changelog
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 All notable changes to NanoKit-ESP32 will be documented in this file.
 
 ## Unreleased

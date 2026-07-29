@@ -1,3 +1,4 @@
+# Developed by Amine Saoud ibn al-Bashir.
 param(
     [switch]$SkipPull
 )

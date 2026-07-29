@@ -1,5 +1,7 @@
 # Software
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 Software architecture and tooling documentation for NanoKit-ESP32.
 
 ## Standards

@@ -1,5 +1,7 @@
 # Control Loop - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ```mermaid
 flowchart TD
   START["Start 250 Hz loop"] --> IMU["Read MPU6050"]

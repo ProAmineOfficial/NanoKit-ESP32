@@ -1,5 +1,7 @@
 # Wiring Guide - Stepper Motor Control
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Connection Table
 
 | NanoKit Pin | GPIO | Driver Pin | Description |

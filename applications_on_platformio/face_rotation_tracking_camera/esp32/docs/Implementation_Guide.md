@@ -1,5 +1,7 @@
 # Implementation Guide - Face Rotation Tracking Camera Firmware
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Algorithm
 
 1. Configure pan and tilt servo PWM channels.

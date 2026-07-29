@@ -1,5 +1,7 @@
 # Implementation Guide - Stepper Motor Control
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Algorithm
 
 1. Configure four GPIO pins as outputs.

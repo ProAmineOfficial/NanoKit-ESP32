@@ -1,5 +1,7 @@
 # NanoKit Integrated ESP32 Pinout Reference
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 This document is the repository reference for selecting pins in NanoKit-ESP32 PlatformIO examples and applications.
 
 Use normal ESP32 GPIO numbers in code. Always document the NanoKit board pin number beside the GPIO number in README files, wiring guides, and comments.

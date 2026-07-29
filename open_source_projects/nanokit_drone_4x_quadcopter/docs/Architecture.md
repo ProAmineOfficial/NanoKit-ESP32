@@ -1,6 +1,8 @@
 
 # Architecture - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ## Design Intent
 
 This project is a small, manually controlled Quad-X reference platform. Its physical form follows a compact four-arm drone: a centered flight controller and IMU, four brushless power units, an optional isolated front camera, and BLE control from a browser application. The first milestone is a safe restrained bench system, not autonomous flight.

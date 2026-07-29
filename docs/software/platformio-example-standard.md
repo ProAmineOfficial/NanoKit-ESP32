@@ -1,5 +1,7 @@
 # PlatformIO Example Standard
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 This document turns the master project specification into a practical checklist for every NanoKit-ESP32 example.
 
 Official examples must compile with PlatformIO using the ESP32 Arduino framework and normal ESP32 GPIO numbers.

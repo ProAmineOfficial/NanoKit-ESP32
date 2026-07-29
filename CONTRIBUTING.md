@@ -1,5 +1,7 @@
 # Contributing to NanoKit-ESP32
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 Thank you for helping improve NanoKit-ESP32.
 
 This repository is the official educational and professional PlatformIO ecosystem for NanoKit Integrated ESP32. Contributions should be production-ready, educational, complete, and maintainable.

@@ -1,5 +1,7 @@
 # Hardware
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 NanoKit hardware notes, board documentation, and pinout references.
 
 ## References

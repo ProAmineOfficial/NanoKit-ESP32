@@ -1,5 +1,7 @@
 # Connection Diagram - NanoKit Drone 4X (Quadcopter)
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ```mermaid
 flowchart TD
   NK["NanoKit ESP32"]

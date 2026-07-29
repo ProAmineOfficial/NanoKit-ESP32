@@ -1,5 +1,7 @@
 # Connection Diagram - Face Rotation Tracking Camera
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 ```mermaid
 flowchart LR
   VISION[Vision Process] -->|FACE x y confidence over Serial| NK[NanoKit ESP32]
