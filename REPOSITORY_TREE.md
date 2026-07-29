@@ -12,6 +12,7 @@ NanoKit-ESP32/
 |   `-- pre-commit
 |-- .github/
 |   `-- workflows/
+|       |-- deploy-documentation.yml
 |       `-- repository-index.yml
 |-- applications_on_platformio/
 |   |-- face_rotation_tracking_camera/
@@ -68,7 +69,8 @@ NanoKit-ESP32/
 |   |-- icons/
 |   |   `-- .gitkeep
 |   |-- images/
-|   |   `-- .gitkeep
+|   |   |-- .gitkeep
+|   |   `-- nanokit-integrated-esp32-pinout-v2020-smd-tht.jpg
 |   |-- logos/
 |   |   `-- .gitkeep
 |   |-- videos/
@@ -93,6 +95,9 @@ NanoKit-ESP32/
 |   |   `-- README.md
 |   |-- troubleshooting/
 |   |   `-- README.md
+|   |-- docs-workstation.css
+|   |-- docs-workstation.js
+|   |-- index.html
 |   `-- README.md
 |-- examples_on_platformio/
 |   |-- camera_tracking/
