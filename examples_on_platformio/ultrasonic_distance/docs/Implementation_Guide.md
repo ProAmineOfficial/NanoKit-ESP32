@@ -15,17 +15,29 @@
 
 ```mermaid
 flowchart TD
-  A[Start loop] --> B{250 ms elapsed?}
+  A([Start loop]) --> B{250 ms elapsed?}
   B -- No --> A
-  B -- Yes --> C[Send trigger pulse]
-  C --> D[Measure echo pulse]
+  B -- Yes --> C(Send trigger pulse)
+  C --> D[/Measure echo pulse/]
   D --> E{Echo received?}
-  E -- No --> F[Print no echo warning]
-  E -- Yes --> G[Convert time to distance]
-  G --> H[Median filter readings]
-  H --> I[Print distance]
+  E -- No --> F(Print no echo warning)
+  E -- Yes --> G(Convert time to distance)
+  G --> H(Median filter readings)
+  H --> I[/Print distance/]
   F --> A
   I --> A
+
+  classDef start fill:#17303b,stroke:#61cef3,stroke-width:1.8px,color:#f3fbff
+  classDef process fill:#1a2631,stroke:#7b9bb0,stroke-width:1.6px,color:#f4f8fb
+  classDef decision fill:#362f18,stroke:#e0c45b,stroke-width:1.8px,color:#fff9de
+  classDef io fill:#15313c,stroke:#43d5ca,stroke-width:1.8px,color:#f3fffd
+  classDef safety fill:#3a2025,stroke:#ef747d,stroke-width:1.8px,color:#fff3f4
+  class A start
+  class B,E decision
+  class C,G,H process
+  class D,I io
+  class F safety
+  linkStyle default stroke:#7894a5,stroke-width:1.4px
 ```
 
 ## Pseudocode

@@ -15,15 +15,25 @@
 
 ```mermaid
 flowchart TD
-  A[Start loop] --> B[Read Serial bytes]
+  A([Start loop]) --> B[/Read Serial bytes/]
   B --> C{Complete coordinate line?}
-  C -- Yes --> D[Parse X and Y]
-  C -- No --> E[Run demo target if idle]
-  D --> F[Compute target error]
-  F --> G[Update pan and tilt angles]
-  G --> H[Write servo PWM]
+  C -- Yes --> D(Parse X and Y)
+  C -- No --> E(Run demo target if idle)
+  D --> F(Compute target error)
+  F --> G(Update pan and tilt angles)
+  G --> H[/Write servo PWM/]
   E --> A
   H --> A
+
+  classDef start fill:#17303b,stroke:#61cef3,stroke-width:1.8px,color:#f3fbff
+  classDef process fill:#1a2631,stroke:#7b9bb0,stroke-width:1.6px,color:#f4f8fb
+  classDef decision fill:#362f18,stroke:#e0c45b,stroke-width:1.8px,color:#fff9de
+  classDef io fill:#15313c,stroke:#43d5ca,stroke-width:1.8px,color:#f3fffd
+  class A start
+  class C decision
+  class B,H io
+  class D,E,F,G process
+  linkStyle default stroke:#7894a5,stroke-width:1.4px
 ```
 
 ## Pseudocode

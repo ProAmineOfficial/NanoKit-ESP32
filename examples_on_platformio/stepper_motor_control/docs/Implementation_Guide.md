@@ -14,17 +14,27 @@
 
 ```mermaid
 flowchart TD
-  A[Start loop] --> B[Read Serial commands]
+  A([Start loop]) --> B[/Read Serial commands/]
   B --> C{Move active?}
   C -- No --> A
   C -- Yes --> D{Step delay elapsed?}
   D -- No --> A
-  D -- Yes --> E[Apply next half-step pattern]
-  E --> F[Decrease remaining steps]
+  D -- Yes --> E(Apply next half-step pattern)
+  E --> F(Decrease remaining steps)
   F --> G{Finished?}
-  G -- Yes --> H[Release motor coils]
+  G -- Yes --> H(Release motor coils)
   G -- No --> A
   H --> A
+
+  classDef start fill:#17303b,stroke:#61cef3,stroke-width:1.8px,color:#f3fbff
+  classDef process fill:#1a2631,stroke:#7b9bb0,stroke-width:1.6px,color:#f4f8fb
+  classDef decision fill:#362f18,stroke:#e0c45b,stroke-width:1.8px,color:#fff9de
+  classDef io fill:#15313c,stroke:#43d5ca,stroke-width:1.8px,color:#f3fffd
+  class A start
+  class C,D,G decision
+  class B io
+  class E,F,H process
+  linkStyle default stroke:#7894a5,stroke-width:1.4px
 ```
 
 ## Pseudocode

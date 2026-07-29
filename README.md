@@ -310,15 +310,21 @@ NanoKit-ESP32/
 
 ```mermaid
 flowchart TD
-  A[PROJECT_SPECIFICATION.md] --> B[PlatformIO Example Standard]
-  A --> C[NanoKit Pinout Reference]
-  B --> D[Complete Example Folder]
+  A[[PROJECT_SPECIFICATION.md]] --> B(PlatformIO Example Standard)
+  A --> C(NanoKit Pinout Reference)
+  B --> D(Complete Example Folder)
   C --> D
-  D --> E[README]
-  D --> F[src/main.cpp]
-  D --> G[Wiring + Implementation Docs]
-  D --> H[Mermaid Diagrams]
-  D --> I[Assets / Include / Lib / Test Notes]
+  D --> E[[README]]
+  D --> F[[src/main.cpp]]
+  D --> G[[Wiring + Implementation Docs]]
+  D --> H[[Mermaid Diagrams]]
+  D --> I[[Assets / Include / Lib / Test Notes]]
+
+  classDef document fill:#25243a,stroke:#9ca9ff,stroke-width:1.8px,color:#f6f8ff
+  classDef process fill:#142735,stroke:#69d6ff,stroke-width:1.8px,color:#f2fbff
+  class A,E,F,G,H,I document
+  class B,C,D process
+  linkStyle default stroke:#7e98aa,stroke-width:1.4px
 ```
 
 ## Featured Open-Source Project

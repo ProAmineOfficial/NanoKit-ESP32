@@ -19,16 +19,16 @@
 
 ```mermaid
 flowchart TD
-  LIPO["3S/4S LiPo"] --> FUSE["Rated connector / fuse policy"]
-  FUSE --> PDB["Power distribution"]
-  PDB --> ESC1["ESC M1"]
-  PDB --> ESC2["ESC M2"]
-  PDB --> ESC3["ESC M3"]
-  PDB --> ESC4["ESC M4"]
-  PDB --> BEC["5 V BEC, 3 A minimum"]
-  BEC --> NK["NanoKit ESP32"]
-  NK --> IMU["MPU6050 at 3.3 V"]
-  GND["Common ground"] --- PDB
+  LIPO{{"3S/4S LiPo"}} --> FUSE{{"Rated connector / fuse policy"}}
+  FUSE --> PDB{{"Power distribution"}}
+  PDB --> ESC1("ESC M1")
+  PDB --> ESC2("ESC M2")
+  PDB --> ESC3("ESC M3")
+  PDB --> ESC4("ESC M4")
+  PDB --> BEC{{"5 V BEC, 3 A minimum"}}
+  BEC --> NK("NanoKit ESP32")
+  NK --> IMU("MPU6050 at 3.3 V")
+  GND{{"Common ground"}} --- PDB
   GND --- BEC
   GND --- NK
   GND --- IMU
@@ -36,6 +36,16 @@ flowchart TD
   GND --- ESC2
   GND --- ESC3
   GND --- ESC4
+
+  classDef controller fill:#102936,stroke:#4dd4ff,stroke-width:2px,color:#f4fbff
+  classDef sensor fill:#282039,stroke:#b99bff,stroke-width:1.8px,color:#faf6ff
+  classDef power fill:#183326,stroke:#7ccd91,stroke-width:1.8px,color:#f4fff6
+  classDef actuator fill:#37251a,stroke:#f0a560,stroke-width:1.8px,color:#fff8ef
+  class NK controller
+  class IMU sensor
+  class LIPO,FUSE,PDB,BEC,GND power
+  class ESC1,ESC2,ESC3,ESC4 actuator
+  linkStyle default stroke:#7894a5,stroke-width:1.4px
 ```
 
 ## Build Order

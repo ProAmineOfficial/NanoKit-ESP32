@@ -11,19 +11,31 @@ This project is a small, manually controlled Quad-X reference platform. Its phys
 
 ```mermaid
 flowchart LR
-  UI["Browser BLE controller"] -->|"target packet at 12.5 Hz"| BLE["ESP32 BLE GATT"]
-  BLE --> CMD["Validated control command"]
-  IMU["MPU6050"] -->|"I2C accel + gyro"| EST["Complementary attitude filter"]
-  CMD --> PID["Roll / pitch / yaw-rate PID"]
+  UI(["Browser BLE controller"]) -->|"target packet at 12.5 Hz"| BLE(["ESP32 BLE GATT"])
+  BLE --> CMD[/"Validated control command"/]
+  IMU("MPU6050") -->|"I2C accel + gyro"| EST[["Complementary attitude filter"]]
+  CMD --> PID[["Roll / pitch / yaw-rate PID"]]
   EST --> PID
-  PID --> MIX["Quad-X mixer"]
-  MIX --> M1["M1 FL CCW ESC + motor"]
-  MIX --> M2["M2 FR CW ESC + motor"]
-  MIX --> M3["M3 RR CCW ESC + motor"]
-  MIX --> M4["M4 RL CW ESC + motor"]
-  EST --> TEL["Telemetry"]
+  PID --> MIX[["Quad-X mixer"]]
+  MIX --> M1("M1 FL CCW ESC + motor")
+  MIX --> M2("M2 FR CW ESC + motor")
+  MIX --> M3("M3 RR CCW ESC + motor")
+  MIX --> M4("M4 RL CW ESC + motor")
+  EST --> TEL[/"Telemetry"/]
   TEL --> BLE
   BLE --> UI
+
+  classDef sensor fill:#282039,stroke:#b99bff,stroke-width:1.8px,color:#faf6ff
+  classDef communication fill:#123237,stroke:#42d4c5,stroke-width:1.8px,color:#f2fffd
+  classDef io fill:#15313c,stroke:#43d5ca,stroke-width:1.8px,color:#f3fffd
+  classDef module fill:#202945,stroke:#91a8ff,stroke-width:1.8px,color:#f6f7ff
+  classDef actuator fill:#37251a,stroke:#f0a560,stroke-width:1.8px,color:#fff8ef
+  class UI,BLE communication
+  class IMU sensor
+  class CMD,TEL io
+  class EST,PID,MIX module
+  class M1,M2,M3,M4 actuator
+  linkStyle default stroke:#7894a5,stroke-width:1.4px
 ```
 
 ## Firmware Responsibilities
@@ -52,10 +64,20 @@ The Arducam Mega 5 MP camera is treated as a separate ESP32 Wi-Fi node. Its SPI 
 
 ```mermaid
 flowchart LR
-  Camera["Arducam Mega 5 MP"] -->|"SPI"| CameraEsp["ESP32 camera node"]
-  CameraEsp -->|"Wi-Fi MJPEG/image endpoint"| Deck["NanoKit Flight Deck"]
-  Deck -->|"BLE commands only"| Flight["NanoKit flight controller"]
+  Camera("Arducam Mega 5 MP") -->|"SPI"| CameraEsp(["ESP32 camera node"])
+  CameraEsp -->|"Wi-Fi MJPEG/image endpoint"| Deck(["NanoKit Flight Deck"])
+  Deck -->|"BLE commands only"| Flight("NanoKit flight controller")
   CameraEsp -. "no motor authority" .-> Flight
+
+  classDef controller fill:#102936,stroke:#4dd4ff,stroke-width:2px,color:#f4fbff
+  classDef sensor fill:#282039,stroke:#b99bff,stroke-width:1.8px,color:#faf6ff
+  classDef external fill:#28263a,stroke:#9ea9ff,stroke-width:1.8px,color:#f7f6ff
+  classDef communication fill:#123237,stroke:#42d4c5,stroke-width:1.8px,color:#f2fffd
+  class Camera sensor
+  class CameraEsp external
+  class Deck communication
+  class Flight controller
+  linkStyle default stroke:#7894a5,stroke-width:1.4px
 ```
 
 ## Open-Source Boundary
