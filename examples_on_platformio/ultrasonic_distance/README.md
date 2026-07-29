@@ -1,5 +1,7 @@
 # Ultrasonic Distance
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 A complete PlatformIO example that measures distance with an HC-SR04-style ultrasonic sensor on NanoKit Integrated ESP32.
 
 ## Goal

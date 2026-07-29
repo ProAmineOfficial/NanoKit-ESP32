@@ -1,0 +1,34 @@
+name: nanokit_drone_4x_quadcopter
+title: NanoKit Drone 4X (Quadcopter)
+developer: Amine Saud Ibn Bashir
+category: open_source_project
+status: experimental_bench_test_only
+controller: NanoKit Integrated ESP32
+airframe: quad_x
+imu: MPU6050
+wireless:
+  recommended: ESP32 BLE GATT for the browser controller
+  optional: native mobile application using ESP32 Classic Bluetooth or another BLE client
+actuators:
+  - M1 front-left CCW brushless motor and ESC
+  - M2 front-right CW brushless motor and ESC
+  - M3 rear-right CCW brushless motor and ESC
+  - M4 rear-left CW brushless motor and ESC
+optional_payload:
+  - Arducam Mega 5 MP SPI camera on a separate ESP32 Wi-Fi camera node
+documentation:
+  - docs/Architecture.md
+  - docs/Wiring.md
+  - docs/Calibration.md
+  - docs/PID_Tuning.md
+  - docs/Bluetooth_Protocol.md
+  - docs/Testing.md
+  - docs/Safety.md
+  - docs/Bill_of_Materials.md
+  - docs/Open_Source_References.md
+  - docs/Camera_Integration.md
+  - images/system-diagram.md
+  - images/connection-diagram.md
+  - images/motor-layout.md
+  - images/control-loop.md
+  - images/camera-wiring.md

@@ -1,5 +1,7 @@
 # NanoKit-ESP32
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 NanoKit Integrated ESP32 Dev Board is an open-source embedded development platform for IoT, AI, robotics, education, and professional prototyping. This repository is organized for PlatformIO examples, complete applications, community projects, graduation projects, simulation resources, documentation, articles, tutorials, and reusable templates.
 
 The NanoKit board is part of the wider UMT hardware vision, but this repository's firmware examples use standard PlatformIO Arduino C++ and ESP32 GPIO numbers so they can compile and run directly in PlatformIO.
@@ -9,6 +11,17 @@ The NanoKit board is part of the wider UMT hardware vision, but this repository'
 This is not a demo repository and not a template repository. It is the official long-term NanoKit-ESP32 ecosystem repository for educational and professional embedded systems development.
 
 See [PROJECT_SPECIFICATION.md](PROJECT_SPECIFICATION.md) for the master repository rules, growth model, example standards, documentation requirements, and Definition of Done.
+
+## Generated Indexes
+
+- [Repository Index](REPOSITORY_INDEX.md) summarizes the main repository areas.
+- [Repository Tree](REPOSITORY_TREE.md) shows the generated file tree.
+
+Run `python tools/update_repository_index.py` after adding examples, applications, open-source projects, tutorials, articles, docs, assets, or templates. On this local checkout, the pre-commit hook also refreshes the generated index files automatically before commits.
+
+## Featured Open-Source Project
+
+[NanoKit Drone 4X (Quadcopter)](open_source_projects/nanokit_drone_4x_quadcopter/README.md) is the repository's four-brushless-motor NanoKit flight-control reference. It includes PlatformIO firmware, a BLE browser controller, Quad-X motor mixing, MPU6050 calibration, PID tuning, component selection, wiring diagrams, and safety-first bench-test documentation.
 
 ## Quality Contract
 

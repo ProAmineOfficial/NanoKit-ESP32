@@ -1,0 +1,20 @@
+name: Repository Index
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Regenerate repository index
+        run: python tools/update_repository_index.py
+      - name: Verify generated files are committed
+        run: git diff --exit-code

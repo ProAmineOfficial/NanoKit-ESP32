@@ -23,6 +23,7 @@ Everything generated for this repository must be production-ready, educational, 
 - Do not overwrite existing work unnecessarily.
 - Analyze existing files before creating new ones.
 - Build upon what already exists.
+- Add the exact attribution `Developed by Amine Saoud ibn al-Bashir.` to each new NanoKit example, application, and open-source project README, and to the header of each new firmware source file.
 
 ## Target Platform
 

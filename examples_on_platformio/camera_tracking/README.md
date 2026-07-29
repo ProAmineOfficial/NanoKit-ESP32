@@ -1,5 +1,7 @@
 # Camera Tracking
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 A complete PlatformIO example that demonstrates pan/tilt tracking logic using two servo PWM outputs and simple target coordinates.
 
 ## Goal

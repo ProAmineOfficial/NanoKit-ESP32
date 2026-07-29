@@ -1,0 +1,729 @@
+:root {
+  color-scheme: dark;
+  --canvas: #081117;
+  --panel: #101c24;
+  --panel-raised: #172732;
+  --panel-deep: #050a0e;
+  --line: #294754;
+  --line-strong: #3b6674;
+  --text: #e8f1f3;
+  --muted: #8da5ad;
+  --cyan: #1bc8c2;
+  --cyan-strong: #0e8e9a;
+  --lime: #b8e35a;
+  --amber: #efbd4f;
+  --danger: #f0584e;
+  --danger-dark: #7d2d2b;
+  --shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--canvas);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cockpit-shell {
+  width: min(100%, 1320px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.command-header,
+.connection-strip,
+.throttle-console {
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.command-header {
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+.brand-lockup,
+.header-status,
+.connection-actions,
+.camera-actions,
+.yaw-row,
+.safety-actions,
+.throttle-actions,
+.dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--cyan);
+  background: #0a2229;
+  color: var(--cyan);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.eyebrow,
+.strip-label,
+.section-heading span,
+.section-heading small,
+.telemetry-cell span,
+.throttle-title span,
+.camera-overlay,
+.developer-credit {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.header-status {
+  justify-content: flex-end;
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.header-status strong {
+  color: var(--text);
+}
+
+.link-indicator,
+.system-note-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+  background: var(--danger);
+  box-shadow: 0 0 0 4px rgba(240, 88, 78, 0.11);
+}
+
+.link-indicator.connected,
+.system-note.calibrated .system-note-dot {
+  background: var(--lime);
+  box-shadow: 0 0 0 4px rgba(184, 227, 90, 0.12);
+  animation: link-pulse 1.8s ease-in-out infinite;
+}
+
+.icon-button {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: var(--panel-raised);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 21px;
+  transition: border-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.icon-button:hover,
+.icon-button:focus-visible {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.icon-button:active {
+  transform: translateY(1px);
+}
+
+.connection-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 14px;
+  padding: 12px 16px;
+}
+
+.connection-strip strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.message-line {
+  min-height: 22px;
+  margin: 12px 0;
+  color: var(--amber);
+  font-size: 13px;
+}
+
+.cockpit-grid {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.78fr) minmax(420px, 1.55fr) minmax(260px, 0.92fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.instrument-rail,
+.camera-console,
+.control-rail {
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.section-heading span {
+  color: var(--text);
+}
+
+.section-heading small {
+  text-align: right;
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.telemetry-cell {
+  min-height: 104px;
+  display: grid;
+  align-content: space-between;
+  padding: 13px;
+  border: 1px solid var(--line);
+  background: var(--panel-deep);
+}
+
+.telemetry-cell strong {
+  color: var(--cyan);
+  font-size: clamp(24px, 2.2vw, 34px);
+  line-height: 1;
+}
+
+.system-note {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.camera-console {
+  display: flex;
+  flex-direction: column;
+  background: #0b151b;
+}
+
+.camera-heading {
+  margin-bottom: 12px;
+}
+
+.camera-heading small {
+  display: block;
+  margin-top: 4px;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.camera-state {
+  padding: 5px 7px;
+  border: 1px solid var(--danger-dark);
+  color: var(--danger);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.camera-state.live {
+  border-color: #55742d;
+  color: var(--lime);
+}
+
+.camera-frame {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-deep);
+}
+
+.camera-frame::before,
+.camera-frame::after {
+  position: absolute;
+  z-index: 2;
+  content: "";
+  pointer-events: none;
+}
+
+.camera-frame::before {
+  inset: 12px;
+  border: 1px solid rgba(27, 200, 194, 0.22);
+}
+
+.camera-frame::after {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid rgba(27, 200, 194, 0.16);
+}
+
+#cameraPreview,
+.camera-fallback {
+  width: 100%;
+  height: 100%;
+}
+
+#cameraPreview {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  object-fit: cover;
+  background: var(--panel-deep);
+}
+
+.camera-fallback {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  color: var(--cyan);
+  text-align: center;
+}
+
+.camera-fallback span {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.camera-fallback small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.reticle {
+  width: 78px;
+  height: 78px;
+  border: 1px solid var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px rgba(27, 200, 194, 0.08);
+}
+
+.camera-overlay {
+  position: absolute;
+  z-index: 3;
+  color: rgba(232, 241, 243, 0.8);
+  font-size: 9px;
+}
+
+.top-left {
+  top: 20px;
+  left: 22px;
+}
+
+.top-right {
+  top: 20px;
+  right: 22px;
+}
+
+.bottom-left {
+  bottom: 20px;
+  left: 22px;
+}
+
+.bottom-right {
+  right: 22px;
+  bottom: 20px;
+}
+
+.camera-actions {
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.control-rail {
+  display: flex;
+  flex-direction: column;
+}
+
+.direction-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 78px);
+  grid-template-rows: repeat(3, 78px);
+  justify-content: center;
+  gap: 8px;
+}
+
+.direction-button {
+  width: 78px;
+  height: 78px;
+  display: grid;
+  place-content: center;
+  gap: 3px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: #112934;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 30px;
+  line-height: 0.8;
+  transition: background 130ms ease, border-color 130ms ease, color 130ms ease, transform 130ms ease;
+}
+
+.direction-button span {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.direction-button:hover,
+.direction-button:focus-visible,
+.direction-button.active {
+  border-color: var(--cyan);
+  background: #15414a;
+  color: var(--cyan);
+}
+
+.direction-button:active {
+  transform: scale(0.94);
+}
+
+.forward { grid-column: 2; grid-row: 1; }
+.left { grid-column: 1; grid-row: 2; }
+.hold { grid-column: 2; grid-row: 2; background: #28343a; }
+.right { grid-column: 3; grid-row: 2; }
+.back { grid-column: 2; grid-row: 3; }
+
+.yaw-row {
+  margin-top: 14px;
+}
+
+.safety-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.stop-button {
+  grid-column: 1 / -1;
+}
+
+.command-button {
+  min-height: 42px;
+  border: 1px solid transparent;
+  padding: 0 13px;
+  background: var(--panel-raised);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.command-button:hover:not(:disabled),
+.command-button:focus-visible:not(:disabled) {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(27, 200, 194, 0.12);
+}
+
+.command-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.connect-button {
+  background: var(--cyan-strong);
+  color: #ffffff;
+}
+
+.disconnect-button,
+.stop-button {
+  background: #6f302e;
+  color: #ffffff;
+}
+
+.stop-button {
+  background: var(--danger);
+}
+
+.utility-button {
+  border-color: var(--line);
+  background: var(--panel-raised);
+}
+
+.arm-button {
+  background: #597735;
+  color: #ffffff;
+}
+
+.arm-button.armed {
+  background: var(--danger-dark);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.throttle-console {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+.throttle-title span {
+  display: block;
+}
+
+.throttle-title strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--cyan);
+  font-size: 28px;
+}
+
+.throttle-level {
+  --level: 0%;
+  position: relative;
+  min-width: 0;
+}
+
+.throttle-level::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: var(--level);
+  height: 6px;
+  transform: translateY(-50%);
+  background: var(--cyan);
+  content: "";
+  pointer-events: none;
+}
+
+#throttleSlider {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  accent-color: var(--cyan);
+}
+
+.throttle-actions {
+  justify-content: flex-end;
+}
+
+.developer-credit {
+  padding: 16px 2px 4px;
+  text-align: right;
+}
+
+.camera-dialog {
+  width: min(92vw, 520px);
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.camera-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.camera-dialog form {
+  padding: 18px;
+}
+
+.dialog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.dialog-heading h2 {
+  margin-bottom: 0;
+  font-size: 20px;
+}
+
+.camera-dialog label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.camera-dialog input {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  padding: 12px;
+  background: var(--panel-deep);
+  color: var(--text);
+}
+
+.camera-dialog p {
+  margin: 10px 0 18px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.dialog-actions {
+  justify-content: flex-end;
+}
+
+@keyframes link-pulse {
+  50% { box-shadow: 0 0 0 7px rgba(184, 227, 90, 0.04); }
+}
+
+@media (max-width: 980px) {
+  .cockpit-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.78fr);
+  }
+
+  .camera-console {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 620px) {
+  .cockpit-shell {
+    padding: 10px;
+  }
+
+  .command-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .header-status {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .connection-strip,
+  .throttle-console {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .connection-actions,
+  .throttle-actions,
+  .camera-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .throttle-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cockpit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .camera-console {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .camera-frame {
+    min-height: 210px;
+  }
+
+  .instrument-rail,
+  .camera-console,
+  .control-rail {
+    padding: 13px;
+  }
+
+  .direction-pad {
+    grid-template-columns: repeat(3, 72px);
+    grid-template-rows: repeat(3, 72px);
+  }
+
+  .direction-button {
+    width: 72px;
+    height: 72px;
+  }
+
+  .camera-overlay.bottom-left {
+    max-width: 132px;
+  }
+
+  .developer-credit {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

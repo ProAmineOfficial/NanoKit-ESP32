@@ -1,5 +1,7 @@
 # Face Rotation Tracking Camera
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 A real-world NanoKit Integrated ESP32 application for rotating a pan/tilt camera platform based on face coordinates produced by a companion vision process.
 
 ## Goal

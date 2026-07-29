@@ -1,5 +1,7 @@
 # Stepper Motor Control
 
+**Developed by Amine Saoud ibn al-Bashir.**
+
 A complete PlatformIO example for controlling a small four-wire stepper motor through a ULN2003-style driver board.
 
 ## Goal
