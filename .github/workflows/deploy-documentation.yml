@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - "docs/**"
+      - "assets/images/**"
       - ".github/workflows/deploy-documentation.yml"
   workflow_dispatch:
 
@@ -30,10 +31,15 @@ jobs:
         uses: actions/checkout@v6
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Assemble Pages site
+        run: |
+          mkdir -p _site/assets/images
+          cp -R docs/. _site/
+          cp assets/images/nanokit-integrated-esp32-pinout-v2020-smd-tht.jpg _site/assets/images/
       - name: Upload documentation workstation
         uses: actions/upload-pages-artifact@v4
         with:
-          path: "./docs"
+          path: "./_site"
       - name: Deploy documentation workstation
         id: deployment
         uses: actions/deploy-pages@v4

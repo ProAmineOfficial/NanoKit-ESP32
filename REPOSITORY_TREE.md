@@ -202,7 +202,9 @@ NanoKit-ESP32/
 |   |   |   `-- Wiring.md
 |   |   |-- firmware/
 |   |   |   |-- .vscode/
-|   |   |   |   `-- extensions.json
+|   |   |   |   |-- c_cpp_properties.json
+|   |   |   |   |-- extensions.json
+|   |   |   |   `-- launch.json
 |   |   |   |-- include/
 |   |   |   |   `-- README.md
 |   |   |   |-- lib/

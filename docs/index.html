@@ -4,61 +4,236 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#0d1117">
-    <meta name="description" content="NanoKit-ESP32 engineering documentation.">
-    <title>NanoKit-ESP32 Documentation</title>
+    <meta name="theme-color" content="#080d13">
+    <meta name="description" content="NanoKit Integrated ESP32: open-source embedded engineering projects, PlatformIO examples, applications, and documentation.">
+    <title>NanoKit Integrated ESP32</title>
+    <link rel="preconnect" href="https://unpkg.com">
     <link rel="stylesheet" href="docs-workstation.css">
   </head>
   <body>
-    <div class="engineering-grid" aria-hidden="true"></div>
-    <div class="ambient-light" aria-hidden="true"></div>
+    <div class="site-grid" aria-hidden="true"></div>
+    <div class="site-stars" aria-hidden="true"></div>
 
-    <div class="documentation-workstation">
-      <aside class="navigation-panel" id="navigation-panel" aria-label="Documentation navigation">
-        <div class="brand-lockup">
-          <span class="brand-mark" aria-hidden="true">N4</span>
-          <div>
-            <p class="eyebrow">NANOKIT ESP32</p>
-            <p class="brand-name">Documentation</p>
+    <header class="site-header" id="top">
+      <a class="brand" href="#top" aria-label="NanoKit Integrated ESP32 home">
+        <span class="brand-mark">N4</span>
+        <span>
+          <span class="brand-kicker">NANOKIT INTEGRATED</span>
+          <span class="brand-name">ESP32</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation">
+        <i data-lucide="menu" aria-hidden="true"></i>
+      </button>
+
+      <nav class="site-navigation" id="site-navigation" aria-label="Primary navigation">
+        <a href="#top">Home</a>
+        <a href="#examples">Examples</a>
+        <a href="#projects">Projects</a>
+        <a href="#graduation">Graduation Projects</a>
+        <a href="#documentation">Documentation</a>
+        <a href="https://github.com/ProAmineOfficial/NanoKit-ESP32" target="_blank" rel="noreferrer">GitHub <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero section-shell" aria-labelledby="hero-title">
+        <div class="hero-copy" data-reveal>
+          <p class="section-label"><span></span> OPEN-SOURCE EMBEDDED ENGINEERING</p>
+          <h1 id="hero-title">NanoKit<br><em>Integrated ESP32</em></h1>
+          <p class="hero-summary">A focused NanoKit development platform for PlatformIO examples, practical ESP32 applications, open-source projects, and engineering documentation.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/ProAmineOfficial/NanoKit-ESP32" target="_blank" rel="noreferrer">View GitHub Repository <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+            <a class="button button-secondary" href="#examples">Explore Examples <i data-lucide="arrow-down" aria-hidden="true"></i></a>
           </div>
+          <dl class="hero-metrics" aria-label="Repository areas">
+            <div><dt>PlatformIO</dt><dd>Examples</dd></div>
+            <div><dt>ESP32</dt><dd>Applications</dd></div>
+            <div><dt>Open</dt><dd>Engineering</dd></div>
+          </dl>
         </div>
 
-        <nav class="document-navigation" aria-label="Documentation">
-          <a href="?path=README.md" data-doc-link>Overview</a>
-          <a href="?path=PROJECT_SPECIFICATION.md" data-doc-link>Specification</a>
-          <a href="?path=REPOSITORY_INDEX.md" data-doc-link>Repository Index</a>
-          <a href="?path=REPOSITORY_TREE.md" data-doc-link>Repository Tree</a>
-          <p class="navigation-label">Core Documentation</p>
-          <a href="?path=docs/hardware/nanokit-integrated-esp32-pinout.md" data-doc-link>Hardware Pinout</a>
-          <a href="?path=docs/software/platformio-example-standard.md" data-doc-link>PlatformIO Standard</a>
-          <a href="?path=examples_on_platformio/README.md" data-doc-link>PlatformIO Examples</a>
-          <a href="?path=applications_on_platformio/README.md" data-doc-link>Applications</a>
-          <a href="?path=open_source_projects/README.md" data-doc-link>Open Source Projects</a>
-        </nav>
+        <div class="hero-product" data-reveal>
+          <div class="hero-product-header">
+            <span>HARDWARE REFERENCE</span>
+            <span class="status-dot">LIVE</span>
+          </div>
+          <img src="assets/images/nanokit-integrated-esp32-pinout-v2020-smd-tht.jpg" alt="NanoKit Integrated ESP32 pinout datasheet">
+          <div class="hero-product-footer">
+            <span>ESP32 PINOUT</span>
+            <a href="https://github.com/ProAmineOfficial/NanoKit-ESP32/blob/main/docs/hardware/nanokit-integrated-esp32-pinout.md" target="_blank" rel="noreferrer" aria-label="Open NanoKit pinout reference"><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </section>
 
-        <div class="navigation-credit">Developed by Amine Saoud ibn al-Bashir.</div>
-      </aside>
+      <section class="section-shell category-section" id="examples" aria-labelledby="categories-title">
+        <div class="section-heading" data-reveal>
+          <div>
+            <p class="section-label"><span></span> REPOSITORY AREAS</p>
+            <h2 id="categories-title">Build from a clear engineering foundation.</h2>
+          </div>
+          <a class="text-link" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/blob/main/REPOSITORY_INDEX.md" target="_blank" rel="noreferrer">Open repository index <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        </div>
 
-      <main class="document-stage">
-        <header class="command-bar">
-          <button class="icon-button navigation-toggle" type="button" title="Toggle navigation" aria-label="Toggle navigation" aria-controls="navigation-panel" aria-expanded="false">
-            <span aria-hidden="true">☰</span>
-          </button>
-          <div class="breadcrumb" id="breadcrumb" aria-live="polite">NanoKit-ESP32 / README.md</div>
-          <a class="source-link" id="source-link" href="https://github.com/ProAmineOfficial/NanoKit-ESP32" target="_blank" rel="noreferrer">GitHub Source</a>
-        </header>
+        <div class="category-grid">
+          <a class="category-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/examples_on_platformio" target="_blank" rel="noreferrer" data-reveal><i data-lucide="braces" aria-hidden="true"></i><span>PlatformIO Examples</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          <a class="category-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/applications_on_platformio" target="_blank" rel="noreferrer" data-reveal><i data-lucide="blocks" aria-hidden="true"></i><span>Applications</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          <a class="category-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/open_source_projects" target="_blank" rel="noreferrer" data-reveal><i data-lucide="git-fork" aria-hidden="true"></i><span>Open-Source Projects</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          <a class="category-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/graduation_projects" target="_blank" rel="noreferrer" data-reveal><i data-lucide="graduation-cap" aria-hidden="true"></i><span>Graduation Projects</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          <a class="category-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/tutorials" target="_blank" rel="noreferrer" data-reveal><i data-lucide="book-open" aria-hidden="true"></i><span>Tutorials</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          <a class="category-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/docs" target="_blank" rel="noreferrer" data-reveal><i data-lucide="file-text" aria-hidden="true"></i><span>Documentation</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+      </section>
 
-        <div class="reading-progress" aria-hidden="true"><span id="reading-progress-value"></span></div>
+      <section class="section-shell projects-section" id="projects" aria-labelledby="projects-title">
+        <div class="section-heading" data-reveal>
+          <div>
+            <p class="section-label"><span></span> FEATURED WORK</p>
+            <h2 id="projects-title">Reference projects, ready to study.</h2>
+          </div>
+          <p class="section-intro">Each project card links directly to its existing repository source.</p>
+        </div>
 
-        <article id="markdown-root" class="markdown-root" aria-live="polite">
-          <section class="document-hero" data-reveal>
-            <p class="eyebrow">NANOKIT ENGINEERING WORKSTATION</p>
-            <h1>Loading documentation</h1>
-          </section>
-        </article>
-      </main>
-    </div>
+        <div class="project-grid">
+          <article class="project-card project-card-featured" data-reveal>
+            <div class="project-media media-drone" data-code="BLE telemetry + PID control">
+              <span class="project-badge">OPEN SOURCE</span>
+              <div class="drone-diagram" aria-hidden="true"><span></span><span></span><span></span><span></span><b>NK</b></div>
+              <div class="terminal"><span class="terminal-label">FLIGHT CONTROL</span><code></code><span class="terminal-caret" aria-hidden="true"></span></div>
+            </div>
+            <div class="project-body">
+              <p class="project-category">Open-Source Project</p>
+              <h3>NanoKit Drone 4X</h3>
+              <p>Educational Quad-X flight-control reference with PlatformIO firmware, BLE browser control, MPU6050 calibration, PID tuning, and safety documentation.</p>
+              <a class="button button-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/open_source_projects/nanokit_drone_4x_quadcopter" target="_blank" rel="noreferrer">Open project <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
 
+          <article class="project-card" data-reveal>
+            <div class="project-media media-camera" data-code="X=160 Y=120">
+              <span class="project-badge">PLATFORMIO</span>
+              <div class="camera-frame" aria-hidden="true"><span class="frame-target"></span><span class="frame-axis axis-x"></span><span class="frame-axis axis-y"></span></div>
+              <div class="terminal"><span class="terminal-label">TRACKING INPUT</span><code></code><span class="terminal-caret" aria-hidden="true"></span></div>
+            </div>
+            <div class="project-body">
+              <p class="project-category">PlatformIO Example</p>
+              <h3>Camera Tracking</h3>
+              <p>Pan and tilt tracking logic using target coordinates, two servo PWM outputs, and simulated Serial input for repeatable testing.</p>
+              <a class="button button-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/examples_on_platformio/camera_tracking" target="_blank" rel="noreferrer">Open example <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <article class="project-card" data-reveal>
+            <div class="project-media media-stepper" data-code="CW 2048">
+              <span class="project-badge">PLATFORMIO</span>
+              <div class="stepper-sequence" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+              <div class="terminal"><span class="terminal-label">MOTION COMMAND</span><code></code><span class="terminal-caret" aria-hidden="true"></span></div>
+            </div>
+            <div class="project-body">
+              <p class="project-category">PlatformIO Example</p>
+              <h3>Stepper Motor Control</h3>
+              <p>Half-step control for a four-wire stepper through a ULN2003-style driver, with direction, speed, and movement commands.</p>
+              <a class="button button-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/examples_on_platformio/stepper_motor_control" target="_blank" rel="noreferrer">Open example <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <article class="project-card" data-reveal>
+            <div class="project-media media-ultrasonic" data-code="Distance: 24.8 cm">
+              <span class="project-badge">PLATFORMIO</span>
+              <div class="sonar-wave" aria-hidden="true"><span></span><span></span><span></span><b></b></div>
+              <div class="terminal"><span class="terminal-label">SENSOR OUTPUT</span><code></code><span class="terminal-caret" aria-hidden="true"></span></div>
+            </div>
+            <div class="project-body">
+              <p class="project-category">PlatformIO Example</p>
+              <h3>Ultrasonic Distance</h3>
+              <p>HC-SR04-style distance measurement with time-of-flight timing, median filtering, and documented NanoKit pin mapping.</p>
+              <a class="button button-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/examples_on_platformio/ultrasonic_distance" target="_blank" rel="noreferrer">Open example <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <article class="project-card" data-reveal>
+            <div class="project-media media-face" data-code="FACE 160 120 0.90">
+              <span class="project-badge">APPLICATION</span>
+              <div class="face-grid" aria-hidden="true"><span></span><span></span><b></b></div>
+              <div class="terminal"><span class="terminal-label">VISION MESSAGE</span><code></code><span class="terminal-caret" aria-hidden="true"></span></div>
+            </div>
+            <div class="project-body">
+              <p class="project-category">PlatformIO Application</p>
+              <h3>Face Rotation Tracking Camera</h3>
+              <p>A pan and tilt camera application that receives face coordinates from a companion vision process and drives servo movement.</p>
+              <a class="button button-card" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/applications_on_platformio/face_rotation_tracking_camera" target="_blank" rel="noreferrer">Open application <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-shell hardware-section" id="documentation" aria-labelledby="hardware-title">
+        <div class="hardware-panel" data-reveal>
+          <div class="hardware-copy">
+            <p class="section-label"><span></span> HARDWARE REFERENCE</p>
+            <h2 id="hardware-title">Use the board reference before choosing a GPIO.</h2>
+            <p>The NanoKit pinout is the repository source of truth for board pin numbers, ESP32 GPIO mapping, electrical notes, and first-choice interfaces.</p>
+            <div class="hardware-stat-grid">
+              <div><strong>I2C</strong><span>GPIO21 / GPIO22</span></div>
+              <div><strong>VSPI</strong><span>GPIO23 / 19 / 18 / 5</span></div>
+              <div><strong>UART2</strong><span>GPIO17 / GPIO16</span></div>
+            </div>
+            <a class="button button-primary" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/blob/main/docs/hardware/nanokit-integrated-esp32-pinout.md" target="_blank" rel="noreferrer">Read pinout reference <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          </div>
+          <figure class="hardware-image"><img src="assets/images/nanokit-integrated-esp32-pinout-v2020-smd-tht.jpg" alt="NanoKit Integrated ESP32 board and pinout diagram"><figcaption>ESP32 Pinout (NanoKit Integrated ESP32) Datasheet</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="section-shell ecosystem-section" aria-labelledby="ecosystem-title">
+        <div class="section-heading" data-reveal>
+          <div>
+            <p class="section-label"><span></span> REPOSITORY ECOSYSTEM</p>
+            <h2 id="ecosystem-title">One repository, connected engineering paths.</h2>
+          </div>
+        </div>
+        <div class="ecosystem-layout">
+          <div class="ecosystem-graph" data-reveal>
+            <div class="graph-node graph-core">NanoKit-ESP32</div>
+            <a class="graph-node graph-one" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/examples_on_platformio" target="_blank" rel="noreferrer">Examples</a>
+            <a class="graph-node graph-two" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/applications_on_platformio" target="_blank" rel="noreferrer">Applications</a>
+            <a class="graph-node graph-three" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/open_source_projects" target="_blank" rel="noreferrer">Projects</a>
+            <a class="graph-node graph-four" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/docs" target="_blank" rel="noreferrer">Docs</a>
+            <a class="graph-node graph-five" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/simulator" target="_blank" rel="noreferrer">Simulator</a>
+            <a class="graph-node graph-six" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/templates" target="_blank" rel="noreferrer">Templates</a>
+          </div>
+          <div class="diagram-card" data-reveal>
+            <div class="diagram-card-bar"><span>REPOSITORY ARCHITECTURE</span><span>MERMAID SOURCE</span></div>
+            <div id="architecture-diagram" class="architecture-diagram" aria-label="Repository architecture diagram"><span class="diagram-loading">Loading the repository diagram...</span></div>
+            <a class="text-link" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/blob/main/README.md" target="_blank" rel="noreferrer">Open source README <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell graduation-section" id="graduation" data-reveal>
+        <div>
+          <p class="section-label"><span></span> GRADUATION PROJECTS</p>
+          <h2>Structured workspaces for academic engineering.</h2>
+          <p>Bachelor, master, engineering, thesis, institute, and capstone workspaces remain available inside the repository.</p>
+        </div>
+        <a class="button button-secondary" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/graduation_projects" target="_blank" rel="noreferrer">Explore graduation projects <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+      </section>
+
+      <section class="section-shell final-cta" data-reveal>
+        <p class="section-label"><span></span> NANOKIT ESP32</p>
+        <h2>Start with the source. Build with the reference.</h2>
+        <p>All project folders, PlatformIO examples, diagrams, and technical documentation remain available in the main repository.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/ProAmineOfficial/NanoKit-ESP32" target="_blank" rel="noreferrer">View repository <i data-lucide="github" aria-hidden="true"></i></a>
+          <a class="button button-secondary" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">Contribute <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          <a class="button button-secondary" href="https://github.com/ProAmineOfficial/NanoKit-ESP32/tree/main/docs" target="_blank" rel="noreferrer">Documentation <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>Developed by Amine Saoud ibn al-Bashir.</span><a href="#top">Back to top <i data-lucide="arrow-up" aria-hidden="true"></i></a></footer>
+
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
     <script type="module" src="docs-workstation.js"></script>
   </body>
 </html>
