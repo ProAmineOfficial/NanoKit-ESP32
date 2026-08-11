@@ -213,26 +213,72 @@ NanoKit-ESP32/
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- camera_node/
+|   |   |   |-- include/
+|   |   |   |   |-- audio_service.h
+|   |   |   |   |-- camera_node_config.h
+|   |   |   |   |-- camera_service.h
+|   |   |   |   `-- recording_service.h
+|   |   |   |-- src/
+|   |   |   |   |-- audio_service.cpp
+|   |   |   |   |-- camera_service.cpp
+|   |   |   |   |-- main.cpp
+|   |   |   |   `-- recording_service.cpp
+|   |   |   |-- platformio.ini
 |   |   |   `-- README.md
 |   |   |-- docs/
 |   |   |   |-- Architecture.md
 |   |   |   |-- Bill_of_Materials.md
 |   |   |   |-- Bluetooth_Protocol.md
 |   |   |   |-- Calibration.md
+|   |   |   |-- Camera_Audio_Node.md
 |   |   |   |-- Camera_Integration.md
 |   |   |   |-- Open_Source_References.md
 |   |   |   |-- PID_Tuning.md
 |   |   |   |-- Safety.md
+|   |   |   |-- Sensor_Integration.md
 |   |   |   |-- Testing.md
+|   |   |   |-- WiFi_WebSocket_Protocol.md
 |   |   |   `-- Wiring.md
 |   |   |-- firmware/
 |   |   |   |-- .vscode/
 |   |   |   |   `-- extensions.json
 |   |   |   |-- include/
+|   |   |   |   |-- config/
+|   |   |   |   |   |-- board_config.h
+|   |   |   |   |   `-- feature_flags.h
+|   |   |   |   |-- control/
+|   |   |   |   |   |-- flight_controller.h
+|   |   |   |   |   |-- motor_mixer.h
+|   |   |   |   |   `-- pid_controller.h
+|   |   |   |   |-- core/
+|   |   |   |   |   |-- flight_types.h
+|   |   |   |   |   `-- safety_manager.h
+|   |   |   |   |-- navigation/
+|   |   |   |   |   `-- navigation_manager.h
+|   |   |   |   |-- network/
+|   |   |   |   |   `-- flight_link.h
+|   |   |   |   |-- sensors/
+|   |   |   |   |   `-- sensor_hub.h
+|   |   |   |   |-- storage/
+|   |   |   |   |   `-- config_store.h
 |   |   |   |   `-- README.md
 |   |   |   |-- lib/
 |   |   |   |   `-- README.md
 |   |   |   |-- src/
+|   |   |   |   |-- control/
+|   |   |   |   |   |-- flight_controller.cpp
+|   |   |   |   |   `-- motor_mixer.cpp
+|   |   |   |   |-- core/
+|   |   |   |   |   |-- flight_types.cpp
+|   |   |   |   |   `-- safety_manager.cpp
+|   |   |   |   |-- navigation/
+|   |   |   |   |   `-- navigation_manager.cpp
+|   |   |   |   |-- network/
+|   |   |   |   |   `-- flight_link.cpp
+|   |   |   |   |-- sensors/
+|   |   |   |   |   `-- sensor_hub.cpp
+|   |   |   |   |-- storage/
+|   |   |   |   |   `-- config_store.cpp
 |   |   |   |   `-- main.cpp
 |   |   |   |-- test/
 |   |   |   |   `-- README.md
@@ -245,6 +291,8 @@ NanoKit-ESP32/
 |   |   |   |-- motor-layout.md
 |   |   |   `-- system-diagram.md
 |   |   |-- web_controller/
+|   |   |   |-- assets/
+|   |   |   |   `-- nanokit-drone-4x-reference.png
 |   |   |   |-- app.js
 |   |   |   |-- index.html
 |   |   |   |-- manifest.json
