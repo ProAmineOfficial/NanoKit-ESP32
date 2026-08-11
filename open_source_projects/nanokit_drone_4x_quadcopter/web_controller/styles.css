@@ -1,6 +1,7 @@
 /* NanoKit Drone 4X Flight Deck. */
 /* Developed by Amine Saoud ibn al-Bashir. */
 
+/* These shared design tokens keep colour, shadows, timing, and typography consistent. */
 :root {
   color-scheme: dark;
   --bg: #070b0e;
@@ -22,10 +23,13 @@
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* Border-box sizing prevents padding and borders from unexpectedly changing component width. */
 * { box-sizing: border-box; }
 
+/* The page root owns the dark canvas and enables smooth in-page navigation. */
 html { background: var(--bg); scroll-behavior: smooth; }
 
+/* The body establishes the minimum viewport and the low-contrast engineering background. */
 body {
   min-width: 320px;
   min-height: 100vh;
@@ -37,8 +41,10 @@ body {
   letter-spacing: 0;
 }
 
+/* Form controls inherit the interface typeface so native elements match the workstation. */
 button, input { font: inherit; }
 
+/* Buttons share one lightweight interaction system for hover, active, focus, and disabled states. */
 button {
   color: inherit;
   cursor: pointer;
@@ -63,6 +69,7 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
 }
 button:disabled { cursor: not-allowed; opacity: 0.38; }
 
+/* The flight deck constrains very wide displays while always filling the available viewport. */
 .flight-deck {
   width: min(1920px, 100%);
   min-height: 100vh;
@@ -70,6 +77,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   padding: 12px 14px 10px;
 }
 
+/* The top bar uses three tracks for identity, mode selection, and aircraft status. */
 .topbar {
   min-height: 62px;
   display: grid;
@@ -83,6 +91,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
 }
 
+/* Product identity styles keep the home link compact and readable. */
 .identity {
   width: max-content;
   display: inline-flex;
@@ -111,6 +120,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 }
 .identity strong { font-size: 18px; letter-spacing: 0; }
 
+/* The segmented mode switch changes workspace views without moving global status controls. */
 .mode-switch {
   display: flex;
   min-width: 300px;
@@ -135,6 +145,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   box-shadow: inset 0 0 0 1px rgba(114, 214, 239, 0.24);
 }
 
+/* The top status row presents link, GNSS, arming, battery, and connection actions together. */
 .top-status {
   justify-self: end;
   display: flex;
@@ -166,6 +177,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .status-dot.warning { background: var(--amber); box-shadow: 0 0 0 4px rgba(245, 189, 79, 0.1); }
 .status-dot.critical { background: var(--red); box-shadow: 0 0 0 4px rgba(243, 93, 90, 0.1); }
 
+/* Primary and icon actions use stable dimensions so status updates never shift the layout. */
 .primary-action {
   height: 36px;
   padding: 0 15px;
@@ -186,6 +198,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   font-size: 18px;
 }
 
+/* Alert variants communicate warning, critical, and healthy states without changing structure. */
 .alert-bar {
   min-height: 38px;
   display: grid;
@@ -204,8 +217,10 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .alert-bar[hidden] { display: none; }
 .alert-bar button { width: 24px; height: 24px; border: 0; background: transparent; font-size: 17px; }
 
+/* A small gap separates live operations from the persistent top-level controls. */
 .operations-shell { margin-top: 8px; }
 
+/* The video stage is the primary fixed-format canvas for camera, telemetry, and controls. */
 .video-stage {
   position: relative;
   isolation: isolate;
@@ -218,6 +233,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   box-shadow: var(--shadow), inset 0 0 80px rgba(0, 0, 0, 0.52);
 }
 
+/* These full-stage layers separate media, shading, and the engineering grid. */
 .video-surface, .video-shade, .engineering-grid {
   position: absolute;
   inset: 0;
@@ -240,6 +256,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
     linear-gradient(90deg, rgba(3, 8, 11, 0.92), transparent 24%, transparent 76%, rgba(3, 8, 11, 0.92)),
     linear-gradient(0deg, rgba(3, 8, 11, 0.88), transparent 30%, rgba(3, 8, 11, 0.45));
 }
+/* The subtle grid provides alignment context while remaining behind all flight information. */
 .engineering-grid {
   z-index: -1;
   opacity: 0.22;
@@ -250,6 +267,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   mask-image: radial-gradient(circle at center, black, transparent 78%);
 }
 
+/* Corner labels display camera and link state over the media without blocking the centre view. */
 .stage-label {
   position: absolute;
   top: 16px;
@@ -269,6 +287,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .stage-label.top-right { right: 16px; grid-template-columns: auto auto; text-align: right; }
 .stage-label.top-right span { color: var(--muted); font-size: 8px; }
 
+/* The heading tape stays centred and displays the current compass direction. */
 .heading-tape {
   position: absolute;
   top: 20px;
@@ -292,6 +311,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .heading-scale span:nth-child(3) { color: var(--cyan); font-size: 12px; }
 .heading-tape strong { display: inline-block; margin-top: 5px; font: 800 16px/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
 
+/* HUD stacks place attitude data on the left and aircraft-health data on the right. */
 .hud-stack {
   position: absolute;
   top: 104px;
@@ -315,6 +335,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .hud-readout span { color: var(--muted); font: 750 8px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 0.08em; }
 .hud-readout strong { margin-top: 3px; color: #f4fbfc; font: 800 18px/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
 
+/* The fixed reticle gives the operator a stable visual centre independent of telemetry. */
 .attitude-reticle {
   position: absolute;
   top: 42%;
@@ -332,6 +353,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .reticle-centre { left: 80px; width: 20px; background: var(--cyan); }
 .attitude-reticle i { position: absolute; left: 88px; top: 35px; width: 4px; height: 20px; border: 1px solid var(--cyan); }
 
+/* Control docks isolate flight-safety authority from camera and audio payload actions. */
 .control-dock {
   position: absolute;
   top: 86px;
@@ -355,6 +377,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 }
 .dock-title small { color: var(--amber); font-size: 8px; }
 
+/* The arm control exposes hold progress so arming cannot happen through a quick accidental click. */
 .arm-hold {
   position: relative;
   width: 100%;
@@ -373,11 +396,13 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .arm-hold.holding .arm-progress { animation: arm-confirm 1.5s linear forwards; }
 .arm-hold.armed { border-color: rgba(243, 93, 90, 0.48); background: rgba(90, 31, 31, 0.56); }
 
+/* The arming keyframe fills only the visual progress layer during the confirmation hold. */
 @keyframes arm-confirm {
   from { width: 0; }
   to { width: 100%; }
 }
 
+/* Compact grids keep related flight-mode and payload buttons aligned. */
 .compact-actions, .mode-actions, .payload-actions { display: grid; gap: 6px; margin-top: 7px; }
 .compact-actions { grid-template-columns: 1fr 1fr; }
 .mode-actions { grid-template-columns: repeat(3, 1fr); }
@@ -393,6 +418,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .servo-control output { color: var(--cyan); }
 .control-dock input[type="range"] { width: 100%; margin: 12px 0 2px; accent-color: var(--cyan); }
 
+/* Virtual-stick panels provide fixed touch targets for the two command axes. */
 .stick-panel {
   position: absolute;
   bottom: 48px;
@@ -443,6 +469,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 }
 .stick-zone.dragging .stick-knob { transition: none; background: rgba(114, 214, 239, 0.82); }
 
+/* The stage footer keeps stream, position, and sensor-gate summaries below the main view. */
 .stage-footer {
   position: absolute;
   left: 280px;
@@ -464,6 +491,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .stage-footer span:last-child { text-align: right; }
 .stage-footer small { color: var(--muted); font-size: 7px; }
 
+/* The telemetry strip presents system summaries in stable columns for fast scanning. */
 .telemetry-strip {
   min-height: 58px;
   display: grid;
@@ -481,6 +509,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .meter b { width: var(--meter, 0%); height: 100%; display: block; background: var(--cyan); transition: width 120ms linear; }
 .log-cell strong { color: var(--amber); font-size: 10px; }
 
+/* The emergency stop remains fixed, circular, and visually distinct from normal controls. */
 .emergency-stop {
   position: fixed;
   right: 22px;
@@ -501,8 +530,10 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .emergency-stop span { font-size: 18px; font-weight: 950; }
 .emergency-stop b { font-size: 7px; letter-spacing: 0.08em; }
 
+/* The credit stays small so it remains visible without competing with flight data. */
 .credit { padding: 8px 4px 0; color: #66808a; text-align: left; font: 700 8px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.08em; }
 
+/* The mission workspace provides a separate engineering map and waypoint list. */
 .mission-workspace {
   min-height: 690px;
   padding: 24px;
@@ -538,6 +569,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .waypoint-list li { padding: 10px 5px; border-bottom: 1px solid rgba(255,255,255,0.07); color: var(--muted); font: 700 10px/1.4 ui-monospace, monospace; }
 .waypoint-list li::marker { color: var(--amber); }
 
+/* The settings dialog groups network endpoints in a focused modal layer. */
 .settings-dialog {
   width: min(520px, calc(100vw - 28px));
   padding: 0;
@@ -559,6 +591,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
 .dialog-actions button { min-width: 110px; height: 38px; }
 
+/* FPV mode removes nonessential chrome and expands the video stage to the viewport. */
 .flight-deck.fpv-mode .topbar,
 .flight-deck.fpv-mode .alert-bar,
 .flight-deck.fpv-mode .telemetry-strip,
@@ -569,10 +602,12 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
 .flight-deck.fpv-mode .control-dock { opacity: 0.2; transition: opacity 200ms ease; }
 .flight-deck.fpv-mode .control-dock:hover { opacity: 1; }
 
+/* Camera mode keeps payload controls active while preventing accidental flight commands. */
 .flight-deck.camera-mode .control-left,
 .flight-deck.camera-mode .stick-panel { opacity: 0.18; pointer-events: none; }
 .flight-deck.camera-mode .control-right { border-color: var(--line-strong); }
 
+/* This breakpoint compresses large-desktop controls without changing their order. */
 @media (max-width: 1420px) {
   .topbar { grid-template-columns: minmax(190px, 1fr) auto minmax(360px, 1fr); gap: 10px; }
   .status-item b { display: none; }
@@ -585,6 +620,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   .telemetry-strip > div:nth-child(6), .telemetry-strip > div:nth-child(7) { display: none; }
 }
 
+/* This breakpoint moves the mode switch below the top row for compact desktop and tablet widths. */
 @media (max-width: 1120px) {
   .topbar { grid-template-columns: 1fr auto; }
   .mode-switch { grid-row: 2; grid-column: 1 / -1; width: 100%; }
@@ -600,6 +636,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   .telemetry-strip > div:nth-child(5), .telemetry-strip > div:nth-child(6), .telemetry-strip > div:nth-child(7), .telemetry-strip > div:nth-child(8) { display: none; }
 }
 
+/* This breakpoint stacks the live workspace into touch-friendly tablet sections. */
 @media (max-width: 820px) {
   .flight-deck { padding: 6px; }
   .topbar { display: flex; flex-wrap: wrap; padding: 8px; }
@@ -636,6 +673,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   .waypoint-list { min-height: 160px; }
 }
 
+/* This breakpoint places every control group in a single mobile column. */
 @media (max-width: 560px) {
   .identity small { display: none; }
   .identity strong { font-size: 15px; }
@@ -662,6 +700,7 @@ button:disabled { cursor: not-allowed; opacity: 0.38; }
   .mission-actions { flex-wrap: wrap; }
 }
 
+/* Reduced-motion users receive the same interface state without long transitions or animations. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }

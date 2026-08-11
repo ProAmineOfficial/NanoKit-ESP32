@@ -2,6 +2,7 @@
 <!-- Developed by Amine Saoud ibn al-Bashir. -->
 <html lang="en">
   <head>
+    <!-- These metadata values make the control deck responsive and keep the browser UI dark. -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#080c0f">
@@ -11,13 +12,17 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <!-- This main element contains the complete browser-based flight-control workspace. -->
     <main class="flight-deck" id="flightDeck">
+      <!-- The top bar keeps identity, workspace modes, link status, and global actions together. -->
       <header class="topbar">
+        <!-- The identity link gives the operator a stable home target and accessible product name. -->
         <a class="identity" href="#" aria-label="NanoKit Drone 4X Flight Deck home">
           <span class="identity-mark">N4</span>
           <span><small>NANOKIT DRONE 4X</small><strong>Flight Deck</strong></span>
         </a>
 
+        <!-- These buttons switch the visible workspace without changing the flight connection. -->
         <nav class="mode-switch" aria-label="Workspace mode">
           <button class="mode-button active" type="button" data-view="standard">Flight</button>
           <button class="mode-button" type="button" data-view="fpv">FPV</button>
@@ -25,6 +30,7 @@
           <button class="mode-button" type="button" data-view="camera">Camera</button>
         </nav>
 
+        <!-- This compact status group reports the safety-critical state before the operator acts. -->
         <div class="top-status" aria-label="Aircraft status">
           <span class="status-item" title="WebSocket flight link"><i id="linkDot" class="status-dot critical"></i><span id="linkText">OFFLINE</span></span>
           <span class="status-item" title="GNSS fix"><b>GNSS</b><span id="gnssTop">NO FIX</span></span>
@@ -35,14 +41,18 @@
         </div>
       </header>
 
+      <!-- The live status region announces warnings and connection guidance to visual and assistive clients. -->
       <section id="alertBar" class="alert-bar warning" role="status" aria-live="polite">
         <strong id="alertTitle">SYSTEM LOCKED</strong>
         <span id="alertMessage">Connect to the NanoKit Wi-Fi network, then open the flight link.</span>
         <button id="dismissAlert" type="button" title="Dismiss message" aria-label="Dismiss message">&#215;</button>
       </section>
 
+      <!-- The operations shell holds the live flight stage and the optional mission planner. -->
       <section class="operations-shell">
+        <!-- The video stage combines the camera view, telemetry overlays, and direct controls. -->
         <section class="video-stage" id="videoStage" aria-label="Forward camera and flight controls">
+          <!-- The video surface shows either the safe reference image or the configured live stream. -->
           <div class="video-surface">
             <img id="offlineReference" class="offline-reference" src="assets/nanokit-drone-4x-reference.png" alt="NanoKit Drone 4X reference quadcopter">
             <img id="cameraFeed" class="camera-feed" alt="Live NanoKit Drone 4X camera stream" hidden>
@@ -50,6 +60,7 @@
             <div class="engineering-grid" aria-hidden="true"></div>
           </div>
 
+          <!-- These corner labels expose camera availability, link latency, and elapsed flight time. -->
           <div class="stage-label top-left">
             <span id="cameraSignalDot" class="status-dot warning"></span>
             <b id="cameraSignalText">CAMERA STANDBY</b>
@@ -60,11 +71,13 @@
             <span>FLIGHT</span><b id="flightTimeValue">00:00</b>
           </div>
 
+          <!-- The heading tape provides a quick compass reference from valid telemetry. -->
           <div class="heading-tape" aria-label="Compass heading">
             <div class="heading-scale"><span>W</span><span>NW</span><span>N</span><span>NE</span><span>E</span></div>
             <strong id="headingValue">---°</strong>
           </div>
 
+          <!-- The left HUD groups attitude and motion values used for spatial awareness. -->
           <aside class="hud-stack hud-left" aria-label="Attitude telemetry">
             <div class="hud-readout"><span>ROLL</span><strong id="rollValue">--.-°</strong></div>
             <div class="hud-readout"><span>PITCH</span><strong id="pitchValue">--.-°</strong></div>
@@ -72,6 +85,7 @@
             <div class="hud-readout"><span>GROUND SPEED</span><strong id="speedValue">--.- m/s</strong></div>
           </aside>
 
+          <!-- The right HUD groups electrical, GNSS, and command-health values. -->
           <aside class="hud-stack hud-right" aria-label="Aircraft telemetry">
             <div class="hud-readout"><span>VOLTAGE</span><strong id="voltageValue">--.- V</strong></div>
             <div class="hud-readout"><span>CURRENT</span><strong id="currentValue">--.- A</strong></div>
@@ -79,6 +93,7 @@
             <div class="hud-readout"><span>COMMAND AGE</span><strong id="commandAgeValue">-- ms</strong></div>
           </aside>
 
+          <!-- The decorative reticle provides a fixed visual centre over the camera feed. -->
           <div class="attitude-reticle" aria-hidden="true">
             <span class="reticle-wing left"></span>
             <span class="reticle-centre"></span>
@@ -86,6 +101,7 @@
             <i></i>
           </div>
 
+          <!-- The flight-authority dock keeps arming and safety actions separate from payload controls. -->
           <aside class="control-dock control-left" aria-label="Flight safety controls">
             <div class="dock-title"><span>FLIGHT AUTHORITY</span><small id="safetyState">LOCKED</small></div>
             <button id="armHoldButton" class="arm-hold" type="button" disabled>
@@ -104,6 +120,7 @@
             <button id="calibrateImuButton" class="utility-action" type="button" disabled>Calibrate IMU</button>
           </aside>
 
+          <!-- The payload dock controls the isolated camera/audio node and cannot command motors. -->
           <aside class="control-dock control-right" aria-label="Camera and audio controls">
             <div class="dock-title"><span>PAYLOAD</span><small id="payloadState">OFFLINE</small></div>
             <div class="payload-actions">
@@ -117,6 +134,7 @@
             <button id="fullscreenButton" class="utility-action" type="button">Fullscreen FPV</button>
           </aside>
 
+          <!-- The left virtual stick maps operator input to throttle and yaw commands. -->
           <section class="stick-panel left-stick-panel" aria-label="Throttle and yaw control">
             <header><b>THROTTLE / YAW</b><span id="leftStickReadout">T 0 · Y 0</span></header>
             <div id="leftStick" class="stick-zone" role="application" aria-label="Throttle and yaw joystick" tabindex="0">
@@ -125,6 +143,7 @@
             </div>
           </section>
 
+          <!-- The right virtual stick maps operator input to pitch and roll commands. -->
           <section class="stick-panel right-stick-panel" aria-label="Pitch and roll control">
             <header><b>PITCH / ROLL</b><span id="rightStickReadout">P 0 · R 0</span></header>
             <div id="rightStick" class="stick-zone" role="application" aria-label="Pitch and roll joystick" tabindex="0">
@@ -133,6 +152,7 @@
             </div>
           </section>
 
+          <!-- The stage footer summarizes stream, position, and sensor-gate state at a glance. -->
           <div class="stage-footer">
             <span><b id="streamMode">REFERENCE VIEW</b><small id="frameInfo">Live video not loaded</small></span>
             <span><b id="coordinateValue">--.-------, --.-------</b><small>POSITION</small></span>
@@ -140,6 +160,7 @@
           </div>
         </section>
 
+        <!-- The mission planner stages waypoints locally while unconfirmed navigation remains locked. -->
         <section id="missionWorkspace" class="mission-workspace" hidden aria-label="Mission planner">
           <header>
             <div><span class="section-kicker">MISSION PLANNER</span><h2>Waypoint workspace</h2></div>
@@ -160,6 +181,7 @@
         </section>
       </section>
 
+      <!-- This strip presents the most important system values in a single scan line. -->
       <section class="telemetry-strip" aria-label="Live system summary">
         <div><span>THROTTLE</span><strong id="throttleStrip">0%</strong><i class="meter"><b id="throttleMeter"></b></i></div>
         <div><span>POWER</span><strong id="powerValue">--.- W</strong></div>
@@ -171,6 +193,7 @@
         <div class="log-cell"><span>EVENT</span><strong id="eventLog">Flight Deck ready</strong></div>
       </section>
 
+      <!-- The emergency control remains visually isolated so it is easy to find immediately. -->
       <button id="emergencyButton" class="emergency-stop" type="button">
         <span>STOP</span><b>EMERGENCY</b>
       </button>
@@ -178,6 +201,7 @@
       <footer class="credit">Developed by Amine Saoud ibn al-Bashir.</footer>
     </main>
 
+    <!-- This modal stores flight and camera endpoints without exposing motor authority to the camera node. -->
     <dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle">
       <form id="settingsForm" method="dialog">
         <header><div><span class="section-kicker">FLIGHT DECK CONFIGURATION</span><h2 id="settingsTitle">Links and endpoints</h2></div><button id="closeSettings" type="button" aria-label="Close settings">&#215;</button></header>
@@ -193,6 +217,7 @@
       </form>
     </dialog>
 
+    <!-- The controller script is loaded last so every referenced interface element already exists. -->
     <script src="app.js"></script>
   </body>
 </html>

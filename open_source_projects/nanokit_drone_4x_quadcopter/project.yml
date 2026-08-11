@@ -1,29 +1,49 @@
 # Developed by Amine Saoud ibn al-Bashir.
+# Human-readable project name shown in repository indexes and documentation.
 name: NanoKit Drone 4X
+# Stable folder identifier used by repository automation.
 slug: nanokit_drone_4x_quadcopter
+# Repository category keeps this work under the open-source project area.
 category: open_source_project
+# The bench-development state warns that the aircraft is not flight-qualified.
 status: bench-development
+# The controller exposes its local command link through Wi-Fi and WebSocket protocol version 3.
 transport: Wi-Fi SoftAP with WebSocket protocol v3
+# Flight-controller build and timing metadata.
 controller:
+  # The firmware targets the NanoKit Integrated ESP32 board.
   board: NanoKit Integrated ESP32
+  # PlatformIO with Arduino supplies the current embedded framework and build system.
   framework: PlatformIO Arduino
+  # The control loop target is 250 updates per second.
   loop_hz: 250
+# Only electrically confirmed interfaces belong in this section.
 confirmed_interfaces:
+  # The shared I2C bus uses the confirmed NanoKit SDA and SCL pins.
   i2c:
     sda: GPIO21
     scl: GPIO22
+  # The four motor command outputs use the confirmed Quad-X pin assignment.
   motors:
     m1: GPIO25
     m2: GPIO26
     m3: GPIO27
     m4: GPIO32
+# Conservative defaults keep unverified hardware unable to arm or spin motors.
 safety_defaults:
+  # This remains false until the 4-in-1 ESC accepts tested 1000-2000 us analog PWM.
   esc_analog_pwm_confirmed: false
+  # Optional sensors remain disabled until their wiring and addresses are confirmed.
   sensor_features_enabled: false
+  # Bench tests must never run with propellers installed.
   propellers_allowed: false
+# The optional camera/audio payload is isolated from flight authority.
 payload_node:
+  # The planned camera, audio, and SD workload requires at least 8 MB of verified PSRAM.
   minimum_psram: 8 MB
+  # A payload fault must never be able to command the motors.
   motor_authority: false
+# These documents define the project architecture, interfaces, wiring, safety, and tests.
 documentation:
   - README.md
   - docs/Architecture.md
