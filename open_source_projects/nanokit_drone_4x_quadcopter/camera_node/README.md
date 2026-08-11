@@ -1,9 +1,19 @@
-# Arducam Mega Camera Node
+# NanoKit Drone 4X Camera + Audio Node
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-This directory defines the boundary for the optional front-camera subsystem. Use a dedicated ESP32 or second NanoKit with an Arducam Mega 5 MP SPI camera, then publish its image/MJPEG endpoint over a private Wi-Fi network.
+This is the second NanoKit ESP32 firmware project. It joins the flight controller's
+`NanoKit-Drone-4X` SoftAP and exposes camera/audio/storage control endpoints without
+ever receiving motor authority.
 
-The production flight-controller firmware deliberately does not include a camera library or Wi-Fi image server. It currently builds with a high flash footprint due to BLE and safety logic; separating the camera protects the control-loop timing and means video failure cannot affect motor failsafes.
+All peripheral features are disabled in `include/camera_node_config.h` until the
+pin map is verified. Camera startup also requires a runtime-confirmed 8 MB PSRAM
+device. The status API remains usable while hardware features are disabled.
 
-Follow [Camera Integration](../docs/Camera_Integration.md) for wiring, upstream library links, endpoint convention, and safety constraints.
+```powershell
+pio run
+pio run -t upload
+pio device monitor
+```
+
+See [Camera_Audio_Node.md](../docs/Camera_Audio_Node.md) for the validation gates.

@@ -1,30 +1,32 @@
-# Testing - NanoKit Drone 4X (Quadcopter)
+# Testing - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-## Test Gate
+## Bench Gate
 
-Do not install propellers or attempt tethered flight until every applicable check below passes. Each test must be documented with the firmware version, battery type, motor/ESC set, and result.
+Propellers remain removed for every test in this document.
 
-| # | Test | Pass condition |
-|---:|---|---|
-| 1 | Visual inspection | No damaged wire, loose connector, exposed LiPo lead, or conductive debris. |
-| 2 | Power-off continuity | No short between battery positive and ground. |
-| 3 | First LiPo power | Smoke stopper remains normal; no hot component or unexpected motor motion. |
-| 4 | NanoKit serial boot | PWM begins at 1000 us and serial reports a working MPU6050. |
-| 5 | IMU alignment | Hand tilts produce the expected roll/pitch telemetry signs. |
-| 6 | BLE connection | Browser shows connected state and receives live telemetry. |
-| 7 | Arm interlock | A non-zero throttle cannot arm; calibration is required before arm. |
-| 8 | Emergency stop | Stop control sets all outputs to 1000 us immediately. |
-| 9 | Link loss | Disabling BLE or stopping packets disarms within 700 ms. |
-| 10 | Motor order | M1/M2/M3/M4 signal locations exactly match the motor-layout document. |
-| 11 | Motor rotation | Each motor spins CW or CCW as specified, with props removed. |
-| 12 | Mixer signs | Small frame disturbance produces motor corrections that oppose it. |
+| Stage | Test | Required result |
+|---|---|---|
+| 1 | Flight firmware build | PlatformIO build succeeds without warnings that hide errors |
+| 2 | Camera-node build | Build succeeds with all unverified payload features disabled |
+| 3 | Boot outputs | M1-M4 stay at 1000 us with ESC confirmation gate at `0` |
+| 4 | SoftAP and HTTP | `NanoKit-Drone-4X` appears and `http://192.168.4.1/api/status` responds |
+| 5 | WebSocket | HELLO, ACK, and truthful TEL packets follow protocol v3 |
+| 6 | Stale command | Armed-state simulation enters failsafe after 600 ms |
+| 7 | Emergency stop | Failsafe latches and every output returns to minimum |
+| 8 | Missing IMU | Arming remains blocked; telemetry marks IMU and attitude invalid |
+| 9 | ESC gate | Arming remains blocked while analogue PWM is unconfirmed |
+| 10 | UI responsive layout | No overlapping safety controls on desktop, tablet, or mobile |
 
-## Tethered Test
+## Sensor Driver Gate
 
-Only after the test gate is complete, use a clear controlled area, a rigid tether appropriate for the frame, eye protection, a fire-safe LiPo location, and a second person with access to the battery disconnect. Start at the minimum practical throttle and stop immediately on oscillation, reversed response, brownout, excessive heat, or communication loss.
+For each future sensor, test actual address discovery, units, rate, stale-data rejection, disconnect/reconnect, bus lockup, and invalid-value handling. The UI must never keep a stale value marked valid after a read failure.
 
-## Flight Readiness Is Not Automatic
+## ESC Gate
 
-Passing the bench checklist does not make the system flight-ready. Flight legality, airspace restrictions, remote-identification requirements, liability, insurance, battery condition, structural integrity, weather, and local rules remain the operator's responsibility.
+Use an oscilloscope or logic analyzer to verify frequency and pulse widths before connecting ESC signal inputs. Confirm the ESC manual accepts analogue PWM. Then test one ESC at a time with propellers removed and a current-limited supply. Only after documented success may the compile-time confirmation gate be reviewed.
+
+## No Automatic Flight Readiness
+
+Passing software builds and bench checks does not authorize tethered or free flight. Structural, RF, battery, propulsion, control-law, vibration, and local regulatory reviews are separate requirements.

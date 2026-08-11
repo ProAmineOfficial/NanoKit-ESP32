@@ -1,29 +1,36 @@
-# Safety - NanoKit Drone 4X (Quadcopter)
+# Safety - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
 ## Non-Negotiable Rules
 
-1. Remove propellers for wiring, flashing, calibration, serial tests, BLE tests, motor order, and motor direction checks.
-2. Treat every LiPo as a high-current source. Use an appropriate charger, balance lead, storage voltage, fire-resistant charging area, and damaged-pack policy.
-3. Keep a physical battery disconnect accessible. Software disarm is useful but is not a substitute for disconnecting power.
-4. Never power motors from NanoKit 3.3 V, USB, or an undersized BEC.
-5. Never test around people, animals, vehicles, roads, public spaces, or flammable material.
-6. Stop at the first sign of heat, swelling, smoke, brownout, unusual motor sound, sensor drift, or inverted response.
-7. Follow local aviation, radio, privacy, insurance, registration, and remote-identification requirements before any outdoor operation.
+1. Keep propellers removed during wiring, flashing, calibration, network, sensor, mixer, and ESC signal tests.
+2. Use a current-limited bench supply where practical and keep a physical battery disconnect accessible.
+3. Never enable a Feature Flag to make the interface look complete.
+4. Never mark telemetry valid unless a real driver completed a current successful read.
+5. Never set `NANOKIT_ESC_ANALOG_PWM_CONFIRMED` to `1` until the exact ESC protocol is verified on the bench.
+6. Do not attempt free flight from this reference revision.
 
 ## Firmware Protections
 
-| Condition | Firmware response |
+| Condition | Result |
 |---|---|
-| Boot | Four ESCs receive 1000 us minimum throttle. |
-| Arm request with throttle above zero | Arm request is rejected. |
-| Missing IMU calibration | Arm request is rejected. |
-| BLE disconnect | Immediate disarm; advertising restarts. |
-| BLE command age above 700 ms | Immediate disarm. |
-| MPU6050 read failure | Immediate disarm. |
-| Explicit stop/disarm command | Immediate disarm and PID reset. |
+| Boot or disarmed state | Four outputs held at 1000 us |
+| Emergency stop | Failsafe latched; outputs forced to minimum |
+| Armed link disconnect | Immediate failsafe |
+| Command older than 600 ms | Immediate failsafe |
+| IMU unhealthy or attitude invalid | Arming blocked or immediate fault |
+| IMU not calibrated | Arming blocked |
+| ESC analogue PWM unconfirmed | Arming blocked and outputs remain minimum |
+| Throttle above zero during arm | Arm rejected |
+| Advanced mode sensors unavailable | Mode remains unavailable |
 
-## Limits Of This Reference
+Reconnection never restores the previous armed state. ARM must first be released with throttle at zero before another attempt.
 
-This code has no redundant IMU, independent kill switch, barometer, GPS, geofence, return-to-home, authenticated control channel, battery voltage monitoring, blackbox logger, or certified fail-safe architecture. It is an educational starting point for controlled engineering work, not a ready-to-operate aircraft controller.
+## Physical Risks Not Solved By Software
+
+The firmware cannot detect a reversed propeller, incorrect motor order, loose motor, undersized ESC, wrong battery chemistry, damaged LiPo, weak frame, radio interference, unsuitable BEC, or unsafe test area. These require physical inspection, measurement, and experienced supervision.
+
+## Payload Isolation
+
+The camera/audio node exposes only payload services. It cannot write commands into the flight queue, control ESC outputs, or authorize arming. Payload failure must remain independent from flight-control timing.

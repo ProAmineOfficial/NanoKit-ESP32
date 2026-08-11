@@ -1,21 +1,23 @@
-# Open-Source References - NanoKit Drone 4X (Quadcopter)
+# Open-Source References - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-This project is an original, compact educational implementation. The following mature projects are studied as engineering references, not copied into this repository.
+This project is an original NanoKit integration and teaching reference. Established open-source flight-control projects may be studied for architecture, estimator design, safety review, test strategy, and protocol ideas, but their code and gains must not be copied without checking license compatibility and hardware assumptions.
 
-| Project | Useful ideas for NanoKit Drone 4X | Licence / scope note |
-|---|---|---|
-| [Betaflight](https://github.com/betaflight/betaflight) | Quad-X conventions, mixer reasoning, flight-control safety culture, and tuning vocabulary. | GPL-3.0; do not copy code into a differently licensed project without satisfying GPL obligations. |
-| [ArduPilot](https://github.com/ArduPilot/ardupilot) | Sensor calibration discipline, test methodology, flight-mode design, logs, and mature failsafe thinking. | GPL-3.0; a substantially broader autopilot system. |
-| [ESP-Drone](https://github.com/espressif/esp-drone) | ESP32-oriented embedded flight work, wireless command concepts, and hardware bring-up lessons. | Check the upstream repository licence and component licences before reuse. |
-| [PX4](https://github.com/PX4/PX4-Autopilot) | Estimator architecture, parameter management, simulation, and vehicle integration ideas. | BSD-3-Clause components vary; read the upstream licensing and documentation. |
-| [Arducam Mega](https://github.com/ArduCAM/Arducam_Mega) | SPI camera bring-up, supported ESP32 platform examples, and camera-node separation. | MIT; retain its licence and notices for any copied upstream code. |
+Useful upstream categories include:
 
-## How To Reuse Open Source Correctly
+- Espressif Arduino-ESP32 and ESP-IDF documentation for ESP32 peripherals, FreeRTOS, Wi-Fi, and PSRAM.
+- PlatformIO documentation for reproducible builds and filesystem uploads.
+- PX4 and ArduPilot documentation for mature safety concepts and flight-stack architecture.
+- Betaflight documentation for rate control, mixer concepts, and ESC protocol context.
+- Individual sensor manufacturer datasheets for electrical limits, addresses, timing, and calibration.
 
-1. Link to the upstream source and keep its licence, notices, and attribution with any copied material.
-2. Review compatibility before mixing code, documentation, assets, and firmware from different projects.
-3. Prefer learning a design pattern and implementing a small, documented version rather than importing a large flight stack blindly.
-4. Track upstream version, source file, licence, and modification history for every reused artifact.
-5. Test changes on a bench before integrating them into a vehicle.
+## Reuse Checklist
+
+1. Record the source URL, version or commit, and license.
+2. Confirm the license is compatible with this repository.
+3. Document every adaptation to NanoKit pins, voltage, task timing, and safety state.
+4. Add tests that prove the adapted behaviour rather than assuming upstream hardware equivalence.
+5. Preserve required notices and attribution.
+
+No reference source overrides the local rule that unverified hardware remains disabled.

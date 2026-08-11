@@ -2,4 +2,4 @@
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-This folder is reserved for extracted modules such as an MPU6050 driver, calibration storage, motor abstraction, or command parser. The initial implementation deliberately avoids hidden dependencies.
+This folder is reserved for independently testable reusable libraries. Project-owned flight modules remain under `include/` and `src/`; a future sensor or protocol library moves here only when its interface, licence, tests, and verified hardware assumptions are documented.

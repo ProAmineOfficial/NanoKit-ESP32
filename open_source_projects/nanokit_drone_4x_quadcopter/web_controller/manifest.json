@@ -1,8 +1,9 @@
 {
+  "description": "Developed by Amine Saoud ibn al-Bashir.",
   "name": "NanoKit Drone 4X Flight Deck",
   "short_name": "NanoKit Deck",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#081117",
-  "theme_color": "#081117"
+  "background_color": "#070b0e",
+  "theme_color": "#070b0e"
 }

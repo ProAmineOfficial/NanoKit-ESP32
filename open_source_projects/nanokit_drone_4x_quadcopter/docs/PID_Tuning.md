@@ -1,41 +1,27 @@
-# PID Tuning - NanoKit Drone 4X (Quadcopter)
+# PID Tuning - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-## Controller Structure
+## Current Gate
 
-The reference firmware uses three controllers:
+PID classes and the Quad-X mixer are included for architecture and bench verification, but flight tuning is not authorized. The IMU driver is disabled and the ESC analogue PWM protocol is unconfirmed. Gains cannot be validated without real calibrated rate data and a verified propulsion interface.
 
-| Controller | Target | Measurement | Output |
-|---|---|---|---|
-| Roll PID | Desired roll angle | Filtered roll angle | Differential left/right motor correction. |
-| Pitch PID | Desired pitch angle | Filtered pitch angle | Differential front/rear motor correction. |
-| Yaw-rate PID | Desired yaw rate | Gyroscope Z rate | CW/CCW motor-pair correction. |
+## Required Order
 
-The starting gains in `firmware/src/main.cpp` are only conservative placeholders. They are not transferable to another frame, propeller, battery, motor, ESC, or payload combination.
+1. Verify IMU wiring, orientation, rate, scale, calibration, and disconnect behaviour.
+2. Verify the exact ESC accepts analogue 1000-2000 us commands.
+3. Verify motor numbering and rotation with propellers removed.
+4. Verify mixer signs using controlled low-energy tests.
+5. Measure loop timing and confirm no missed 4 ms deadlines.
+6. Begin rate-loop tuning on a purpose-built restrained rig.
+7. Add attitude outer-loop tuning only after the rate loop is stable.
 
-## Safe Tuning Sequence
+## Controller Limits
 
-1. Complete IMU alignment, motor order, motor direction, mixer sign, BLE timeout, and emergency-stop tests with propellers removed.
-2. Start with `Ki = 0` and a low `Kp`; use a restrained or tethered test area and keep a physical battery disconnect reachable.
-3. Increase `Kp` until the axis responds firmly, then reduce it if fast oscillation appears.
-4. Increase `Kd` in small increments to reduce overshoot. Too much derivative amplifies IMU noise and makes motors sound rough.
-5. Add only enough `Ki` to correct slow bias or persistent lean. Integral is deliberately small because it can build up during saturation.
-6. Tune roll and pitch independently before tuning yaw rate.
-7. Change one gain, one axis, and one test condition at a time. Record the exact change and outcome.
+- Use output saturation and integral anti-windup.
+- Reset integrators whenever the system disarms or enters failsafe.
+- Reject non-finite sensor and controller values.
+- Do not copy gains from a different frame, propeller, motor, battery, ESC, or payload.
+- Record firmware revision, mass, center of gravity, and hardware for every tuning result.
 
-## Symptoms
-
-| Symptom | Likely adjustment | First check |
-|---|---|---|
-| Slow lean and weak correction | Increase roll/pitch `Kp` slightly. | IMU level calibration and frame stiffness. |
-| Fast shake or buzzing motors | Reduce `Kp` or `Kd`. | Propeller damage, loose parts, and sensor vibration. |
-| Overshoot after a tilt command | Increase `Kd` slightly or reduce `Kp`. | Correct motor direction and mixer sign. |
-| Slowly increasing offset | Add very small `Ki`. | Centre of gravity and accelerometer calibration. |
-| Yaw response is reversed | Correct motor rotation/mixer sign. | M1/M2/M3/M4 direction table. |
-
-## Important Limits
-
-- The MPU6050 cannot hold an absolute compass heading. Its yaw reading is relative and drifts.
-- This first reference has no barometer, GPS, optical flow, altitude hold, return-to-home, or autonomous navigation.
-- Do not tune PID gains by flying near people, public areas, roads, or buildings.
+Navigation and obstacle-avoidance modes require separately verified sensors and are not unlocked by PID tuning.

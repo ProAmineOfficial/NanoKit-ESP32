@@ -2,20 +2,36 @@
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-This original cockpit-style controller uses standard browser Web Bluetooth to connect directly to the NanoKit ESP32 BLE service. It supplies throttle, momentary roll/pitch/yaw commands, arm/disarm, IMU calibration, emergency stop, and telemetry display. A central camera viewport independently displays an MJPEG/image URL from the separate Arducam Mega Wi-Fi camera node.
+The Flight Deck is a responsive browser Ground Control Station for the NanoKit Drone 4X Wi-Fi/WebSocket link. It provides dual-stick commands, hold-to-arm, disarm, emergency stop, mode gates, mission planning, payload status, and real telemetry presentation.
 
-## Run Locally
+## Onboard Use
 
-From this directory, start a localhost server:
+The firmware serves this directory from LittleFS:
 
 ```powershell
-python -m http.server 8080
+cd firmware
+pio run -t uploadfs
 ```
 
-Open `http://localhost:8080` in Chrome or Edge. Web Bluetooth requires a supported Chromium-based browser and a secure context such as localhost. It does not work with an HC-05 Classic Bluetooth SPP module.
+1. Join Wi-Fi network `NanoKit-Drone-4X` with password `NanoKit4X`.
+2. Open `http://192.168.4.1`.
+3. Select **Connect Flight Link**.
 
-Keep all propellers removed whenever the controller is used for development or testing.
+The page opens `ws://192.168.4.1:81` and sends protocol-v3 commands at 10 Hz. The firmware disarms when commands are stale. The browser never writes directly to ESC pins.
 
-## Camera Viewport
+## Local UI Preview
 
-Select the settings button in the Flight Deck, enter the private Wi-Fi camera endpoint, and select **Load Camera**. Camera loss never affects the BLE flight link or the firmware failsafe. See [Camera Integration](../docs/Camera_Integration.md).
+```powershell
+python -m http.server 8080 --directory web_controller
+```
+
+Open `http://127.0.0.1:8080`. The interface can be inspected locally, but a live flight link still requires the NanoKit access point. HTTPS pages cannot open an insecure `ws://` device link because browsers block mixed content.
+
+## Telemetry Rules
+
+- Values are shown only when their corresponding validity field is true.
+- Missing IMU, barometer, power, GNSS, optical-flow, or obstacle data stays visibly unavailable.
+- Disabled payload features remain disabled in the UI.
+- Mission upload remains locked until navigation hardware and firmware are verified.
+
+See [Wi-Fi/WebSocket Protocol](../docs/WiFi_WebSocket_Protocol.md) and [Safety](../docs/Safety.md).

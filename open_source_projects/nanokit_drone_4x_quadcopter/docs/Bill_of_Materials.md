@@ -1,26 +1,33 @@
-# Bill Of Materials - NanoKit Drone 4X (Quadcopter)
+# Bill of Materials - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-## Reference 3.5-inch 4S Build Class
+This list separates required bench hardware from planned, unverified expansion hardware. It is not a flight-ready purchasing specification.
 
-This is a selection framework, not an endorsement of one vendor. Confirm electrical compatibility against the motor/propeller manufacturer's thrust data and measured current before purchase.
+## Bench Development
 
-| Part | Qty. | Selection guidance | Example class |
-|---|---:|---|---|
-| Flight controller | 1 | NanoKit Integrated ESP32 | NanoKit ESP32 |
-| IMU | 1 | 3.3 V MPU6050 breakout with short, secure I2C wiring | MPU6050/GY-521 class |
-| Brushless motors | 4 | Same model, 1404 around 3800 KV for a 3.5-inch 4S reference build | T-Motor F1404 3800 KV class |
-| ESCs | 4 | 20 A or above with measured-current margin; compatible with selected LiPo | BLHeli_S/BLHeli_32 20-35 A class |
-| Propellers | 2 pairs | Matched 3.5-inch CW/CCW props compatible with motor shaft | 3.5x3 to 3.5x3.5 class |
-| Frame | 1 | Rigid 3.5-inch Quad-X carbon frame with central electronics bay | 180-200 mm wheelbase class |
-| LiPo | 1+ | 4S, capacity and C rating proven for actual current | 850-1300 mAh 4S class |
-| BEC | 1 | Regulated 5 V, 3 A minimum, low-noise output | 5 V 3 A switching BEC |
-| Power wiring | 1 set | Correct wire gauge, XT30/XT60, capacitor at ESC power input | Match actual current and connector |
-| Camera | optional | Separate Wi-Fi camera node; never required for stabilisation | Arducam Mega 5 MP SPI camera |
-| Camera MCU | optional | Dedicated ESP32/ESP32-S3 for the Arducam SPI bus and Wi-Fi endpoint | ESP32 DevKit or second NanoKit class |
-| Hardware | 1 set | Standoffs, vibration isolation, straps, heat-shrink, smoke stopper | Frame-compatible set |
+| Item | Quantity | Requirement |
+|---|---:|---|
+| NanoKit Integrated ESP32 | 1 | Flight-controller development board |
+| USB data cable | 1 | Reliable power and serial programming |
+| Logic analyzer or oscilloscope | 1 | Verify PWM and timing before ESC connection |
+| Current-limited supply | 1 | Controlled bench power |
+| I2C sensor wiring | As required | Short 3.3 V-compatible wiring on GPIO21/22 |
 
-## Size Match Matters
+## Propulsion - Selection Pending
 
-Do not combine an arbitrary large propeller, high-KV motor, small ESC, and undersized battery. The propeller establishes load, the motor establishes speed/torque, the ESC and wire must handle current, the battery must provide it, and the frame must withstand the resulting thrust and vibration.
+| Item | Quantity | Gate |
+|---|---:|---|
+| Quad-X frame | 1 | Mechanical analysis and measured mass |
+| Brushless motors | 4 | Selected with propeller, voltage, and thrust target |
+| 4-in-1 ESC | 1 | Must explicitly accept analogue 1000-2000 us PWM |
+| Propellers | 2 CW + 2 CCW | Removed during all current tests |
+| LiPo battery | 1 | Selected from measured current and required C rating |
+| Regulated 5 V BEC | 1 | Rated for controller and verified payload load |
+| Power distribution, capacitor, wiring, connector | 1 set | Sized from measured peak current |
+
+## Planned Expansion - Disabled
+
+ICM-20948, DPS310, BME280, GNSS, PMW3901, TCA9548A, six VL53L1CX, HC-SR04 with ECHO level shifting, INA226, AT24C256, status LED, buzzer, and the camera/audio/storage/servo payload remain TODO until exact parts and wiring are confirmed.
+
+NanoKit #2 requires 8 MB PSRAM for the proposed combined payload. Verify the physical module and runtime report before buying or wiring the remaining camera subsystem.

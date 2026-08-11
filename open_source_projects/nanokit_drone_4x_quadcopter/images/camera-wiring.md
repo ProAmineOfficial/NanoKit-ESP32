@@ -1,27 +1,32 @@
-# Camera Wiring - Arducam Mega 5 MP Camera Node
+# Camera and Audio Node Wiring Gate
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
 ```mermaid
-flowchart LR
-  Camera("Arducam Mega 5 MP SPI camera")
-  Node(["Dedicated ESP32 camera node"])
-  Deck(["NanoKit Flight Deck browser"])
+flowchart TD
+  Board["NanoKit #2 / ESP32 payload node"]
+  PSRAM{"8 MB PSRAM detected?"}
+  Pins{"Verified camera/audio/SD/servo pin map?"}
+  Locked(["Keep all payload Feature Flags at 0"])
+  Stage1["Enable OV2640 capture only"]
+  Stage2["Add microSD after latency/current test"]
+  Stage3["Add I2S audio after pin/clock test"]
+  Stage4["Add servo with separate power rail"]
 
-  Camera -->|"SCK -> GPIO18 / NanoKit pin 38"| Node
-  Camera -->|"MISO -> GPIO19 / NanoKit pin 16"| Node
-  Camera -->|"MOSI -> GPIO23 / NanoKit pin 24"| Node
-  Camera -->|"CS -> GPIO17 / NanoKit pin 39"| Node
-  Camera -->|"3.3 V + GND"| Node
-  Node -->|"private Wi-Fi MJPEG/image endpoint"| Deck
+  Board --> PSRAM
+  PSRAM -->|"No"| Locked
+  PSRAM -->|"Yes"| Pins
+  Pins -->|"No"| Locked
+  Pins -->|"Yes"| Stage1 --> Stage2 --> Stage3 --> Stage4
 
-  classDef sensor fill:#282039,stroke:#b99bff,stroke-width:1.8px,color:#faf6ff
-  classDef external fill:#28263a,stroke:#9ea9ff,stroke-width:1.8px,color:#f7f6ff
-  classDef communication fill:#123237,stroke:#42d4c5,stroke-width:1.8px,color:#f2fffd
-  class Camera sensor
-  class Node external
-  class Deck communication
-  linkStyle default stroke:#7894a5,stroke-width:1.4px
+  classDef controller fill:#10242d,stroke:#67d5ee,color:#eefaff
+  classDef condition fill:#302a16,stroke:#e7c653,color:#fffbe8
+  classDef safety fill:#341919,stroke:#ee6666,color:#fff1f1
+  classDef payload fill:#221b34,stroke:#ad8cff,color:#f7f0ff
+  class Board controller
+  class PSRAM,Pins condition
+  class Locked safety
+  class Stage1,Stage2,Stage3,Stage4 payload
 ```
 
-This is a separate camera node. It does not connect to NanoKit motor pins, MPU6050 I2C, PID calculations, or BLE flight-command handling.
+No physical payload pin is assigned yet. This prevents a reference ESP32 camera pin map from being mistaken for confirmed NanoKit wiring.

@@ -2,4 +2,4 @@
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-Move reusable drivers into this directory only after the single-file reference firmware is understood and covered by tests. Keeping the first version in `src/main.cpp` makes the complete control path easier to read.
+This directory contains the private module contracts for configuration, flight state, safety, control, sensors, networking, navigation, and storage. Keep hardware-specific drivers behind the matching Feature Flag and expose validity explicitly to the safety and telemetry layers.

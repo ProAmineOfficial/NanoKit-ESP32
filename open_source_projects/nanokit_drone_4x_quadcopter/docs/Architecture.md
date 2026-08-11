@@ -1,85 +1,48 @@
-
-# Architecture - NanoKit Drone 4X (Quadcopter)
+# Architecture - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
 ## Design Intent
 
-This project is a small, manually controlled Quad-X reference platform. Its physical form follows a compact four-arm drone: a centered flight controller and IMU, four brushless power units, an optional isolated front camera, and BLE control from a browser application. The first milestone is a safe restrained bench system, not autonomous flight.
-
-## Control Chain
+The project is split into three isolated systems so network and payload work cannot block the deterministic flight loop.
 
 ```mermaid
 flowchart LR
-  UI(["Browser BLE controller"]) -->|"target packet at 12.5 Hz"| BLE(["ESP32 BLE GATT"])
-  BLE --> CMD[/"Validated control command"/]
-  IMU("MPU6050") -->|"I2C accel + gyro"| EST[["Complementary attitude filter"]]
-  CMD --> PID[["Roll / pitch / yaw-rate PID"]]
-  EST --> PID
-  PID --> MIX[["Quad-X mixer"]]
-  MIX --> M1("M1 FL CCW ESC + motor")
-  MIX --> M2("M2 FR CW ESC + motor")
-  MIX --> M3("M3 RR CCW ESC + motor")
-  MIX --> M4("M4 RL CW ESC + motor")
-  EST --> TEL[/"Telemetry"/]
-  TEL --> BLE
-  BLE --> UI
-
-  classDef sensor fill:#282039,stroke:#b99bff,stroke-width:1.8px,color:#faf6ff
-  classDef communication fill:#123237,stroke:#42d4c5,stroke-width:1.8px,color:#f2fffd
-  classDef io fill:#15313c,stroke:#43d5ca,stroke-width:1.8px,color:#f3fffd
-  classDef module fill:#202945,stroke:#91a8ff,stroke-width:1.8px,color:#f6f7ff
-  classDef actuator fill:#37251a,stroke:#f0a560,stroke-width:1.8px,color:#fff8ef
-  class UI,BLE communication
-  class IMU sensor
-  class CMD,TEL io
-  class EST,PID,MIX module
-  class M1,M2,M3,M4 actuator
-  linkStyle default stroke:#7894a5,stroke-width:1.4px
+  Deck(["Flight Deck browser"]) -->|"Wi-Fi WebSocket v3"| Link(["Network task - Core 0"])
+  Link -->|"validated PilotCommand queue"| Flight["250 Hz flight task - Core 1"]
+  Sensors(["Verified sensors only"]) --> Flight
+  Flight --> Safety{"All safety gates valid?"}
+  Safety -->|"No"| Safe(["1000 us safe minimum"])
+  Safety -->|"Yes"| Mixer["Quad-X mixer"]
+  Mixer --> Esc["M1-M4 outputs"]
+  Camera(["Separate camera/audio node"]) -. "status and media only" .-> Deck
 ```
 
-## Firmware Responsibilities
+## Flight Controller Modules
 
-| Stage | Responsibility | Safety behaviour |
-|---|---|---|
-| PWM boot | Configure four ESC outputs at 1000 us. | Motors receive minimum throttle before sensor or BLE startup. |
-| IMU | Wake MPU6050, read accel/gyro, and calculate level offsets. | A missing read or invalid calibration disarms immediately. |
-| Estimator | Combine gyro integration with accelerometer roll/pitch. | Yaw stays relative because MPU6050 has no magnetometer. |
-| BLE | Receive compact commands and publish telemetry. | BLE disconnect disarms and advertising restarts. |
-| PID | Convert target minus measured attitude into corrections. | Integrals are clamped and reset on every disarm. |
-| Mixer | Apply corrections to the four ESC pulses. | Each pulse is constrained to the defined idle and maximum limits. |
-| Failsafe | Watch the command age. | A stale command after 700 ms stops all motors. |
+| Module | Responsibility |
+|---|---|
+| `core/` | Shared state, telemetry structures, and safety state machine. |
+| `control/` | PID primitives, flight controller, and Quad-X motor mixer. |
+| `sensors/` | Sensor health and future real measurement drivers. |
+| `network/` | SoftAP, HTTP/LittleFS server, WebSocket command parser, telemetry broadcast. |
+| `navigation/` | Mode gates; advanced modes remain disabled without verified sensors. |
+| `storage/` | Future persistent configuration behind a feature flag. |
 
-## Required Separation
+FreeRTOS queues transfer complete snapshots between tasks. The network task cannot call the mixer or write motor outputs. The camera node has no path to the command queue.
 
-- The LiPo powers the ESCs directly through a correctly rated distribution path.
-- A regulated 5 V BEC powers NanoKit and low-power equipment; do not use NanoKit 3.3 V for motors, ESCs, or camera equipment.
-- The MPU6050 is a 3.3 V logic device connected by I2C.
-- All signal systems share a common ground with the ESC/BEC power system.
-- The optional camera must remain electrically isolated from the flight control loop. It is not a source of arm, throttle, or stabilisation commands.
+## Timing
 
-## Camera Node Boundary
+- Flight task: 250 Hz, Core 1, priority 4.
+- Network task: Core 0, priority 1.
+- Browser command cadence: 10 Hz.
+- Command timeout: 600 ms.
+- Telemetry cadence: 10 Hz.
 
-The Arducam Mega 5 MP camera is treated as a separate ESP32 Wi-Fi node. Its SPI bus follows the documented ESP32 mapping, while its image endpoint is rendered in the Flight Deck's camera viewport. This avoids adding camera transport, Wi-Fi streaming, and large buffers to the NanoKit flight controller, which is already close to its usable flash capacity with BLE safety firmware.
+## Truthful Telemetry
 
-```mermaid
-flowchart LR
-  Camera("Arducam Mega 5 MP") -->|"SPI"| CameraEsp(["ESP32 camera node"])
-  CameraEsp -->|"Wi-Fi MJPEG/image endpoint"| Deck(["NanoKit Flight Deck"])
-  Deck -->|"BLE commands only"| Flight("NanoKit flight controller")
-  CameraEsp -. "no motor authority" .-> Flight
+Each optional measurement has an explicit validity field. The interface renders a value only when the matching field is true. Disabled or absent hardware is reported as unavailable; the firmware does not generate demonstration values.
 
-  classDef controller fill:#102936,stroke:#4dd4ff,stroke-width:2px,color:#f4fbff
-  classDef sensor fill:#282039,stroke:#b99bff,stroke-width:1.8px,color:#faf6ff
-  classDef external fill:#28263a,stroke:#9ea9ff,stroke-width:1.8px,color:#f7f6ff
-  classDef communication fill:#123237,stroke:#42d4c5,stroke-width:1.8px,color:#f2fffd
-  class Camera sensor
-  class CameraEsp external
-  class Deck communication
-  class Flight controller
-  linkStyle default stroke:#7894a5,stroke-width:1.4px
-```
+## Expansion Rule
 
-## Open-Source Boundary
-
-The implementation is original educational reference code. It uses published engineering patterns from established open-source flight stacks, without copying their source. See [Open_Source_References](Open_Source_References.md) for the specific projects and the concepts studied.
+A new driver is added behind its feature flag, with its pin map and electrical constraints documented first. The flag stays `0` until a propeller-free hardware test verifies initialization, continuous reads, disconnect behaviour, and safety interaction.

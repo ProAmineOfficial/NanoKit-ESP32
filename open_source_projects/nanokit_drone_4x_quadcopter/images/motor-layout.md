@@ -1,38 +1,38 @@
-# Motor Layout - NanoKit Drone 4X (Quadcopter)
+# Motor Layout - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-View from above. The nose, camera, and forward flight direction are at the top of the diagram.
+View from above. The nose and optional camera point toward the top.
 
 ```mermaid
-flowchart TB
-  NOSE(["Nose / optional camera"])
-  M1("M1 front-left\nCCW\nGPIO25 / NanoKit pin 3")
-  M2("M2 front-right\nCW\nGPIO26 / NanoKit pin 37")
-  FC("NanoKit ESP32 + MPU6050\ncentred and level")
-  M4("M4 rear-left\nCW\nGPIO32 / NanoKit pin 7")
-  M3("M3 rear-right\nCCW\nGPIO27 / NanoKit pin 19")
-  NOSE --> M1
-  NOSE --> M2
-  M1 --- FC
-  M2 --- FC
-  FC --- M4
-  FC --- M3
+flowchart TD
+  Nose(["Nose / optional camera"])
+  M1["M1 front-left\nCCW\nGPIO25"]
+  M2["M2 front-right\nCW\nGPIO26"]
+  FC["NanoKit ESP32\ncentered flight controller"]
+  M4["M4 rear-left\nCW\nGPIO32"]
+  M3["M3 rear-right\nCCW\nGPIO27"]
 
-  classDef controller fill:#102936,stroke:#4dd4ff,stroke-width:2px,color:#f4fbff
-  classDef actuator fill:#37251a,stroke:#f0a560,stroke-width:1.8px,color:#fff8ef
-  classDef communication fill:#123237,stroke:#42d4c5,stroke-width:1.8px,color:#f2fffd
+  Nose --> M1
+  Nose --> M2
+  M1 --> FC
+  M2 --> FC
+  FC --> M4
+  FC --> M3
+
+  classDef controller fill:#10242d,stroke:#67d5ee,color:#eefaff,stroke-width:2px
+  classDef actuator fill:#2e2116,stroke:#f0a24a,color:#fff6eb
+  classDef reference fill:#0d2929,stroke:#4ed6c4,color:#edfffc
   class FC controller
   class M1,M2,M3,M4 actuator
-  class NOSE communication
-  linkStyle default stroke:#7894a5,stroke-width:1.4px
+  class Nose reference
 ```
 
-| Motor | Position | Rotation | Propeller type |
+| Motor | Position | Rotation | Signal GPIO |
 |---|---|---|---|
-| M1 | Front left | CCW | CCW propeller |
-| M2 | Front right | CW | CW propeller |
-| M3 | Rear right | CCW | CCW propeller |
-| M4 | Rear left | CW | CW propeller |
+| M1 | Front left | CCW | GPIO25 |
+| M2 | Front right | CW | GPIO26 |
+| M3 | Rear right | CCW | GPIO27 |
+| M4 | Rear left | CW | GPIO32 |
 
-The firmware mixer and this table are coupled. If the physical frame changes motor numbering, update the documentation and code together, then repeat all prop-off validation.
+The motor pins are confirmed, but the exact ESC analogue PWM protocol is not. Keep propellers removed and the compile-time confirmation gate at `0` until bench verification is documented.

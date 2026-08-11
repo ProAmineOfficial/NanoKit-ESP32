@@ -1,92 +1,104 @@
 # NanoKit Drone 4X (Quadcopter)
 
-An open-source, educational Quad-X flight-controller reference for the NanoKit Integrated ESP32. It is modelled around the compact four-arm drone form in the supplied reference image: four brushless motors, four ESCs, an MPU6050 IMU, a LiPo power system, front lighting, and an optional isolated camera payload.
-
-The project provides readable PlatformIO firmware, a BLE browser controller, PID stabilisation, calibration instructions, wiring diagrams, motor layout, test procedure, and safety documentation. The code is intentionally commented around each decision point so it can be studied and extended.
-
 **Developed by Amine Saoud ibn al-Bashir.**
 
-> **Safety status:** experimental bench test only. Keep every propeller removed until the wiring, sensor calibration, motor order, motor direction, mixer signs, arming logic, and emergency stop have passed the documented tests. This is not a production flight stack and it is not an autonomous-drone project.
+NanoKit Drone 4X is an open-source, safety-first Quad-X engineering reference for the NanoKit Integrated ESP32. This revision separates deterministic flight control, the browser Flight Deck, and the optional camera/audio payload into explicit modules.
 
-## What This Project Teaches
+> **Current state:** bench-development firmware only. Propellers must remain removed. Motor output is locked at the safe minimum because analogue PWM acceptance by the exact 4-in-1 ESC is not yet confirmed.
 
-- A Quad-X mixer for four brushless motors and ESCs.
-- MPU6050 I2C sensing, level calibration, and a complementary attitude filter.
-- Roll and pitch angle PID plus yaw-rate PID control.
-- ESP32 BLE GATT commands and telemetry for a web-style controller.
-- ESC-safe boot behaviour, explicit arming, BLE disconnect failsafe, command timeout, and IMU fault disarm.
-- Practical LiPo, BEC, grounding, motor direction, and PID tuning workflow.
+## System Overview
+
+| System | Responsibility | Authority |
+|---|---|---|
+| NanoKit flight controller | 250 Hz control loop, safety state, command validation, telemetry, future sensor fusion | Sole motor authority |
+| Flight Deck | Wi-Fi/WebSocket pilot commands, safety controls, telemetry display, mission planning UI | Commands only |
+| Camera/audio node | Future OV2640, audio, storage, and camera-servo services | No motor authority |
+
+The flight controller creates the `NanoKit-Drone-4X` Wi-Fi access point, serves the Flight Deck from LittleFS at `http://192.168.4.1`, and accepts protocol-v3 commands on WebSocket port `81`.
+
+## Confirmed Interfaces
+
+Only these interfaces are considered confirmed in this revision:
+
+| Function | ESP32 GPIO |
+|---|---|
+| I2C SDA | GPIO21 |
+| I2C SCL | GPIO22 |
+| Motor M1 signal | GPIO25 |
+| Motor M2 signal | GPIO26 |
+| Motor M3 signal | GPIO27 |
+| Motor M4 signal | GPIO32 |
+
+No other peripheral pin is assigned. ICM-20948, GNSS, PMW3901, HC-SR04, LEDs, buzzer, camera, audio, microSD, and servo interfaces remain disabled until their wiring and electrical limits are verified.
+
+## Safety Gates
+
+The firmware will not arm unless all mandatory gates are true:
+
+1. A real IMU driver reports healthy, calibrated, valid attitude data.
+2. A current Flight Deck command is arriving over Wi-Fi/WebSocket.
+3. Throttle is zero and ARM has been released before a new arm attempt.
+4. Emergency stop is not latched.
+5. `NANOKIT_ESC_ANALOG_PWM_CONFIRMED` is explicitly changed only after the exact ESC accepts 1000-2000 us analogue PWM on a propeller-free bench.
+
+With the repository defaults, the IMU and ESC gates are false. The UI displays unavailable telemetry instead of invented sensor values, and all motor commands remain at 1000 us.
 
 ## Project Layout
 
 | Path | Purpose |
 |---|---|
-| `firmware/` | PlatformIO Arduino ESP32 flight-controller reference firmware. |
-| `web_controller/` | Web Bluetooth controller with directional, yaw, throttle, arm, calibration, and stop controls. |
-| `camera_node/` | Integration boundary and bring-up notes for the separate Arducam Mega Wi-Fi camera node. |
-| `docs/` | Build, wiring, calibration, PID, test, safety, protocol, BOM, and open-source reference material. |
-| `images/` | Mermaid sources for the system, wiring, motor layout, and control-loop diagrams. |
-| `assets/` | Place for licensed build photographs, rendered diagrams, and report figures. |
+| `firmware/` | Modular PlatformIO firmware for the NanoKit flight controller. |
+| `web_controller/` | Responsive Ground Control Station served by the flight controller. |
+| `camera_node/` | Separate PlatformIO payload node with runtime PSRAM validation. |
+| `docs/` | Architecture, safety, protocol, wiring, integration, and test gates. |
+| `images/` | Mermaid source diagrams that match the current safety architecture. |
+| `assets/` | Project-specific reference assets and notes. |
 
-## Hardware Required
-
-| Item | Qty. | Recommended role |
-|---|---:|---|
-| NanoKit Integrated ESP32 | 1 | Flight-controller board. |
-| MPU6050 IMU | 1 | Accelerometer and gyroscope over I2C. |
-| 2204-2306 class brushless motors | 4 | Matched motors suitable for the selected frame and battery. |
-| 20-35 A BLHeli_S / BLHeli_32 ESCs | 4 | One ESC per motor, with a current rating above measured demand. |
-| 4S or 3S LiPo battery | 1 | Choose with the motor, propeller, ESC, and frame as one power system. |
-| 5 V BEC, 3 A minimum | 1 | Clean power for NanoKit and low-power accessories. |
-| Quad-X frame, 180-250 mm class | 1 | Rigid frame with a centred electronics stack. |
-| Matched CW/CCW propeller pairs | 2 pairs | Install only after all prop-off tests pass. |
-| XT30/XT60 lead, capacitor, and wiring | 1 set | Select connector and wire gauge for the measured current. |
-| Optional camera or gimbal | 1 | Power separately and isolate it from the flight controller. |
-
-## Forward Camera Architecture
-
-The central camera viewport in the Flight Deck is intended for an **Arducam Mega 5 MP SPI camera connected to a separate ESP32 Wi-Fi camera node**. The NanoKit flight controller already builds at 88.5% flash usage with BLE and safety logic, so streaming video inside that same controller would reduce timing and memory margin. The camera node publishes an MJPEG/image endpoint over Wi-Fi; the Flight Deck displays that endpoint without giving the camera any motor-control authority.
-
-See [Camera Integration](docs/Camera_Integration.md) and [Camera Wiring](images/camera-wiring.md).
-
-## Motor Order And Rotation
-
-View the aircraft from above with the nose and camera facing forward:
-
-| Motor | Position | Required rotation | ESC GPIO | NanoKit pin |
-|---|---|---|---:|---:|
-| M1 | Front left | CCW | GPIO25 | 3 |
-| M2 | Front right | CW | GPIO26 | 37 |
-| M3 | Rear right | CCW | GPIO27 | 19 |
-| M4 | Rear left | CW | GPIO32 | 7 |
-
-The motor numbers, rotation, and mixer are a matched set. Verify all three with propellers removed before fitting the correct propeller type.
-
-## Build And Flash
+## Build The Flight Controller
 
 ```powershell
-cd D:\GitHub\NanoKit-ESP32\open_source_projects\nanokit_drone_4x_quadcopter\firmware
+cd firmware
 pio run
-pio run --target upload
-pio device monitor -b 115200
+pio run -t buildfs
+pio run -t upload
+pio run -t uploadfs
+pio device monitor
 ```
 
-## Web Controller
+The web assets are mapped into LittleFS by `firmware/platformio.ini`. Upload both firmware and filesystem before opening `http://192.168.4.1`.
 
-Serve `web_controller/` from a local HTTPS-eligible or localhost server, then use Chrome or Edge on desktop/Android. The controller uses the ESP32's built-in BLE GATT service named `NanoKit-Drone-4X`; standard browser Web Bluetooth does not connect to an HC-05 Classic SPP module.
+## Build The Camera/Audio Node
 
-## Start With These Documents
+```powershell
+cd camera_node
+pio run
+pio run -t upload
+pio device monitor
+```
+
+The node refuses camera startup unless 8 MB PSRAM is detected at runtime. Every payload peripheral remains behind a disabled feature flag until its pin map is confirmed.
+
+## Required Verification Before Expansion
+
+- Confirm NanoKit #2 physically contains and detects 8 MB PSRAM before OV2640, audio, and microSD integration.
+- Confirm the selected 4-in-1 ESC accepts analogue 1000-2000 us PWM before motor testing.
+- Protect HC-SR04 ECHO with a divider or level shifter if the module outputs 5 V.
+- Verify BME280 and DPS310 addresses; separate them through TCA9548A when their configured addresses conflict.
+- Place each of the six VL53L1CX sensors on a separate TCA9548A channel because they share the same default address.
+
+## Documentation
 
 - [Architecture](docs/Architecture.md)
+- [Wi-Fi/WebSocket Protocol](docs/WiFi_WebSocket_Protocol.md)
+- [Sensor Integration](docs/Sensor_Integration.md)
+- [Camera and Audio Node](docs/Camera_Audio_Node.md)
 - [Wiring](docs/Wiring.md)
-- [Motor Layout](images/motor-layout.md)
-- [Calibration](docs/Calibration.md)
-- [PID Tuning](docs/PID_Tuning.md)
-- [Testing](docs/Testing.md)
 - [Safety](docs/Safety.md)
-- [System Diagram](images/system-diagram.md)
-- [Connection Diagram](images/connection-diagram.md)
-- [Control Loop Diagram](images/control-loop.md)
-- [Open-Source References](docs/Open_Source_References.md)
-- [Camera Integration](docs/Camera_Integration.md)
-- [Camera Wiring Diagram](images/camera-wiring.md)
+- [Calibration](docs/Calibration.md)
+- [Testing](docs/Testing.md)
+- [PID Tuning](docs/PID_Tuning.md)
+- [Bill of Materials](docs/Bill_of_Materials.md)
+
+## Development Credit
+
+**Developed by Amine Saoud ibn al-Bashir.**

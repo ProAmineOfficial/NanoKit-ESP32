@@ -3,157 +3,193 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#081117">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#080c0f">
+    <meta name="color-scheme" content="dark">
     <title>NanoKit Drone 4X Flight Deck</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="cockpit-shell">
-      <header class="command-header">
-        <div class="brand-lockup" aria-label="NanoKit Drone 4X Flight Deck">
-          <span class="brand-mark" aria-hidden="true">N4</span>
-          <div>
-            <p class="eyebrow">NanoKit Drone 4X</p>
-            <h1>Flight Deck</h1>
-          </div>
+    <main class="flight-deck" id="flightDeck">
+      <header class="topbar">
+        <a class="identity" href="#" aria-label="NanoKit Drone 4X Flight Deck home">
+          <span class="identity-mark">N4</span>
+          <span><small>NANOKIT DRONE 4X</small><strong>Flight Deck</strong></span>
+        </a>
+
+        <nav class="mode-switch" aria-label="Workspace mode">
+          <button class="mode-button active" type="button" data-view="standard">Flight</button>
+          <button class="mode-button" type="button" data-view="fpv">FPV</button>
+          <button class="mode-button" type="button" data-view="mission">Mission</button>
+          <button class="mode-button" type="button" data-view="camera">Camera</button>
+        </nav>
+
+        <div class="top-status" aria-label="Aircraft status">
+          <span class="status-item" title="WebSocket flight link"><i id="linkDot" class="status-dot critical"></i><span id="linkText">OFFLINE</span></span>
+          <span class="status-item" title="GNSS fix"><b>GNSS</b><span id="gnssTop">NO FIX</span></span>
+          <span class="status-item" title="Arming state"><b>STATE</b><span id="armTop">LOCKED</span></span>
+          <span class="status-item battery-top" title="Battery"><b>BAT</b><span id="batteryTop">--.- V</span></span>
+          <button id="connectButton" class="primary-action" type="button">Connect</button>
+          <button id="settingsButton" class="icon-action" type="button" title="Connection and camera settings" aria-label="Settings">&#9881;</button>
         </div>
-        <div class="header-status">
-          <span id="linkIndicator" class="link-indicator" aria-hidden="true"></span>
-          <span id="connectionStatus">Disconnected</span>
-          <strong id="deviceName">NanoKit-Drone-4X</strong>
-        </div>
-        <button id="settingsButton" class="icon-button" type="button" title="Camera stream settings" aria-label="Camera stream settings">&#9881;</button>
       </header>
 
-      <section class="connection-strip" aria-label="Flight link">
-        <div>
-          <span class="strip-label">Flight Link</span>
-          <strong id="linkState">Standby</strong>
-        </div>
-        <div class="connection-actions">
-          <button id="connectButton" class="command-button connect-button" type="button">Connect BLE</button>
-          <button id="disconnectButton" class="command-button disconnect-button" type="button" disabled>Disconnect</button>
-        </div>
+      <section id="alertBar" class="alert-bar warning" role="status" aria-live="polite">
+        <strong id="alertTitle">SYSTEM LOCKED</strong>
+        <span id="alertMessage">Connect to the NanoKit Wi-Fi network, then open the flight link.</span>
+        <button id="dismissAlert" type="button" title="Dismiss message" aria-label="Dismiss message">&#215;</button>
       </section>
 
-      <p id="messageLine" class="message-line" role="status">Flight controller is standing by.</p>
+      <section class="operations-shell">
+        <section class="video-stage" id="videoStage" aria-label="Forward camera and flight controls">
+          <div class="video-surface">
+            <img id="offlineReference" class="offline-reference" src="assets/nanokit-drone-4x-reference.png" alt="NanoKit Drone 4X reference quadcopter">
+            <img id="cameraFeed" class="camera-feed" alt="Live NanoKit Drone 4X camera stream" hidden>
+            <div class="video-shade" aria-hidden="true"></div>
+            <div class="engineering-grid" aria-hidden="true"></div>
+          </div>
 
-      <section class="cockpit-grid" aria-label="NanoKit flight controls">
-        <section class="instrument-rail" aria-label="Flight telemetry">
-          <div class="section-heading">
-            <span>Flight Data</span>
-            <small>IMU / BLE</small>
+          <div class="stage-label top-left">
+            <span id="cameraSignalDot" class="status-dot warning"></span>
+            <b id="cameraSignalText">CAMERA STANDBY</b>
+            <small id="cameraEndpointLabel">No stream endpoint</small>
           </div>
-          <div class="telemetry-grid">
-            <article class="telemetry-cell">
-              <span>Roll</span>
-              <strong id="rollValue">--</strong>
-            </article>
-            <article class="telemetry-cell">
-              <span>Pitch</span>
-              <strong id="pitchValue">--</strong>
-            </article>
-            <article class="telemetry-cell">
-              <span>Yaw</span>
-              <strong id="yawValue">--</strong>
-            </article>
-            <article class="telemetry-cell">
-              <span>Throttle</span>
-              <strong id="throttleValue">0</strong>
-            </article>
+          <div class="stage-label top-right">
+            <span>LINK</span><b id="latencyValue">-- ms</b>
+            <span>FLIGHT</span><b id="flightTimeValue">00:00</b>
           </div>
-          <div class="system-note">
-            <span class="system-note-dot" aria-hidden="true"></span>
-            <span id="calibrationState">IMU calibration required</span>
-          </div>
-        </section>
 
-        <section class="camera-console" aria-label="Camera preview">
-          <div class="section-heading camera-heading">
-            <div>
-              <span>Forward Camera</span>
-              <small id="cameraStatus">Awaiting camera endpoint</small>
+          <div class="heading-tape" aria-label="Compass heading">
+            <div class="heading-scale"><span>W</span><span>NW</span><span>N</span><span>NE</span><span>E</span></div>
+            <strong id="headingValue">---°</strong>
+          </div>
+
+          <aside class="hud-stack hud-left" aria-label="Attitude telemetry">
+            <div class="hud-readout"><span>ROLL</span><strong id="rollValue">--.-°</strong></div>
+            <div class="hud-readout"><span>PITCH</span><strong id="pitchValue">--.-°</strong></div>
+            <div class="hud-readout"><span>ALTITUDE</span><strong id="altitudeValue">--.- m</strong></div>
+            <div class="hud-readout"><span>GROUND SPEED</span><strong id="speedValue">--.- m/s</strong></div>
+          </aside>
+
+          <aside class="hud-stack hud-right" aria-label="Aircraft telemetry">
+            <div class="hud-readout"><span>VOLTAGE</span><strong id="voltageValue">--.- V</strong></div>
+            <div class="hud-readout"><span>CURRENT</span><strong id="currentValue">--.- A</strong></div>
+            <div class="hud-readout"><span>SATELLITES</span><strong id="satelliteValue">--</strong></div>
+            <div class="hud-readout"><span>COMMAND AGE</span><strong id="commandAgeValue">-- ms</strong></div>
+          </aside>
+
+          <div class="attitude-reticle" aria-hidden="true">
+            <span class="reticle-wing left"></span>
+            <span class="reticle-centre"></span>
+            <span class="reticle-wing right"></span>
+            <i></i>
+          </div>
+
+          <aside class="control-dock control-left" aria-label="Flight safety controls">
+            <div class="dock-title"><span>FLIGHT AUTHORITY</span><small id="safetyState">LOCKED</small></div>
+            <button id="armHoldButton" class="arm-hold" type="button" disabled>
+              <span class="arm-progress" aria-hidden="true"></span>
+              <b>HOLD TO ARM</b><small>1.5 seconds</small>
+            </button>
+            <div class="compact-actions">
+              <button id="disarmButton" type="button" disabled>Disarm</button>
+              <button id="returnHomeButton" type="button" disabled>Return Home</button>
             </div>
-            <span id="cameraLiveIndicator" class="camera-state">OFFLINE</span>
-          </div>
-          <div id="cameraFrame" class="camera-frame">
-            <img id="cameraPreview" alt="NanoKit Drone 4X camera stream" hidden>
-            <div id="cameraFallback" class="camera-fallback" aria-hidden="true">
-              <div class="reticle"></div>
-              <span>CAMERA LINK</span>
-              <small>Configure the Arducam Wi-Fi endpoint</small>
+            <div class="mode-actions" aria-label="Flight mode">
+              <button class="flight-mode active" type="button" data-flight-mode="MANUAL">Manual</button>
+              <button class="flight-mode" type="button" data-flight-mode="ALTITUDE_HOLD" disabled>Altitude</button>
+              <button class="flight-mode" type="button" data-flight-mode="POSITION_HOLD" disabled>Position</button>
             </div>
-            <div class="camera-overlay top-left">N4X / FRONT</div>
-            <div class="camera-overlay top-right" id="cameraResolution">NO SIGNAL</div>
-            <div class="camera-overlay bottom-left">BLE FLIGHT CONTROL ISOLATED</div>
-            <div class="camera-overlay bottom-right" id="cameraClock">--:--:--</div>
-          </div>
-          <div class="camera-actions">
-            <button id="loadCameraButton" class="command-button camera-button" type="button">Load Camera</button>
-            <button id="fullscreenCameraButton" class="command-button utility-button" type="button">Fullscreen</button>
+            <button id="calibrateImuButton" class="utility-action" type="button" disabled>Calibrate IMU</button>
+          </aside>
+
+          <aside class="control-dock control-right" aria-label="Camera and audio controls">
+            <div class="dock-title"><span>PAYLOAD</span><small id="payloadState">OFFLINE</small></div>
+            <div class="payload-actions">
+              <button id="snapshotButton" type="button" title="Capture image" disabled><span>&#9711;</span>Snapshot</button>
+              <button id="recordButton" type="button" title="Start or stop recording" disabled><span class="record-symbol"></span>Record</button>
+              <button id="audioButton" type="button" title="Toggle microphone monitor" disabled><span>&#9835;</span>Monitor</button>
+              <button id="speakerButton" type="button" title="Toggle speaker playback" disabled><span>&#9654;</span>Speaker</button>
+            </div>
+            <label class="servo-control" for="cameraTilt"><span>CAMERA TILT</span><output id="cameraTiltValue">0°</output></label>
+            <input id="cameraTilt" type="range" min="-45" max="45" value="0" step="1" disabled>
+            <button id="fullscreenButton" class="utility-action" type="button">Fullscreen FPV</button>
+          </aside>
+
+          <section class="stick-panel left-stick-panel" aria-label="Throttle and yaw control">
+            <header><b>THROTTLE / YAW</b><span id="leftStickReadout">T 0 · Y 0</span></header>
+            <div id="leftStick" class="stick-zone" role="application" aria-label="Throttle and yaw joystick" tabindex="0">
+              <span class="stick-axis horizontal"></span><span class="stick-axis vertical"></span>
+              <span id="leftStickKnob" class="stick-knob"></span>
+            </div>
+          </section>
+
+          <section class="stick-panel right-stick-panel" aria-label="Pitch and roll control">
+            <header><b>PITCH / ROLL</b><span id="rightStickReadout">P 0 · R 0</span></header>
+            <div id="rightStick" class="stick-zone" role="application" aria-label="Pitch and roll joystick" tabindex="0">
+              <span class="stick-axis horizontal"></span><span class="stick-axis vertical"></span>
+              <span id="rightStickKnob" class="stick-knob"></span>
+            </div>
+          </section>
+
+          <div class="stage-footer">
+            <span><b id="streamMode">REFERENCE VIEW</b><small id="frameInfo">Live video not loaded</small></span>
+            <span><b id="coordinateValue">--.-------, --.-------</b><small>POSITION</small></span>
+            <span><b id="sensorGateValue">IMU LOCK</b><small>SENSOR GATE</small></span>
           </div>
         </section>
 
-        <section class="control-rail" aria-label="Attitude and safety controls">
-          <div class="section-heading">
-            <span>Attitude Command</span>
-            <small>PITCH / ROLL</small>
-          </div>
-          <div class="direction-pad" aria-label="Pitch and roll commands">
-            <button class="direction-button forward" type="button" data-pitch="60" title="Forward pitch">&#x2303;<span>FWD</span></button>
-            <button class="direction-button left" type="button" data-roll="-60" title="Left roll">&#x2039;<span>LEFT</span></button>
-            <button id="holdButton" class="direction-button hold" type="button" title="Centre attitude commands">&#x27F3;<span>HOLD</span></button>
-            <button class="direction-button right" type="button" data-roll="60" title="Right roll">&#x203A;<span>RIGHT</span></button>
-            <button class="direction-button back" type="button" data-pitch="-60" title="Backward pitch">&#x2304;<span>BACK</span></button>
-          </div>
-          <div class="yaw-row">
-            <button class="command-button utility-button" type="button" data-yaw="-45">Yaw Left</button>
-            <button class="command-button utility-button" type="button" data-yaw="45">Yaw Right</button>
-          </div>
-          <div class="safety-actions">
-            <button id="armButton" class="command-button arm-button" type="button" disabled>Arm System</button>
-            <button id="calibrateButton" class="command-button utility-button" type="button" disabled>Calibrate IMU</button>
-            <button id="stopButton" class="command-button stop-button" type="button">Emergency Stop</button>
+        <section id="missionWorkspace" class="mission-workspace" hidden aria-label="Mission planner">
+          <header>
+            <div><span class="section-kicker">MISSION PLANNER</span><h2>Waypoint workspace</h2></div>
+            <div class="mission-actions">
+              <button id="saveMissionButton" type="button">Save JSON</button>
+              <button id="clearMissionButton" type="button">Clear</button>
+              <button id="uploadMissionButton" type="button" disabled>Upload Mission</button>
+            </div>
+          </header>
+          <div class="mission-layout">
+            <div id="missionMap" class="mission-map" aria-label="Local mission map. Click to add a waypoint">
+              <span class="map-home">H</span>
+              <svg id="missionPath" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"></svg>
+              <p>Click the engineering map to stage waypoints. Navigation remains locked until GNSS wiring and tests are complete.</p>
+            </div>
+            <ol id="waypointList" class="waypoint-list"><li class="empty-waypoints">No waypoints staged</li></ol>
           </div>
         </section>
       </section>
 
-      <section class="throttle-console" aria-label="Throttle control">
-        <div class="throttle-title">
-          <span>Throttle</span>
-          <strong id="throttleDisplay">0</strong>
-        </div>
-        <div id="throttleLevel" class="throttle-level">
-          <input id="throttleSlider" type="range" min="0" max="1000" value="0" step="10" aria-label="Throttle">
-        </div>
-        <div class="throttle-actions">
-          <button id="throttleDown" class="command-button utility-button" type="button">-50</button>
-          <button id="throttleZero" class="command-button utility-button" type="button">Zero</button>
-          <button id="throttleUp" class="command-button utility-button" type="button">+50</button>
-        </div>
+      <section class="telemetry-strip" aria-label="Live system summary">
+        <div><span>THROTTLE</span><strong id="throttleStrip">0%</strong><i class="meter"><b id="throttleMeter"></b></i></div>
+        <div><span>POWER</span><strong id="powerValue">--.- W</strong></div>
+        <div><span>MODE</span><strong id="modeValue">MANUAL</strong></div>
+        <div><span>OPTICAL FLOW</span><strong id="flowValue">OFFLINE</strong></div>
+        <div><span>OBSTACLE ARRAY</span><strong id="obstacleValue">OFFLINE</strong></div>
+        <div><span>TEMPERATURE</span><strong id="temperatureValue">--.-°C</strong></div>
+        <div><span>HUMIDITY</span><strong id="humidityValue">--%</strong></div>
+        <div class="log-cell"><span>EVENT</span><strong id="eventLog">Flight Deck ready</strong></div>
       </section>
 
-      <footer class="developer-credit">Developed by Amine Saoud ibn al-Bashir</footer>
+      <button id="emergencyButton" class="emergency-stop" type="button">
+        <span>STOP</span><b>EMERGENCY</b>
+      </button>
+
+      <footer class="credit">Developed by Amine Saoud ibn al-Bashir.</footer>
     </main>
 
-    <dialog id="cameraDialog" class="camera-dialog" aria-labelledby="cameraDialogTitle">
-      <form id="cameraForm" method="dialog">
-        <div class="dialog-heading">
-          <div>
-            <p class="eyebrow">Camera Node</p>
-            <h2 id="cameraDialogTitle">Camera Stream Endpoint</h2>
-          </div>
-          <button id="closeCameraSettings" class="icon-button" type="button" title="Close camera settings" aria-label="Close camera settings">&#215;</button>
-        </div>
-        <label for="cameraUrl">MJPEG or image URL</label>
-        <input id="cameraUrl" name="cameraUrl" type="url" inputmode="url" placeholder="http://nanokit-camera.local/stream" autocomplete="url">
-        <p>Use the URL served by the separate Arducam Wi-Fi camera node.</p>
-        <div class="dialog-actions">
-          <button id="cancelCameraSettings" class="command-button utility-button" type="button">Cancel</button>
-          <button class="command-button connect-button" type="submit">Save Endpoint</button>
-        </div>
+    <dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle">
+      <form id="settingsForm" method="dialog">
+        <header><div><span class="section-kicker">FLIGHT DECK CONFIGURATION</span><h2 id="settingsTitle">Links and endpoints</h2></div><button id="closeSettings" type="button" aria-label="Close settings">&#215;</button></header>
+        <label for="flightHost">Flight controller host</label>
+        <input id="flightHost" type="text" inputmode="url" placeholder="192.168.4.1">
+        <small>WebSocket uses port 81. The default NanoKit SoftAP address is 192.168.4.1.</small>
+        <label for="cameraUrl">Camera stream URL</label>
+        <input id="cameraUrl" type="url" inputmode="url" placeholder="http://nanokit-camera.local/stream">
+        <label for="cameraApiUrl">Camera API URL</label>
+        <input id="cameraApiUrl" type="url" inputmode="url" placeholder="http://nanokit-camera.local">
+        <small>The camera/audio node is observation-only and cannot control motors.</small>
+        <div class="dialog-actions"><button id="cancelSettings" type="button">Cancel</button><button class="primary-action" type="submit">Save Settings</button></div>
       </form>
     </dialog>
 

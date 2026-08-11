@@ -1,42 +1,46 @@
-# System Diagram - NanoKit Drone 4X (Quadcopter)
+# System Diagram - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
 ```mermaid
 flowchart LR
-  Browser(["NanoKit Flight Deck browser"]) -->|"BLE GATT control + telemetry"| NanoKit("NanoKit flight controller")
-  NanoKit -->|"I2C: GPIO21 SDA / GPIO22 SCL"| MPU("MPU6050 IMU")
-  NanoKit -->|"GPIO25 PWM"| ESC1("ESC M1")
-  NanoKit -->|"GPIO26 PWM"| ESC2("ESC M2")
-  NanoKit -->|"GPIO27 PWM"| ESC3("ESC M3")
-  NanoKit -->|"GPIO32 PWM"| ESC4("ESC M4")
-  ESC1 --> M1("M1 front-left CCW motor")
-  ESC2 --> M2("M2 front-right CW motor")
-  ESC3 --> M3("M3 rear-right CCW motor")
-  ESC4 --> M4("M4 rear-left CW motor")
-  LIPO{{"3S/4S LiPo"}} --> ESC1
-  LIPO --> ESC2
-  LIPO --> ESC3
-  LIPO --> ESC4
-  LIPO --> BEC{{"5 V BEC"}}
-  BEC --> NanoKit
-  Camera{{"Arducam Mega 5 MP"}} -->|"SPI"| CameraNode(["Separate ESP32 Wi-Fi camera node"])
-  CameraNode -->|"Wi-Fi MJPEG/image endpoint"| Browser
-  CameraNode -. "no motor authority" .-> NanoKit
+  Deck(["Flight Deck browser"])
+  Link(["Wi-Fi SoftAP + WebSocket v3"])
+  FC["NanoKit Flight Controller"]
+  IMU(["ICM-20948 - disabled TODO"])
+  Gate{"Safety gates valid?"}
+  Safe(["Failsafe - 1000 us"])
+  PWM[/"Analogue PWM - unconfirmed"/]
+  ESC1["ESC M1"]
+  ESC2["ESC M2"]
+  ESC3["ESC M3"]
+  ESC4["ESC M4"]
+  Payload(["Camera + audio node - isolated"])
 
-  classDef controller fill:#102936,stroke:#4dd4ff,stroke-width:2px,color:#f4fbff
-  classDef sensor fill:#282039,stroke:#b99bff,stroke-width:1.8px,color:#faf6ff
-  classDef communication fill:#123237,stroke:#42d4c5,stroke-width:1.8px,color:#f2fffd
-  classDef power fill:#183326,stroke:#7ccd91,stroke-width:1.8px,color:#f4fff6
-  classDef actuator fill:#37251a,stroke:#f0a560,stroke-width:1.8px,color:#fff8ef
-  classDef external fill:#28263a,stroke:#9ea9ff,stroke-width:1.8px,color:#f7f6ff
-  class NanoKit controller
-  class MPU sensor
-  class Browser,CameraNode communication
-  class LIPO,BEC power
-  class ESC1,ESC2,ESC3,ESC4,M1,M2,M3,M4 actuator
-  class Camera external
-  linkStyle default stroke:#7894a5,stroke-width:1.4px
+  Deck <-->|"commands + truthful telemetry"| Link
+  Link --> FC
+  IMU -. "GPIO21/22 bus only confirmed" .-> FC
+  FC --> Gate
+  Gate -->|"No"| Safe
+  Gate -->|"Yes, after hardware verification"| PWM
+  PWM -->|"GPIO25"| ESC1
+  PWM -->|"GPIO26"| ESC2
+  PWM -->|"GPIO27"| ESC3
+  PWM -->|"GPIO32"| ESC4
+  Payload -. "media/status only" .-> Deck
+
+  classDef controller fill:#10242d,stroke:#67d5ee,color:#eefaff,stroke-width:2px
+  classDef sensor fill:#221b34,stroke:#ad8cff,color:#f7f0ff
+  classDef communication fill:#0d2929,stroke:#4ed6c4,color:#edfffc
+  classDef actuator fill:#2e2116,stroke:#f0a24a,color:#fff6eb
+  classDef safety fill:#341919,stroke:#ee6666,color:#fff1f1
+  classDef condition fill:#302a16,stroke:#e7c653,color:#fffbe8
+  class FC controller
+  class IMU sensor
+  class Deck,Link,Payload communication
+  class PWM,ESC1,ESC2,ESC3,ESC4 actuator
+  class Safe safety
+  class Gate condition
 ```
 
-The optional front camera is a separate Wi-Fi observation node. It cannot bypass NanoKit, control motors, or share the flight-control timing path.
+The camera/audio node has no route to motor authority. The default ESC confirmation gate is false, so the only reachable motor result is the safe minimum.

@@ -1,45 +1,40 @@
-# Connection Diagram - NanoKit Drone 4X (Quadcopter)
+# Confirmed Connection Diagram - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
 ```mermaid
-flowchart TD
-  NK("NanoKit ESP32")
-  MPU("MPU6050")
-  E1("ESC M1 front-left")
-  E2("ESC M2 front-right")
-  E3("ESC M3 rear-right")
-  E4("ESC M4 rear-left")
-  BEC{{"Regulated 5 V BEC"}}
-  GND{{"Common ground"}}
+flowchart LR
+  NK["NanoKit Integrated ESP32"]
+  Bus(["Future verified 3.3 V I2C devices"])
+  M1[/"M1 signal"/]
+  M2[/"M2 signal"/]
+  M3[/"M3 signal"/]
+  M4[/"M4 signal"/]
+  Gate{"Exact ESC accepts 1000-2000 us?"}
+  Safe(["Default: outputs held at 1000 us"])
 
-  NK -->|"Pin 23 / GPIO21 SDA"| MPU
-  NK -->|"Pin 18 / GPIO22 SCL"| MPU
-  NK -->|"Pin 3 / GPIO25 signal"| E1
-  NK -->|"Pin 37 / GPIO26 signal"| E2
-  NK -->|"Pin 19 / GPIO27 signal"| E3
-  NK -->|"Pin 7 / GPIO32 signal"| E4
-  BEC -->|"regulated 5 V"| NK
-  NK -->|"3.3 V only"| MPU
-  GND --- NK
-  GND --- MPU
-  GND --- E1
-  GND --- E2
-  GND --- E3
-  GND --- E4
-  GND --- BEC
+  NK -->|"GPIO21 SDA"| Bus
+  NK -->|"GPIO22 SCL"| Bus
+  NK -->|"GPIO25"| M1
+  NK -->|"GPIO26"| M2
+  NK -->|"GPIO27"| M3
+  NK -->|"GPIO32"| M4
+  M1 --> Gate
+  M2 --> Gate
+  M3 --> Gate
+  M4 --> Gate
+  Gate -->|"Not yet confirmed"| Safe
 
-  classDef controller fill:#102936,stroke:#4dd4ff,stroke-width:2px,color:#f4fbff
-  classDef sensor fill:#282039,stroke:#b99bff,stroke-width:1.8px,color:#faf6ff
-  classDef actuator fill:#37251a,stroke:#f0a560,stroke-width:1.8px,color:#fff8ef
-  classDef power fill:#183326,stroke:#7ccd91,stroke-width:1.8px,color:#f4fff6
+  classDef controller fill:#10242d,stroke:#67d5ee,color:#eefaff,stroke-width:2px
+  classDef bus fill:#221b34,stroke:#ad8cff,color:#f7f0ff
+  classDef actuator fill:#2e2116,stroke:#f0a24a,color:#fff6eb
+  classDef condition fill:#302a16,stroke:#e7c653,color:#fffbe8
+  classDef safety fill:#341919,stroke:#ee6666,color:#fff1f1
   class NK controller
-  class MPU sensor
-  class E1,E2,E3,E4 actuator
-  class BEC,GND power
-  linkStyle default stroke:#7894a5,stroke-width:1.4px
+  class Bus bus
+  class M1,M2,M3,M4 actuator
+  class Gate condition
+  class Safe safety
 ```
 
-ESC power leads go directly to the LiPo power-distribution path, not through NanoKit. Connect at least one ESC/BEC ground to NanoKit ground so PWM signals have a shared electrical reference.
-
-The Arducam Mega camera wiring is intentionally documented separately in [camera-wiring.md](camera-wiring.md), because it belongs to the independent camera node rather than the flight controller.
+No camera, audio, SD, servo, GNSS, optical-flow, ultrasonic, LED, buzzer, or sensor-specific pin is confirmed by this diagram.

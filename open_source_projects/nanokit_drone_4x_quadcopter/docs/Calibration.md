@@ -1,29 +1,24 @@
-# Calibration - NanoKit Drone 4X (Quadcopter)
+# Calibration - NanoKit Drone 4X
 
 **Developed by Amine Saoud ibn al-Bashir.**
 
-## 1. Frame And IMU Alignment
+## Current Status
 
-Place the Quad-X frame on a known flat surface with the nose pointing forward. The MPU6050 must be rigid and have the same forward/right/up axes as the aircraft. If it is rotated, update the sensor-axis mapping before enabling motors; PID tuning cannot compensate for a wrongly mapped IMU.
+The ICM-20948 driver and pin-level integration are intentionally disabled. The Calibration button may send a protocol command, but firmware must not claim success until a real healthy sensor produces stable samples. This revision therefore remains calibration-locked.
 
-## 2. IMU Level Calibration
+## Future IMU Procedure
 
-1. Remove propellers and keep the LiPo disconnected until PWM checks are complete.
-2. Flash the firmware, open the serial monitor at 115200 baud, and place the frame level and motionless.
-3. At boot, allow the initial calibration to finish. The console must report `Calibration complete`.
-4. To recalibrate later, send `CALIBRATE_IMU` in the serial monitor or press **Calibrate IMU** in the BLE controller while disarmed.
-5. Confirm roll and pitch telemetry is close to 0 degrees on the level surface, then tilt the frame by hand and verify the changing axis is correct.
+1. Remove propellers and disconnect ESC power.
+2. Mount the verified IMU rigidly and document its forward/right/up axes.
+3. Place the frame level and motionless on a stable surface.
+4. Confirm continuous real accelerometer and gyroscope data.
+5. Request calibration while disarmed.
+6. Reject calibration if samples move, saturate, time out, or fail plausibility limits.
+7. Store offsets only after repeatable validation.
+8. Rotate the frame by known angles and compare the reported axes before any mixer test.
 
-The firmware averages 700 samples to estimate gyro drift and level offsets. It does not save these values to flash yet; recalibrate after changing the IMU mount or frame geometry.
+Magnetometer calibration requires a separate hard/soft-iron procedure after the final electrical and mechanical assembly. It must not be performed near high-current wires, motors, steel tools, or magnets.
 
-## 3. ESC Endpoint Calibration
+## ESC Calibration
 
-ESC endpoint calibration is manufacturer specific and can spin motors unexpectedly if attempted incorrectly. Use the ESC manual and perform this operation only with propellers removed, an accessible battery disconnect, and an experienced spotter. The normal flight firmware must remain in its safe 1000 us boot state during all ordinary development.
-
-## 4. Motor Direction
-
-With propellers removed, briefly test each motor at the minimum practical throttle. Verify the exact M1/M2/M3/M4 location and rotation in [Motor Layout](../images/motor-layout.md). Reverse any brushless motor direction by swapping any two of its three motor wires, then retest.
-
-## 5. Mixer Sign Check
-
-Hold the frame securely with props removed and command a small roll, pitch, or yaw correction. The pair of motors that would oppose the measured disturbance must increase relative to the opposite pair. If not, stop and correct the IMU axis orientation or the documented mixer signs before any tethered test.
+Endpoint calibration is manufacturer-specific and can start motors unexpectedly. First prove that the exact 4-in-1 ESC supports analogue 1000-2000 us PWM. Follow its manufacturer procedure with propellers removed and an immediate power disconnect. Do not add an automatic high-throttle calibration routine to the normal flight firmware.
