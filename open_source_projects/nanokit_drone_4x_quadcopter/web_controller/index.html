@@ -1,223 +1,256 @@
+<!--
+  Project: NanoKit Drone 4X
+  Component: Flight Deck Web Interface
+  File: index.html
+
+  This file is part of the NanoKit Drone 4X open-source project.
+
+  Description:
+  Defines the HTML structure of the NanoKit Flight Deck, including flight
+  controls, telemetry panels, status indicators, camera-view areas, and
+  navigation sections.
+
+  Developed by Amine Saoud ibn al-Bashir
+  Pro_Amine LLC
+  Official website: https://proamine.tech
+
+  Repository: NanoKit-ESP32
+  License: Apache License 2.0
+-->
+
 <!doctype html>
-<!-- Developed by Amine Saoud ibn al-Bashir. -->
+ <!-- Declare the modern HTML document type used by the Flight Deck. -->
 <html lang="en">
-  <head>
-    <!-- These metadata values make the control deck responsive and keep the browser UI dark. -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#080c0f">
-    <meta name="color-scheme" content="dark">
-    <title>NanoKit Drone 4X Flight Deck</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <!-- This main element contains the complete browser-based flight-control workspace. -->
+ <!-- Developed by Amine Saoud ibn al-Bashir. -->
+<head>
+    <!-- Open the document metadata section. -->
+    <meta charset="utf-8"> <!-- These metadata values make the control deck responsive and keep the browser UI dark. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <!-- Configure browser metadata for the responsive Flight Deck. -->
+    <meta name="theme-color" content="#080c0f"> <!-- Configure browser metadata for the responsive Flight Deck. -->
+    <meta name="color-scheme" content="dark"> <!-- Configure browser metadata for the responsive Flight Deck. -->
+    <title>NanoKit Drone 4X Flight Deck</title> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+    <link rel="manifest" href="manifest.json"> <!-- Load this browser resource required by the Flight Deck. -->
+    <link rel="stylesheet" href="styles.css"> <!-- Load this browser resource required by the Flight Deck. -->
+</head> <!-- Close the current Flight Deck markup element. -->
+<body>
+    <!-- Open the browser-visible Flight Deck content. -->
     <main class="flight-deck" id="flightDeck">
-      <!-- The top bar keeps identity, workspace modes, link status, and global actions together. -->
-      <header class="topbar">
-        <!-- The identity link gives the operator a stable home target and accessible product name. -->
-        <a class="identity" href="#" aria-label="NanoKit Drone 4X Flight Deck home">
-          <span class="identity-mark">N4</span>
-          <span><small>NANOKIT DRONE 4X</small><strong>Flight Deck</strong></span>
-        </a>
+        <!-- This main element contains the complete browser-based flight-control workspace. -->
+        <header class="topbar">
+            <!-- The top bar keeps identity, workspace modes, link status, and global actions together. -->
+            <a class="identity" href="#" aria-label="NanoKit Drone 4X Flight Deck home">
+                <!-- The identity link gives the operator a stable home target and accessible product name. -->
+                <span class="identity-mark">N4</span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                <span><small>NANOKIT DRONE 4X</small><strong>Flight Deck</strong></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            </a> <!-- Close the current Flight Deck markup element. -->
 
-        <!-- These buttons switch the visible workspace without changing the flight connection. -->
-        <nav class="mode-switch" aria-label="Workspace mode">
-          <button class="mode-button active" type="button" data-view="standard">Flight</button>
-          <button class="mode-button" type="button" data-view="fpv">FPV</button>
-          <button class="mode-button" type="button" data-view="mission">Mission</button>
-          <button class="mode-button" type="button" data-view="camera">Camera</button>
-        </nav>
+            <nav class="mode-switch" aria-label="Workspace mode">
+                <!-- These buttons switch the visible workspace without changing the flight connection. -->
+                <button class="mode-button active" type="button" data-view="standard">Flight</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                <button class="mode-button" type="button" data-view="fpv">FPV</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                <button class="mode-button" type="button" data-view="mission">Mission</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                <button class="mode-button" type="button" data-view="camera">Camera</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            </nav> <!-- Close the current Flight Deck markup element. -->
 
-        <!-- This compact status group reports the safety-critical state before the operator acts. -->
-        <div class="top-status" aria-label="Aircraft status">
-          <span class="status-item" title="WebSocket flight link"><i id="linkDot" class="status-dot critical"></i><span id="linkText">OFFLINE</span></span>
-          <span class="status-item" title="GNSS fix"><b>GNSS</b><span id="gnssTop">NO FIX</span></span>
-          <span class="status-item" title="Arming state"><b>STATE</b><span id="armTop">LOCKED</span></span>
-          <span class="status-item battery-top" title="Battery"><b>BAT</b><span id="batteryTop">--.- V</span></span>
-          <button id="connectButton" class="primary-action" type="button">Connect</button>
-          <button id="settingsButton" class="icon-action" type="button" title="Connection and camera settings" aria-label="Settings">&#9881;</button>
-        </div>
-      </header>
+            <div class="top-status" aria-label="Aircraft status">
+                <!-- This compact status group reports the safety-critical state before the operator acts. -->
+                <span class="status-item" title="WebSocket flight link"><i id="linkDot" class="status-dot critical"></i><span id="linkText">OFFLINE</span></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                <span class="status-item" title="GNSS fix"><b>GNSS</b><span id="gnssTop">NO FIX</span></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                <span class="status-item" title="Arming state"><b>STATE</b><span id="armTop">LOCKED</span></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                <span class="status-item battery-top" title="Battery"><b>BAT</b><span id="batteryTop">--.- V</span></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                <button id="connectButton" class="primary-action" type="button">Connect</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                <button id="settingsButton" class="icon-action" type="button" title="Connection and camera settings" aria-label="Settings">&#9881;</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            </div> <!-- Close the current Flight Deck markup element. -->
+        </header> <!-- Close the current Flight Deck markup element. -->
 
-      <!-- The live status region announces warnings and connection guidance to visual and assistive clients. -->
-      <section id="alertBar" class="alert-bar warning" role="status" aria-live="polite">
-        <strong id="alertTitle">SYSTEM LOCKED</strong>
-        <span id="alertMessage">Connect to the NanoKit Wi-Fi network, then open the flight link.</span>
-        <button id="dismissAlert" type="button" title="Dismiss message" aria-label="Dismiss message">&#215;</button>
-      </section>
+        <section id="alertBar" class="alert-bar warning" role="status" aria-live="polite">
+            <!-- The live status region announces warnings and connection guidance to visual and assistive clients. -->
+            <strong id="alertTitle">SYSTEM LOCKED</strong> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <span id="alertMessage">Connect to the NanoKit Wi-Fi network, then open the flight link.</span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <button id="dismissAlert" type="button" title="Dismiss message" aria-label="Dismiss message">&#215;</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+        </section> <!-- Close the current Flight Deck markup element. -->
 
-      <!-- The operations shell holds the live flight stage and the optional mission planner. -->
-      <section class="operations-shell">
-        <!-- The video stage combines the camera view, telemetry overlays, and direct controls. -->
-        <section class="video-stage" id="videoStage" aria-label="Forward camera and flight controls">
-          <!-- The video surface shows either the safe reference image or the configured live stream. -->
-          <div class="video-surface">
-            <img id="offlineReference" class="offline-reference" src="assets/nanokit-drone-4x-reference.png" alt="NanoKit Drone 4X reference quadcopter">
-            <img id="cameraFeed" class="camera-feed" alt="Live NanoKit Drone 4X camera stream" hidden>
-            <div class="video-shade" aria-hidden="true"></div>
-            <div class="engineering-grid" aria-hidden="true"></div>
-          </div>
+        <section class="operations-shell">
+            <!-- The operations shell holds the live flight stage and the optional mission planner. -->
+            <section class="video-stage" id="videoStage" aria-label="Forward camera and flight controls">
+                <!-- The video stage combines the camera view, telemetry overlays, and direct controls. -->
+                <div class="video-surface">
+                    <!-- The video surface shows either the safe reference image or the configured live stream. -->
+                    <img id="offlineReference" class="offline-reference" src="assets/nanokit-drone-4x-reference.png" alt="NanoKit Drone 4X reference quadcopter"> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <img id="cameraFeed" class="camera-feed" alt="Live NanoKit Drone 4X camera stream" hidden> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="video-shade" aria-hidden="true"></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="engineering-grid" aria-hidden="true"></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </div> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- These corner labels expose camera availability, link latency, and elapsed flight time. -->
-          <div class="stage-label top-left">
-            <span id="cameraSignalDot" class="status-dot warning"></span>
-            <b id="cameraSignalText">CAMERA STANDBY</b>
-            <small id="cameraEndpointLabel">No stream endpoint</small>
-          </div>
-          <div class="stage-label top-right">
-            <span>LINK</span><b id="latencyValue">-- ms</b>
-            <span>FLIGHT</span><b id="flightTimeValue">00:00</b>
-          </div>
+                <div class="stage-label top-left">
+                    <!-- These corner labels expose camera availability, link latency, and elapsed flight time. -->
+                    <span id="cameraSignalDot" class="status-dot warning"></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <b id="cameraSignalText">CAMERA STANDBY</b> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <small id="cameraEndpointLabel">No stream endpoint</small> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </div> <!-- Close the current Flight Deck markup element. -->
+                <div class="stage-label top-right">
+                    <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <span>LINK</span><b id="latencyValue">-- ms</b> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <span>FLIGHT</span><b id="flightTimeValue">00:00</b> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </div> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- The heading tape provides a quick compass reference from valid telemetry. -->
-          <div class="heading-tape" aria-label="Compass heading">
-            <div class="heading-scale"><span>W</span><span>NW</span><span>N</span><span>NE</span><span>E</span></div>
-            <strong id="headingValue">---°</strong>
-          </div>
+                <div class="heading-tape" aria-label="Compass heading">
+                    <!-- The heading tape provides a quick compass reference from valid telemetry. -->
+                    <div class="heading-scale"><span>W</span><span>NW</span><span>N</span><span>NE</span><span>E</span></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <strong id="headingValue">---Â°</strong> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </div> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- The left HUD groups attitude and motion values used for spatial awareness. -->
-          <aside class="hud-stack hud-left" aria-label="Attitude telemetry">
-            <div class="hud-readout"><span>ROLL</span><strong id="rollValue">--.-°</strong></div>
-            <div class="hud-readout"><span>PITCH</span><strong id="pitchValue">--.-°</strong></div>
-            <div class="hud-readout"><span>ALTITUDE</span><strong id="altitudeValue">--.- m</strong></div>
-            <div class="hud-readout"><span>GROUND SPEED</span><strong id="speedValue">--.- m/s</strong></div>
-          </aside>
+                <aside class="hud-stack hud-left" aria-label="Attitude telemetry">
+                    <!-- The left HUD groups attitude and motion values used for spatial awareness. -->
+                    <div class="hud-readout"><span>ROLL</span><strong id="rollValue">--.-Â°</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="hud-readout"><span>PITCH</span><strong id="pitchValue">--.-Â°</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="hud-readout"><span>ALTITUDE</span><strong id="altitudeValue">--.- m</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="hud-readout"><span>GROUND SPEED</span><strong id="speedValue">--.- m/s</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </aside> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- The right HUD groups electrical, GNSS, and command-health values. -->
-          <aside class="hud-stack hud-right" aria-label="Aircraft telemetry">
-            <div class="hud-readout"><span>VOLTAGE</span><strong id="voltageValue">--.- V</strong></div>
-            <div class="hud-readout"><span>CURRENT</span><strong id="currentValue">--.- A</strong></div>
-            <div class="hud-readout"><span>SATELLITES</span><strong id="satelliteValue">--</strong></div>
-            <div class="hud-readout"><span>COMMAND AGE</span><strong id="commandAgeValue">-- ms</strong></div>
-          </aside>
+                <aside class="hud-stack hud-right" aria-label="Aircraft telemetry">
+                    <!-- The right HUD groups electrical, GNSS, and command-health values. -->
+                    <div class="hud-readout"><span>VOLTAGE</span><strong id="voltageValue">--.- V</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="hud-readout"><span>CURRENT</span><strong id="currentValue">--.- A</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="hud-readout"><span>SATELLITES</span><strong id="satelliteValue">--</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="hud-readout"><span>COMMAND AGE</span><strong id="commandAgeValue">-- ms</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </aside> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- The decorative reticle provides a fixed visual centre over the camera feed. -->
-          <div class="attitude-reticle" aria-hidden="true">
-            <span class="reticle-wing left"></span>
-            <span class="reticle-centre"></span>
-            <span class="reticle-wing right"></span>
-            <i></i>
-          </div>
+                <div class="attitude-reticle" aria-hidden="true">
+                    <!-- The decorative reticle provides a fixed visual centre over the camera feed. -->
+                    <span class="reticle-wing left"></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <span class="reticle-centre"></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <span class="reticle-wing right"></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <i></i> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </div> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- The flight-authority dock keeps arming and safety actions separate from payload controls. -->
-          <aside class="control-dock control-left" aria-label="Flight safety controls">
-            <div class="dock-title"><span>FLIGHT AUTHORITY</span><small id="safetyState">LOCKED</small></div>
-            <button id="armHoldButton" class="arm-hold" type="button" disabled>
-              <span class="arm-progress" aria-hidden="true"></span>
-              <b>HOLD TO ARM</b><small>1.5 seconds</small>
-            </button>
-            <div class="compact-actions">
-              <button id="disarmButton" type="button" disabled>Disarm</button>
-              <button id="returnHomeButton" type="button" disabled>Return Home</button>
-            </div>
-            <div class="mode-actions" aria-label="Flight mode">
-              <button class="flight-mode active" type="button" data-flight-mode="MANUAL">Manual</button>
-              <button class="flight-mode" type="button" data-flight-mode="ALTITUDE_HOLD" disabled>Altitude</button>
-              <button class="flight-mode" type="button" data-flight-mode="POSITION_HOLD" disabled>Position</button>
-            </div>
-            <button id="calibrateImuButton" class="utility-action" type="button" disabled>Calibrate IMU</button>
-          </aside>
+                <aside class="control-dock control-left" aria-label="Flight safety controls">
+                    <!-- The flight-authority dock keeps arming and safety actions separate from payload controls. -->
+                    <div class="dock-title"><span>FLIGHT AUTHORITY</span><small id="safetyState">LOCKED</small></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <button id="armHoldButton" class="arm-hold" type="button" disabled>
+                        <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <span class="arm-progress" aria-hidden="true"></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <b>HOLD TO ARM</b><small>1.5 seconds</small> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    </button> <!-- Close the current Flight Deck markup element. -->
+                    <div class="compact-actions">
+                        <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button id="disarmButton" type="button" disabled>Disarm</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button id="returnHomeButton" type="button" disabled>Return Home</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    </div> <!-- Close the current Flight Deck markup element. -->
+                    <div class="mode-actions" aria-label="Flight mode">
+                        <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button class="flight-mode active" type="button" data-flight-mode="MANUAL">Manual</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button class="flight-mode" type="button" data-flight-mode="ALTITUDE_HOLD" disabled>Altitude</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button class="flight-mode" type="button" data-flight-mode="POSITION_HOLD" disabled>Position</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    </div> <!-- Close the current Flight Deck markup element. -->
+                    <button id="calibrateImuButton" class="utility-action" type="button" disabled>Calibrate IMU</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </aside> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- The payload dock controls the isolated camera/audio node and cannot command motors. -->
-          <aside class="control-dock control-right" aria-label="Camera and audio controls">
-            <div class="dock-title"><span>PAYLOAD</span><small id="payloadState">OFFLINE</small></div>
-            <div class="payload-actions">
-              <button id="snapshotButton" type="button" title="Capture image" disabled><span>&#9711;</span>Snapshot</button>
-              <button id="recordButton" type="button" title="Start or stop recording" disabled><span class="record-symbol"></span>Record</button>
-              <button id="audioButton" type="button" title="Toggle microphone monitor" disabled><span>&#9835;</span>Monitor</button>
-              <button id="speakerButton" type="button" title="Toggle speaker playback" disabled><span>&#9654;</span>Speaker</button>
-            </div>
-            <label class="servo-control" for="cameraTilt"><span>CAMERA TILT</span><output id="cameraTiltValue">0°</output></label>
-            <input id="cameraTilt" type="range" min="-45" max="45" value="0" step="1" disabled>
-            <button id="fullscreenButton" class="utility-action" type="button">Fullscreen FPV</button>
-          </aside>
+                <aside class="control-dock control-right" aria-label="Camera and audio controls">
+                    <!-- The payload dock controls the isolated camera/audio node and cannot command motors. -->
+                    <div class="dock-title"><span>PAYLOAD</span><small id="payloadState">OFFLINE</small></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="payload-actions">
+                        <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button id="snapshotButton" type="button" title="Capture image" disabled><span>&#9711;</span>Snapshot</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button id="recordButton" type="button" title="Start or stop recording" disabled><span class="record-symbol"></span>Record</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button id="audioButton" type="button" title="Toggle microphone monitor" disabled><span>&#9835;</span>Monitor</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button id="speakerButton" type="button" title="Toggle speaker playback" disabled><span>&#9654;</span>Speaker</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    </div> <!-- Close the current Flight Deck markup element. -->
+                    <label class="servo-control" for="cameraTilt"><span>CAMERA TILT</span><output id="cameraTiltValue">0Â°</output></label> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <input id="cameraTilt" type="range" min="-45" max="45" value="0" step="1" disabled> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <button id="fullscreenButton" class="utility-action" type="button">Fullscreen FPV</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </aside> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- The left virtual stick maps operator input to throttle and yaw commands. -->
-          <section class="stick-panel left-stick-panel" aria-label="Throttle and yaw control">
-            <header><b>THROTTLE / YAW</b><span id="leftStickReadout">T 0 · Y 0</span></header>
-            <div id="leftStick" class="stick-zone" role="application" aria-label="Throttle and yaw joystick" tabindex="0">
-              <span class="stick-axis horizontal"></span><span class="stick-axis vertical"></span>
-              <span id="leftStickKnob" class="stick-knob"></span>
-            </div>
-          </section>
+                <section class="stick-panel left-stick-panel" aria-label="Throttle and yaw control">
+                    <!-- The left virtual stick maps operator input to throttle and yaw commands. -->
+                    <header><b>THROTTLE / YAW</b><span id="leftStickReadout">T 0 Â· Y 0</span></header> <!-- Open the document metadata section. -->
+                    <div id="leftStick" class="stick-zone" role="application" aria-label="Throttle and yaw joystick" tabindex="0">
+                        <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <span class="stick-axis horizontal"></span><span class="stick-axis vertical"></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <span id="leftStickKnob" class="stick-knob"></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    </div> <!-- Close the current Flight Deck markup element. -->
+                </section> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- The right virtual stick maps operator input to pitch and roll commands. -->
-          <section class="stick-panel right-stick-panel" aria-label="Pitch and roll control">
-            <header><b>PITCH / ROLL</b><span id="rightStickReadout">P 0 · R 0</span></header>
-            <div id="rightStick" class="stick-zone" role="application" aria-label="Pitch and roll joystick" tabindex="0">
-              <span class="stick-axis horizontal"></span><span class="stick-axis vertical"></span>
-              <span id="rightStickKnob" class="stick-knob"></span>
-            </div>
-          </section>
+                <section class="stick-panel right-stick-panel" aria-label="Pitch and roll control">
+                    <!-- The right virtual stick maps operator input to pitch and roll commands. -->
+                    <header><b>PITCH / ROLL</b><span id="rightStickReadout">P 0 Â· R 0</span></header> <!-- Open the document metadata section. -->
+                    <div id="rightStick" class="stick-zone" role="application" aria-label="Pitch and roll joystick" tabindex="0">
+                        <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <span class="stick-axis horizontal"></span><span class="stick-axis vertical"></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <span id="rightStickKnob" class="stick-knob"></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    </div> <!-- Close the current Flight Deck markup element. -->
+                </section> <!-- Close the current Flight Deck markup element. -->
 
-          <!-- The stage footer summarizes stream, position, and sensor-gate state at a glance. -->
-          <div class="stage-footer">
-            <span><b id="streamMode">REFERENCE VIEW</b><small id="frameInfo">Live video not loaded</small></span>
-            <span><b id="coordinateValue">--.-------, --.-------</b><small>POSITION</small></span>
-            <span><b id="sensorGateValue">IMU LOCK</b><small>SENSOR GATE</small></span>
-          </div>
-        </section>
+                <div class="stage-footer">
+                    <!-- The stage footer summarizes stream, position, and sensor-gate state at a glance. -->
+                    <span><b id="streamMode">REFERENCE VIEW</b><small id="frameInfo">Live video not loaded</small></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <span><b id="coordinateValue">--.-------, --.-------</b><small>POSITION</small></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <span><b id="sensorGateValue">IMU LOCK</b><small>SENSOR GATE</small></span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </div> <!-- Close the current Flight Deck markup element. -->
+            </section> <!-- Close the current Flight Deck markup element. -->
 
-        <!-- The mission planner stages waypoints locally while unconfirmed navigation remains locked. -->
-        <section id="missionWorkspace" class="mission-workspace" hidden aria-label="Mission planner">
-          <header>
-            <div><span class="section-kicker">MISSION PLANNER</span><h2>Waypoint workspace</h2></div>
-            <div class="mission-actions">
-              <button id="saveMissionButton" type="button">Save JSON</button>
-              <button id="clearMissionButton" type="button">Clear</button>
-              <button id="uploadMissionButton" type="button" disabled>Upload Mission</button>
-            </div>
-          </header>
-          <div class="mission-layout">
-            <div id="missionMap" class="mission-map" aria-label="Local mission map. Click to add a waypoint">
-              <span class="map-home">H</span>
-              <svg id="missionPath" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"></svg>
-              <p>Click the engineering map to stage waypoints. Navigation remains locked until GNSS wiring and tests are complete.</p>
-            </div>
-            <ol id="waypointList" class="waypoint-list"><li class="empty-waypoints">No waypoints staged</li></ol>
-          </div>
-        </section>
-      </section>
+            <section id="missionWorkspace" class="mission-workspace" hidden aria-label="Mission planner">
+                <!-- The mission planner stages waypoints locally while unconfirmed navigation remains locked. -->
+                <header>
+                    <!-- Open the document metadata section. -->
+                    <div><span class="section-kicker">MISSION PLANNER</span><h2>Waypoint workspace</h2></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div class="mission-actions">
+                        <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button id="saveMissionButton" type="button">Save JSON</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button id="clearMissionButton" type="button">Clear</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <button id="uploadMissionButton" type="button" disabled>Upload Mission</button> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    </div> <!-- Close the current Flight Deck markup element. -->
+                </header> <!-- Close the current Flight Deck markup element. -->
+                <div class="mission-layout">
+                    <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    <div id="missionMap" class="mission-map" aria-label="Local mission map. Click to add a waypoint">
+                        <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <span class="map-home">H</span> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <svg id="missionPath" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"></svg> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                        <p>Click the engineering map to stage waypoints. Navigation remains locked until GNSS wiring and tests are complete.</p> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                    </div> <!-- Close the current Flight Deck markup element. -->
+                    <ol id="waypointList" class="waypoint-list"><li class="empty-waypoints">No waypoints staged</li></ol> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+                </div> <!-- Close the current Flight Deck markup element. -->
+            </section> <!-- Close the current Flight Deck markup element. -->
+        </section> <!-- Close the current Flight Deck markup element. -->
 
-      <!-- This strip presents the most important system values in a single scan line. -->
-      <section class="telemetry-strip" aria-label="Live system summary">
-        <div><span>THROTTLE</span><strong id="throttleStrip">0%</strong><i class="meter"><b id="throttleMeter"></b></i></div>
-        <div><span>POWER</span><strong id="powerValue">--.- W</strong></div>
-        <div><span>MODE</span><strong id="modeValue">MANUAL</strong></div>
-        <div><span>OPTICAL FLOW</span><strong id="flowValue">OFFLINE</strong></div>
-        <div><span>OBSTACLE ARRAY</span><strong id="obstacleValue">OFFLINE</strong></div>
-        <div><span>TEMPERATURE</span><strong id="temperatureValue">--.-°C</strong></div>
-        <div><span>HUMIDITY</span><strong id="humidityValue">--%</strong></div>
-        <div class="log-cell"><span>EVENT</span><strong id="eventLog">Flight Deck ready</strong></div>
-      </section>
+        <section class="telemetry-strip" aria-label="Live system summary">
+            <!-- This strip presents the most important system values in a single scan line. -->
+            <div><span>THROTTLE</span><strong id="throttleStrip">0%</strong><i class="meter"><b id="throttleMeter"></b></i></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <div><span>POWER</span><strong id="powerValue">--.- W</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <div><span>MODE</span><strong id="modeValue">MANUAL</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <div><span>OPTICAL FLOW</span><strong id="flowValue">OFFLINE</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <div><span>OBSTACLE ARRAY</span><strong id="obstacleValue">OFFLINE</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <div><span>TEMPERATURE</span><strong id="temperatureValue">--.-Â°C</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <div><span>HUMIDITY</span><strong id="humidityValue">--%</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <div class="log-cell"><span>EVENT</span><strong id="eventLog">Flight Deck ready</strong></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+        </section> <!-- Close the current Flight Deck markup element. -->
 
-      <!-- The emergency control remains visually isolated so it is easy to find immediately. -->
-      <button id="emergencyButton" class="emergency-stop" type="button">
-        <span>STOP</span><b>EMERGENCY</b>
-      </button>
+        <button id="emergencyButton" class="emergency-stop" type="button">
+            <!-- The emergency control remains visually isolated so it is easy to find immediately. -->
+            <span>STOP</span><b>EMERGENCY</b> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+        </button> <!-- Close the current Flight Deck markup element. -->
 
-      <footer class="credit">Developed by Amine Saoud ibn al-Bashir.</footer>
-    </main>
+        <footer class="credit">Developed by Amine Saoud ibn al-Bashir.</footer> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+    </main> <!-- Close the current Flight Deck markup element. -->
 
-    <!-- This modal stores flight and camera endpoints without exposing motor authority to the camera node. -->
     <dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle">
-      <form id="settingsForm" method="dialog">
-        <header><div><span class="section-kicker">FLIGHT DECK CONFIGURATION</span><h2 id="settingsTitle">Links and endpoints</h2></div><button id="closeSettings" type="button" aria-label="Close settings">&#215;</button></header>
-        <label for="flightHost">Flight controller host</label>
-        <input id="flightHost" type="text" inputmode="url" placeholder="192.168.4.1">
-        <small>WebSocket uses port 81. The default NanoKit SoftAP address is 192.168.4.1.</small>
-        <label for="cameraUrl">Camera stream URL</label>
-        <input id="cameraUrl" type="url" inputmode="url" placeholder="http://nanokit-camera.local/stream">
-        <label for="cameraApiUrl">Camera API URL</label>
-        <input id="cameraApiUrl" type="url" inputmode="url" placeholder="http://nanokit-camera.local">
-        <small>The camera/audio node is observation-only and cannot control motors.</small>
-        <div class="dialog-actions"><button id="cancelSettings" type="button">Cancel</button><button class="primary-action" type="submit">Save Settings</button></div>
-      </form>
-    </dialog>
+        <!-- This modal stores flight and camera endpoints without exposing motor authority to the camera node. -->
+        <form id="settingsForm" method="dialog">
+            <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <header><div><span class="section-kicker">FLIGHT DECK CONFIGURATION</span><h2 id="settingsTitle">Links and endpoints</h2></div><button id="closeSettings" type="button" aria-label="Close settings">&#215;</button></header> <!-- Open the document metadata section. -->
+            <label for="flightHost">Flight controller host</label> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <input id="flightHost" type="text" inputmode="url" placeholder="192.168.4.1"> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <small>WebSocket uses port 81. The default NanoKit SoftAP address is 192.168.4.1.</small> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <label for="cameraUrl">Camera stream URL</label> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <input id="cameraUrl" type="url" inputmode="url" placeholder="http://nanokit-camera.local/stream"> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <label for="cameraApiUrl">Camera API URL</label> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <input id="cameraApiUrl" type="url" inputmode="url" placeholder="http://nanokit-camera.local"> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <small>The camera/audio node is observation-only and cannot control motors.</small> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+            <div class="dialog-actions"><button id="cancelSettings" type="button">Cancel</button><button class="primary-action" type="submit">Save Settings</button></div> <!-- Define this Flight Deck markup element and its accessible interface role. -->
+        </form> <!-- Close the current Flight Deck markup element. -->
+    </dialog> <!-- Close the current Flight Deck markup element. -->
 
-    <!-- The controller script is loaded last so every referenced interface element already exists. -->
-    <script src="app.js"></script>
-  </body>
-</html>
+    <script src="app.js"></script> <!-- The controller script is loaded last so every referenced interface element already exists. -->
+</body> <!-- Close the current Flight Deck markup element. -->
+</html> <!-- Close the current Flight Deck markup element. -->

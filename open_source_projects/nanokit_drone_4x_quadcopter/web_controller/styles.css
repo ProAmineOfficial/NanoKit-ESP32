@@ -1,706 +1,1054 @@
-/* NanoKit Drone 4X Flight Deck. */
-/* Developed by Amine Saoud ibn al-Bashir. */
+/*
+ * Project: NanoKit Drone 4X
+ * Component: Flight Deck Web Interface Styling
+ * File: styles.css
+ *
+ * This file is part of the NanoKit Drone 4X open-source project.
+ *
+ * Description:
+ * Defines the visual styling, responsive layout, glass panels, controls,
+ * telemetry cards, status indicators, and user-interface states of the
+ * NanoKit Flight Deck.
+ *
+ * Developed by Amine Saoud ibn al-Bashir
+ * Pro_Amine LLC
+ * Official website: https://proamine.tech
+ *
+ * Repository: NanoKit-ESP32
+ * License: Apache License 2.0
+ */
 
-/* These shared design tokens keep colour, shadows, timing, and typography consistent. */
-:root {
-  color-scheme: dark;
-  --bg: #070b0e;
-  --surface: rgba(13, 22, 27, 0.84);
-  --surface-strong: rgba(11, 18, 22, 0.96);
-  --surface-soft: rgba(20, 32, 38, 0.72);
-  --line: rgba(130, 192, 211, 0.22);
-  --line-strong: rgba(132, 217, 239, 0.48);
-  --text: #edf5f7;
-  --muted: #8fa5ae;
-  --cyan: #72d6ef;
-  --cyan-strong: #20bfd0;
-  --green: #a8df62;
-  --amber: #f5bd4f;
-  --red: #f35d5a;
-  --violet: #b9a7ff;
-  --shadow: 0 18px 48px rgba(0, 0, 0, 0.48);
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
+:root { /* NanoKit Drone 4X Flight Deck. Developed by Amine Saoud ibn al-Bashir. These shared design tokens keep colour, shadows, timing, and typography consistent. */
+  color-scheme: dark; /* Set this visual property for the current component. */
+  --bg: #070b0e; /* Set this visual property for the current component. */
+  --surface: rgba(13, 22, 27, 0.84); /* Set this visual property for the current component. */
+  --surface-strong: rgba(11, 18, 22, 0.96); /* Set this visual property for the current component. */
+  --surface-soft: rgba(20, 32, 38, 0.72); /* Set this visual property for the current component. */
+  --line: rgba(130, 192, 211, 0.22); /* Set this visual property for the current component. */
+  --line-strong: rgba(132, 217, 239, 0.48); /* Set this visual property for the current component. */
+  --text: #edf5f7; /* Set this visual property for the current component. */
+  --muted: #8fa5ae; /* Set this visual property for the current component. */
+  --cyan: #72d6ef; /* Set this visual property for the current component. */
+  --cyan-strong: #20bfd0; /* Set this visual property for the current component. */
+  --green: #a8df62; /* Set this visual property for the current component. */
+  --amber: #f5bd4f; /* Set this visual property for the current component. */
+  --red: #f35d5a; /* Set this visual property for the current component. */
+  --violet: #b9a7ff; /* Set this visual property for the current component. */
+  --shadow: 0 18px 48px rgba(0, 0, 0, 0.48); /* Set this visual property for the current component. */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1); /* Set this visual property for the current component. */
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-/* Border-box sizing prevents padding and borders from unexpectedly changing component width. */
-* { box-sizing: border-box; }
+* { box-sizing: border-box; } /* Border-box sizing prevents padding and borders from unexpectedly changing component width. */
 
-/* The page root owns the dark canvas and enables smooth in-page navigation. */
-html { background: var(--bg); scroll-behavior: smooth; }
+html { background: var(--bg); scroll-behavior: smooth; } /* The page root owns the dark canvas and enables smooth in-page navigation. */
 
-/* The body establishes the minimum viewport and the low-contrast engineering background. */
-body {
-  min-width: 320px;
-  min-height: 100vh;
-  margin: 0;
-  color: var(--text);
-  background:
-    radial-gradient(circle at 72% 18%, rgba(32, 191, 208, 0.07), transparent 34%),
-    linear-gradient(135deg, #070b0e 0%, #0a1115 46%, #080b0d 100%);
-  letter-spacing: 0;
-}
+body { /* The body establishes the minimum viewport and the low-contrast engineering background. */
+  min-width: 320px; /* Set this visual property for the current component. */
+  min-height: 100vh; /* Set this visual property for the current component. */
+  margin: 0; /* Set this visual property for the current component. */
+  color: var(--text); /* Set this visual property for the current component. */
+  background: /* Continue the current CSS selector or property value safely. */
+    radial-gradient(circle at 72% 18%, rgba(32, 191, 208, 0.07), transparent 34%), /* Continue the current CSS selector or property value safely. */
+    linear-gradient(135deg, #070b0e 0%, #0a1115 46%, #080b0d 100%); /* Set this visual property for the current component. */
+  letter-spacing: 0; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-/* Form controls inherit the interface typeface so native elements match the workstation. */
-button, input { font: inherit; }
+button, input { font: inherit; } /* Form controls inherit the interface typeface so native elements match the workstation. */
 
-/* Buttons share one lightweight interaction system for hover, active, focus, and disabled states. */
-button {
-  color: inherit;
-  cursor: pointer;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  background: rgba(20, 34, 41, 0.84);
-  transition: transform 180ms var(--ease), border-color 180ms ease,
-              background 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
-}
+button { /* Buttons share one lightweight interaction system for hover, active, focus, and disabled states. */
+  color: inherit; /* Set this visual property for the current component. */
+  cursor: pointer; /* Set this visual property for the current component. */
+  border: 1px solid var(--line); /* Set this visual property for the current component. */
+  border-radius: 5px; /* Set this visual property for the current component. */
+  background: rgba(20, 34, 41, 0.84); /* Set this visual property for the current component. */
+  transition: transform 180ms var(--ease), border-color 180ms ease, /* Continue the current CSS selector or property value safely. */
+              background 180ms ease, box-shadow 180ms ease, opacity 180ms ease; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-button:hover:not(:disabled) {
-  transform: translateY(-1px);
-  border-color: var(--line-strong);
-  background: rgba(27, 48, 57, 0.94);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-}
+button:hover:not(:disabled) { /* Open the style rule for this Flight Deck component. */
+  transform: translateY(-1px); /* Set this visual property for the current component. */
+  border-color: var(--line-strong); /* Set this visual property for the current component. */
+  background: rgba(27, 48, 57, 0.94); /* Set this visual property for the current component. */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-button:active:not(:disabled) { transform: translateY(0); }
-button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
-  outline: 2px solid var(--cyan);
-  outline-offset: 2px;
-}
-button:disabled { cursor: not-allowed; opacity: 0.38; }
+button:active:not(:disabled) { transform: translateY(0); } /* Continue the current CSS selector or property value safely. */
+button:focus-visible, input:focus-visible, [tabindex]:focus-visible { /* Open the style rule for this Flight Deck component. */
+  outline: 2px solid var(--cyan); /* Set this visual property for the current component. */
+  outline-offset: 2px; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+button:disabled { cursor: not-allowed; opacity: 0.38; } /* Continue the current CSS selector or property value safely. */
 
-/* The flight deck constrains very wide displays while always filling the available viewport. */
-.flight-deck {
-  width: min(1920px, 100%);
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 12px 14px 10px;
-}
+.flight-deck { /* The flight deck constrains very wide displays while always filling the available viewport. */
+  width: min(1920px, 100%); /* Set this visual property for the current component. */
+  min-height: 100vh; /* Set this visual property for the current component. */
+  margin: 0 auto; /* Set this visual property for the current component. */
+  padding: 12px 14px 10px; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-/* The top bar uses three tracks for identity, mode selection, and aircraft status. */
-.topbar {
-  min-height: 62px;
-  display: grid;
-  grid-template-columns: minmax(220px, 1fr) auto minmax(420px, 1fr);
-  align-items: center;
-  gap: 18px;
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  background: rgba(8, 15, 19, 0.88);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
-}
+.topbar { /* The top bar uses three tracks for identity, mode selection, and aircraft status. */
+  min-height: 62px; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  grid-template-columns: minmax(220px, 1fr) auto minmax(420px, 1fr); /* Set this visual property for the current component. */
+  align-items: center; /* Set this visual property for the current component. */
+  gap: 18px; /* Set this visual property for the current component. */
+  padding: 8px 12px; /* Set this visual property for the current component. */
+  border: 1px solid var(--line); /* Set this visual property for the current component. */
+  background: rgba(8, 15, 19, 0.88); /* Set this visual property for the current component. */
+  backdrop-filter: blur(18px); /* Set this visual property for the current component. */
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-/* Product identity styles keep the home link compact and readable. */
-.identity {
-  width: max-content;
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  color: inherit;
-  text-decoration: none;
-}
+.identity { /* Product identity styles keep the home link compact and readable. */
+  width: max-content; /* Set this visual property for the current component. */
+  display: inline-flex; /* Set this visual property for the current component. */
+  align-items: center; /* Set this visual property for the current component. */
+  gap: 11px; /* Set this visual property for the current component. */
+  color: inherit; /* Set this visual property for the current component. */
+  text-decoration: none; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-.identity-mark {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--cyan);
-  color: var(--cyan);
-  font: 800 12px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
-}
+.identity-mark { /* Open the style rule for this Flight Deck component. */
+  width: 38px; /* Set this visual property for the current component. */
+  height: 38px; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  place-items: center; /* Set this visual property for the current component. */
+  border: 1px solid var(--cyan); /* Set this visual property for the current component. */
+  color: var(--cyan); /* Set this visual property for the current component. */
+  font: 800 12px/1 ui-monospace, SFMono-Regular, Consolas, monospace; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-.identity span:last-child { display: grid; gap: 1px; }
-.identity small, .section-kicker {
-  color: var(--muted);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-}
-.identity strong { font-size: 18px; letter-spacing: 0; }
+.identity span:last-child { display: grid; gap: 1px; } /* Continue the current CSS selector or property value safely. */
+.identity small, .section-kicker { /* Open the style rule for this Flight Deck component. */
+  color: var(--muted); /* Set this visual property for the current component. */
+  font-size: 9px; /* Set this visual property for the current component. */
+  font-weight: 800; /* Set this visual property for the current component. */
+  letter-spacing: 0.16em; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.identity strong { font-size: 18px; letter-spacing: 0; } /* Continue the current CSS selector or property value safely. */
 
-/* The segmented mode switch changes workspace views without moving global status controls. */
-.mode-switch {
-  display: flex;
-  min-width: 300px;
-  height: 38px;
-  padding: 3px;
-  border: 1px solid var(--line);
-  background: rgba(6, 12, 15, 0.72);
-}
+.mode-switch { /* The segmented mode switch changes workspace views without moving global status controls. */
+  display: flex; /* Set this visual property for the current component. */
+  min-width: 300px; /* Set this visual property for the current component. */
+  height: 38px; /* Set this visual property for the current component. */
+  padding: 3px; /* Set this visual property for the current component. */
+  border: 1px solid var(--line); /* Set this visual property for the current component. */
+  background: rgba(6, 12, 15, 0.72); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-.mode-button {
-  min-width: 72px;
-  flex: 1;
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 750;
-}
-.mode-button.active {
-  color: var(--text);
-  background: rgba(65, 132, 151, 0.24);
-  box-shadow: inset 0 0 0 1px rgba(114, 214, 239, 0.24);
-}
+.mode-button { /* Open the style rule for this Flight Deck component. */
+  min-width: 72px; /* Set this visual property for the current component. */
+  flex: 1; /* Set this visual property for the current component. */
+  border: 0; /* Set this visual property for the current component. */
+  background: transparent; /* Set this visual property for the current component. */
+  color: var(--muted); /* Set this visual property for the current component. */
+  font-size: 11px; /* Set this visual property for the current component. */
+  font-weight: 750; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.mode-button.active { /* Open the style rule for this Flight Deck component. */
+  color: var(--text); /* Set this visual property for the current component. */
+  background: rgba(65, 132, 151, 0.24); /* Set this visual property for the current component. */
+  box-shadow: inset 0 0 0 1px rgba(114, 214, 239, 0.24); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-/* The top status row presents link, GNSS, arming, battery, and connection actions together. */
-.top-status {
-  justify-self: end;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 9px;
-}
+.top-status { /* The top status row presents link, GNSS, arming, battery, and connection actions together. */
+  justify-self: end; /* Set this visual property for the current component. */
+  display: flex; /* Set this visual property for the current component. */
+  align-items: center; /* Set this visual property for the current component. */
+  justify-content: flex-end; /* Set this visual property for the current component. */
+  gap: 9px; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-.status-item {
-  min-height: 32px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 8px;
-  color: var(--muted);
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  font: 700 10px/1.1 ui-monospace, SFMono-Regular, Consolas, monospace;
-}
-.status-item b { color: #6f858e; font-size: 8px; }
-.status-dot {
-  width: 8px;
-  height: 8px;
-  display: inline-block;
-  border-radius: 50%;
-  background: var(--muted);
-  box-shadow: 0 0 0 4px rgba(143, 165, 174, 0.09);
-}
-.status-dot.good { background: var(--green); box-shadow: 0 0 0 4px rgba(168, 223, 98, 0.1); }
-.status-dot.warning { background: var(--amber); box-shadow: 0 0 0 4px rgba(245, 189, 79, 0.1); }
-.status-dot.critical { background: var(--red); box-shadow: 0 0 0 4px rgba(243, 93, 90, 0.1); }
+.status-item { /* Open the style rule for this Flight Deck component. */
+  min-height: 32px; /* Set this visual property for the current component. */
+  display: inline-flex; /* Set this visual property for the current component. */
+  align-items: center; /* Set this visual property for the current component. */
+  gap: 6px; /* Set this visual property for the current component. */
+  padding: 0 8px; /* Set this visual property for the current component. */
+  color: var(--muted); /* Set this visual property for the current component. */
+  border-left: 1px solid rgba(255, 255, 255, 0.08); /* Set this visual property for the current component. */
+  font: 700 10px/1.1 ui-monospace, SFMono-Regular, Consolas, monospace; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.status-item b { color: #6f858e; font-size: 8px; } /* Continue the current CSS selector or property value safely. */
+.status-dot { /* Open the style rule for this Flight Deck component. */
+  width: 8px; /* Set this visual property for the current component. */
+  height: 8px; /* Set this visual property for the current component. */
+  display: inline-block; /* Set this visual property for the current component. */
+  border-radius: 50%; /* Set this visual property for the current component. */
+  background: var(--muted); /* Set this visual property for the current component. */
+  box-shadow: 0 0 0 4px rgba(143, 165, 174, 0.09); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.status-dot.good { background: var(--green); box-shadow: 0 0 0 4px rgba(168, 223, 98, 0.1); } /* Continue the current CSS selector or property value safely. */
+.status-dot.warning { background: var(--amber); box-shadow: 0 0 0 4px rgba(245, 189, 79, 0.1); } /* Continue the current CSS selector or property value safely. */
+.status-dot.critical { background: var(--red); box-shadow: 0 0 0 4px rgba(243, 93, 90, 0.1); } /* Continue the current CSS selector or property value safely. */
 
-/* Primary and icon actions use stable dimensions so status updates never shift the layout. */
-.primary-action {
-  height: 36px;
-  padding: 0 15px;
-  border-color: rgba(114, 214, 239, 0.48);
-  color: #031116;
-  background: var(--cyan);
-  font-size: 11px;
-  font-weight: 850;
-}
-.primary-action:hover:not(:disabled) { color: #021013; background: #9ae5f5; }
+.primary-action { /* Primary and icon actions use stable dimensions so status updates never shift the layout. */
+  height: 36px; /* Set this visual property for the current component. */
+  padding: 0 15px; /* Set this visual property for the current component. */
+  border-color: rgba(114, 214, 239, 0.48); /* Set this visual property for the current component. */
+  color: #031116; /* Set this visual property for the current component. */
+  background: var(--cyan); /* Set this visual property for the current component. */
+  font-size: 11px; /* Set this visual property for the current component. */
+  font-weight: 850; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.primary-action:hover:not(:disabled) { color: #021013; background: #9ae5f5; } /* Continue the current CSS selector or property value safely. */
 
-.icon-action {
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  font-size: 18px;
-}
+.icon-action { /* Open the style rule for this Flight Deck component. */
+  width: 36px; /* Set this visual property for the current component. */
+  height: 36px; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  place-items: center; /* Set this visual property for the current component. */
+  padding: 0; /* Set this visual property for the current component. */
+  font-size: 18px; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-/* Alert variants communicate warning, critical, and healthy states without changing structure. */
-.alert-bar {
-  min-height: 38px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 12px;
-  margin-top: 8px;
-  padding: 8px 12px;
-  border: 1px solid rgba(245, 189, 79, 0.34);
-  color: #f8d890;
-  background: rgba(68, 47, 15, 0.45);
-  font-size: 11px;
-}
-.alert-bar.critical { border-color: rgba(243, 93, 90, 0.48); color: #ffaaa7; background: rgba(76, 22, 22, 0.52); }
-.alert-bar.good { border-color: rgba(168, 223, 98, 0.35); color: #cfeea9; background: rgba(32, 55, 19, 0.42); }
-.alert-bar[hidden] { display: none; }
-.alert-bar button { width: 24px; height: 24px; border: 0; background: transparent; font-size: 17px; }
+.alert-bar { /* Alert variants communicate warning, critical, and healthy states without changing structure. */
+  min-height: 38px; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  grid-template-columns: auto 1fr auto; /* Set this visual property for the current component. */
+  align-items: center; /* Set this visual property for the current component. */
+  gap: 12px; /* Set this visual property for the current component. */
+  margin-top: 8px; /* Set this visual property for the current component. */
+  padding: 8px 12px; /* Set this visual property for the current component. */
+  border: 1px solid rgba(245, 189, 79, 0.34); /* Set this visual property for the current component. */
+  color: #f8d890; /* Set this visual property for the current component. */
+  background: rgba(68, 47, 15, 0.45); /* Set this visual property for the current component. */
+  font-size: 11px; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.alert-bar.critical { border-color: rgba(243, 93, 90, 0.48); color: #ffaaa7; background: rgba(76, 22, 22, 0.52); } /* Continue the current CSS selector or property value safely. */
+.alert-bar.good { border-color: rgba(168, 223, 98, 0.35); color: #cfeea9; background: rgba(32, 55, 19, 0.42); } /* Continue the current CSS selector or property value safely. */
+.alert-bar[hidden] { display: none; } /* Continue the current CSS selector or property value safely. */
+.alert-bar button { width: 24px; height: 24px; border: 0; background: transparent; font-size: 17px; } /* Continue the current CSS selector or property value safely. */
 
-/* A small gap separates live operations from the persistent top-level controls. */
-.operations-shell { margin-top: 8px; }
+.operations-shell { margin-top: 8px; } /* A small gap separates live operations from the persistent top-level controls. */
 
-/* The video stage is the primary fixed-format canvas for camera, telemetry, and controls. */
-.video-stage {
-  position: relative;
-  isolation: isolate;
-  min-height: 690px;
-  height: calc(100vh - 206px);
-  max-height: 880px;
-  overflow: hidden;
-  border: 1px solid var(--line-strong);
-  background: #030709;
-  box-shadow: var(--shadow), inset 0 0 80px rgba(0, 0, 0, 0.52);
-}
+.video-stage { /* The video stage is the primary fixed-format canvas for camera, telemetry, and controls. */
+  position: relative; /* Set this visual property for the current component. */
+  isolation: isolate; /* Set this visual property for the current component. */
+  min-height: 690px; /* Set this visual property for the current component. */
+  height: calc(100vh - 206px); /* Set this visual property for the current component. */
+  max-height: 880px; /* Set this visual property for the current component. */
+  overflow: hidden; /* Set this visual property for the current component. */
+  border: 1px solid var(--line-strong); /* Set this visual property for the current component. */
+  background: #030709; /* Set this visual property for the current component. */
+  box-shadow: var(--shadow), inset 0 0 80px rgba(0, 0, 0, 0.52); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-/* These full-stage layers separate media, shading, and the engineering grid. */
-.video-surface, .video-shade, .engineering-grid {
-  position: absolute;
-  inset: 0;
-}
-.video-surface { overflow: hidden; z-index: -3; }
-.offline-reference, .camera-feed {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  filter: brightness(0.48) saturate(0.72) contrast(1.08);
-  transform: scale(1.01);
-  transition: opacity 300ms ease, filter 300ms ease, transform 450ms var(--ease);
-}
-.camera-feed { filter: brightness(0.72) saturate(0.9) contrast(1.07); }
-.video-stage:hover .offline-reference, .video-stage:hover .camera-feed { transform: scale(1.025); }
-.video-shade {
-  z-index: -2;
-  background:
-    linear-gradient(90deg, rgba(3, 8, 11, 0.92), transparent 24%, transparent 76%, rgba(3, 8, 11, 0.92)),
-    linear-gradient(0deg, rgba(3, 8, 11, 0.88), transparent 30%, rgba(3, 8, 11, 0.45));
-}
-/* The subtle grid provides alignment context while remaining behind all flight information. */
-.engineering-grid {
-  z-index: -1;
-  opacity: 0.22;
-  background-image:
-    linear-gradient(rgba(113, 207, 232, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(113, 207, 232, 0.08) 1px, transparent 1px);
-  background-size: 36px 36px;
-  mask-image: radial-gradient(circle at center, black, transparent 78%);
-}
+.video-surface, .video-shade, .engineering-grid { /* These full-stage layers separate media, shading, and the engineering grid. */
+  position: absolute; /* Set this visual property for the current component. */
+  inset: 0; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.video-surface { overflow: hidden; z-index: -3; } /* Continue the current CSS selector or property value safely. */
+.offline-reference, .camera-feed { /* Open the style rule for this Flight Deck component. */
+  width: 100%; /* Set this visual property for the current component. */
+  height: 100%; /* Set this visual property for the current component. */
+  display: block; /* Set this visual property for the current component. */
+  object-fit: cover; /* Set this visual property for the current component. */
+  filter: brightness(0.48) saturate(0.72) contrast(1.08); /* Set this visual property for the current component. */
+  transform: scale(1.01); /* Set this visual property for the current component. */
+  transition: opacity 300ms ease, filter 300ms ease, transform 450ms var(--ease); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.camera-feed { filter: brightness(0.72) saturate(0.9) contrast(1.07); } /* Continue the current CSS selector or property value safely. */
+.video-stage:hover .offline-reference, .video-stage:hover .camera-feed { transform: scale(1.025); } /* Continue the current CSS selector or property value safely. */
+.video-shade { /* Open the style rule for this Flight Deck component. */
+  z-index: -2; /* Set this visual property for the current component. */
+  background: /* Continue the current CSS selector or property value safely. */
+    linear-gradient(90deg, rgba(3, 8, 11, 0.92), transparent 24%, transparent 76%, rgba(3, 8, 11, 0.92)), /* Continue the current CSS selector or property value safely. */
+    linear-gradient(0deg, rgba(3, 8, 11, 0.88), transparent 30%, rgba(3, 8, 11, 0.45)); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.engineering-grid { /* The subtle grid provides alignment context while remaining behind all flight information. */
+  z-index: -1; /* Set this visual property for the current component. */
+  opacity: 0.22; /* Set this visual property for the current component. */
+  background-image: /* Continue the current CSS selector or property value safely. */
+    linear-gradient(rgba(113, 207, 232, 0.08) 1px, transparent 1px), /* Continue the current CSS selector or property value safely. */
+    linear-gradient(90deg, rgba(113, 207, 232, 0.08) 1px, transparent 1px); /* Set this visual property for the current component. */
+  background-size: 36px 36px; /* Set this visual property for the current component. */
+  mask-image: radial-gradient(circle at center, black, transparent 78%); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
 
-/* Corner labels display camera and link state over the media without blocking the centre view. */
-.stage-label {
-  position: absolute;
-  top: 16px;
-  z-index: 4;
-  display: grid;
-  grid-template-columns: auto auto;
-  align-items: center;
-  gap: 2px 7px;
-  padding: 8px 10px;
-  border: 1px solid var(--line);
-  background: rgba(5, 13, 17, 0.7);
-  backdrop-filter: blur(10px);
-  font: 700 9px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace;
-}
-.stage-label small { grid-column: 2; color: var(--muted); }
-.stage-label.top-left { left: 16px; }
-.stage-label.top-right { right: 16px; grid-template-columns: auto auto; text-align: right; }
-.stage-label.top-right span { color: var(--muted); font-size: 8px; }
+.stage-label { /* Corner labels display camera and link state over the media without blocking the centre view. */
+  position: absolute; /* Set this visual property for the current component. */
+  top: 16px; /* Set this visual property for the current component. */
+  z-index: 4; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  grid-template-columns: auto auto; /* Set this visual property for the current component. */
+  align-items: center; /* Set this visual property for the current component. */
+  gap: 2px 7px; /* Set this visual property for the current component. */
+  padding: 8px 10px; /* Set this visual property for the current component. */
+  border: 1px solid var(--line); /* Set this visual property for the current component. */
+  background: rgba(5, 13, 17, 0.7); /* Set this visual property for the current component. */
+  backdrop-filter: blur(10px); /* Set this visual property for the current component. */
+  font: 700 9px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.stage-label small { grid-column: 2; color: var(--muted); } /* Continue the current CSS selector or property value safely. */
+.stage-label.top-left { left: 16px; } /* Continue the current CSS selector or property value safely. */
+.stage-label.top-right { right: 16px; grid-template-columns: auto auto; text-align: right; } /* Continue the current CSS selector or property value safely. */
+.stage-label.top-right span { color: var(--muted); font-size: 8px; } /* Continue the current CSS selector or property value safely. */
 
-/* The heading tape stays centred and displays the current compass direction. */
-.heading-tape {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  z-index: 4;
-  width: min(420px, 34vw);
-  transform: translateX(-50%);
-  text-align: center;
-  color: var(--text);
-  text-shadow: 0 2px 12px #000;
-}
-.heading-scale {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  padding: 0 12px 5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-  color: rgba(255, 255, 255, 0.72);
-  font: 650 9px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
-}
-.heading-scale span:nth-child(3) { color: var(--cyan); font-size: 12px; }
-.heading-tape strong { display: inline-block; margin-top: 5px; font: 800 16px/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.heading-tape { /* The heading tape stays centred and displays the current compass direction. */
+  position: absolute; /* Set this visual property for the current component. */
+  top: 20px; /* Set this visual property for the current component. */
+  left: 50%; /* Set this visual property for the current component. */
+  z-index: 4; /* Set this visual property for the current component. */
+  width: min(420px, 34vw); /* Set this visual property for the current component. */
+  transform: translateX(-50%); /* Set this visual property for the current component. */
+  text-align: center; /* Set this visual property for the current component. */
+  color: var(--text); /* Set this visual property for the current component. */
+  text-shadow: 0 2px 12px #000; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.heading-scale { /* Open the style rule for this Flight Deck component. */
+  display: flex; /* Set this visual property for the current component. */
+  justify-content: space-between; /* Set this visual property for the current component. */
+  align-items: end; /* Set this visual property for the current component. */
+  padding: 0 12px 5px; /* Set this visual property for the current component. */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4); /* Set this visual property for the current component. */
+  color: rgba(255, 255, 255, 0.72); /* Set this visual property for the current component. */
+  font: 650 9px/1 ui-monospace, SFMono-Regular, Consolas, monospace; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.heading-scale span:nth-child(3) { color: var(--cyan); font-size: 12px; } /* Continue the current CSS selector or property value safely. */
+.heading-tape strong { display: inline-block; margin-top: 5px; font: 800 16px/1 ui-monospace, SFMono-Regular, Consolas, monospace; } /* Continue the current CSS selector or property value safely. */
 
-/* HUD stacks place attitude data on the left and aircraft-health data on the right. */
-.hud-stack {
-  position: absolute;
-  top: 104px;
-  z-index: 3;
-  width: 155px;
-  display: grid;
-  gap: 6px;
-}
-.hud-left { left: 274px; }
-.hud-right { right: 274px; }
-.hud-readout {
-  min-height: 48px;
-  display: grid;
-  align-content: center;
-  padding: 7px 10px;
-  border-left: 2px solid rgba(114, 214, 239, 0.7);
-  background: linear-gradient(90deg, rgba(2, 9, 12, 0.72), rgba(2, 9, 12, 0.08));
-  text-shadow: 0 2px 10px #000;
-}
-.hud-right .hud-readout { border-left: 0; border-right: 2px solid rgba(114, 214, 239, 0.7); text-align: right; background: linear-gradient(270deg, rgba(2, 9, 12, 0.72), rgba(2, 9, 12, 0.08)); }
-.hud-readout span { color: var(--muted); font: 750 8px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 0.08em; }
-.hud-readout strong { margin-top: 3px; color: #f4fbfc; font: 800 18px/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.hud-stack { /* HUD stacks place attitude data on the left and aircraft-health data on the right. */
+  position: absolute; /* Set this visual property for the current component. */
+  top: 104px; /* Set this visual property for the current component. */
+  z-index: 3; /* Set this visual property for the current component. */
+  width: 155px; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  gap: 6px; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.hud-left { left: 274px; } /* Continue the current CSS selector or property value safely. */
+.hud-right { right: 274px; } /* Continue the current CSS selector or property value safely. */
+.hud-readout { /* Open the style rule for this Flight Deck component. */
+  min-height: 48px; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  align-content: center; /* Set this visual property for the current component. */
+  padding: 7px 10px; /* Set this visual property for the current component. */
+  border-left: 2px solid rgba(114, 214, 239, 0.7); /* Set this visual property for the current component. */
+  background: linear-gradient(90deg, rgba(2, 9, 12, 0.72), rgba(2, 9, 12, 0.08)); /* Set this visual property for the current component. */
+  text-shadow: 0 2px 10px #000; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.hud-right .hud-readout { border-left: 0; border-right: 2px solid rgba(114, 214, 239, 0.7); text-align: right; background: linear-gradient(270deg, rgba(2, 9, 12, 0.72), rgba(2, 9, 12, 0.08)); } /* Continue the current CSS selector or property value safely. */
+.hud-readout span { color: var(--muted); font: 750 8px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 0.08em; } /* Continue the current CSS selector or property value safely. */
+.hud-readout strong { margin-top: 3px; color: #f4fbfc; font: 800 18px/1 ui-monospace, SFMono-Regular, Consolas, monospace; } /* Continue the current CSS selector or property value safely. */
 
-/* The fixed reticle gives the operator a stable visual centre independent of telemetry. */
-.attitude-reticle {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  z-index: 2;
-  width: 180px;
-  height: 90px;
-  transform: translate(-50%, -50%);
-  filter: drop-shadow(0 2px 8px #000);
-}
-.reticle-wing, .reticle-centre { position: absolute; top: 44px; height: 2px; background: rgba(255, 255, 255, 0.88); }
-.reticle-wing { width: 62px; }
-.reticle-wing.left { left: 0; transform: rotate(7deg); transform-origin: right; }
-.reticle-wing.right { right: 0; transform: rotate(-7deg); transform-origin: left; }
-.reticle-centre { left: 80px; width: 20px; background: var(--cyan); }
-.attitude-reticle i { position: absolute; left: 88px; top: 35px; width: 4px; height: 20px; border: 1px solid var(--cyan); }
+.attitude-reticle { /* The fixed reticle gives the operator a stable visual centre independent of telemetry. */
+  position: absolute; /* Set this visual property for the current component. */
+  top: 42%; /* Set this visual property for the current component. */
+  left: 50%; /* Set this visual property for the current component. */
+  z-index: 2; /* Set this visual property for the current component. */
+  width: 180px; /* Set this visual property for the current component. */
+  height: 90px; /* Set this visual property for the current component. */
+  transform: translate(-50%, -50%); /* Set this visual property for the current component. */
+  filter: drop-shadow(0 2px 8px #000); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.reticle-wing, .reticle-centre { position: absolute; top: 44px; height: 2px; background: rgba(255, 255, 255, 0.88); } /* Continue the current CSS selector or property value safely. */
+.reticle-wing { width: 62px; } /* Continue the current CSS selector or property value safely. */
+.reticle-wing.left { left: 0; transform: rotate(7deg); transform-origin: right; } /* Continue the current CSS selector or property value safely. */
+.reticle-wing.right { right: 0; transform: rotate(-7deg); transform-origin: left; } /* Continue the current CSS selector or property value safely. */
+.reticle-centre { left: 80px; width: 20px; background: var(--cyan); } /* Continue the current CSS selector or property value safely. */
+.attitude-reticle i { position: absolute; left: 88px; top: 35px; width: 4px; height: 20px; border: 1px solid var(--cyan); } /* Continue the current CSS selector or property value safely. */
 
-/* Control docks isolate flight-safety authority from camera and audio payload actions. */
-.control-dock {
-  position: absolute;
-  top: 86px;
-  z-index: 5;
-  width: 232px;
-  padding: 12px;
-  border: 1px solid var(--line);
-  background: rgba(10, 20, 25, 0.76);
-  backdrop-filter: blur(18px) saturate(125%);
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.4);
-}
-.control-left { left: 16px; }
-.control-right { right: 16px; }
-.dock-title {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  color: var(--muted);
-  font: 800 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
-  letter-spacing: 0.1em;
-}
-.dock-title small { color: var(--amber); font-size: 8px; }
+.control-dock { /* Control docks isolate flight-safety authority from camera and audio payload actions. */
+  position: absolute; /* Set this visual property for the current component. */
+  top: 86px; /* Set this visual property for the current component. */
+  z-index: 5; /* Set this visual property for the current component. */
+  width: 232px; /* Set this visual property for the current component. */
+  padding: 12px; /* Set this visual property for the current component. */
+  border: 1px solid var(--line); /* Set this visual property for the current component. */
+  background: rgba(10, 20, 25, 0.76); /* Set this visual property for the current component. */
+  backdrop-filter: blur(18px) saturate(125%); /* Set this visual property for the current component. */
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.4); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.control-left { left: 16px; } /* Continue the current CSS selector or property value safely. */
+.control-right { right: 16px; } /* Continue the current CSS selector or property value safely. */
+.dock-title { /* Open the style rule for this Flight Deck component. */
+  display: flex; /* Set this visual property for the current component. */
+  justify-content: space-between; /* Set this visual property for the current component. */
+  margin-bottom: 10px; /* Set this visual property for the current component. */
+  color: var(--muted); /* Set this visual property for the current component. */
+  font: 800 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace; /* Set this visual property for the current component. */
+  letter-spacing: 0.1em; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.dock-title small { color: var(--amber); font-size: 8px; } /* Continue the current CSS selector or property value safely. */
 
-/* The arm control exposes hold progress so arming cannot happen through a quick accidental click. */
-.arm-hold {
-  position: relative;
-  width: 100%;
-  height: 58px;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  border-color: rgba(168, 223, 98, 0.34);
-  background: rgba(63, 91, 36, 0.38);
-}
-.arm-hold b, .arm-hold small { position: relative; z-index: 1; }
-.arm-hold b { font-size: 12px; }
-.arm-hold small { margin-top: 3px; color: var(--muted); font-size: 8px; }
-.arm-progress { position: absolute; inset: 0 auto 0 0; width: var(--arm-progress, 0%); background: rgba(168, 223, 98, 0.42); transition: width 60ms linear; }
-.arm-hold.holding .arm-progress { animation: arm-confirm 1.5s linear forwards; }
-.arm-hold.armed { border-color: rgba(243, 93, 90, 0.48); background: rgba(90, 31, 31, 0.56); }
+.arm-hold { /* The arm control exposes hold progress so arming cannot happen through a quick accidental click. */
+  position: relative; /* Set this visual property for the current component. */
+  width: 100%; /* Set this visual property for the current component. */
+  height: 58px; /* Set this visual property for the current component. */
+  overflow: hidden; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  place-items: center; /* Set this visual property for the current component. */
+  align-content: center; /* Set this visual property for the current component. */
+  border-color: rgba(168, 223, 98, 0.34); /* Set this visual property for the current component. */
+  background: rgba(63, 91, 36, 0.38); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.arm-hold b, .arm-hold small { position: relative; z-index: 1; } /* Continue the current CSS selector or property value safely. */
+.arm-hold b { font-size: 12px; } /* Continue the current CSS selector or property value safely. */
+.arm-hold small { margin-top: 3px; color: var(--muted); font-size: 8px; } /* Continue the current CSS selector or property value safely. */
+.arm-progress { position: absolute; inset: 0 auto 0 0; width: var(--arm-progress, 0%); background: rgba(168, 223, 98, 0.42); transition: width 60ms linear; } /* Continue the current CSS selector or property value safely. */
+.arm-hold.holding .arm-progress { animation: arm-confirm 1.5s linear forwards; } /* Continue the current CSS selector or property value safely. */
+.arm-hold.armed { border-color: rgba(243, 93, 90, 0.48); background: rgba(90, 31, 31, 0.56); } /* Continue the current CSS selector or property value safely. */
 
-/* The arming keyframe fills only the visual progress layer during the confirmation hold. */
-@keyframes arm-confirm {
-  from { width: 0; }
-  to { width: 100%; }
-}
+@keyframes arm-confirm { /* The arming keyframe fills only the visual progress layer during the confirmation hold. */
+  from { width: 0; } /* Continue the current CSS selector or property value safely. */
+  to { width: 100%; } /* Continue the current CSS selector or property value safely. */
+} /* Close the current visual rule block. */
 
-/* Compact grids keep related flight-mode and payload buttons aligned. */
-.compact-actions, .mode-actions, .payload-actions { display: grid; gap: 6px; margin-top: 7px; }
-.compact-actions { grid-template-columns: 1fr 1fr; }
-.mode-actions { grid-template-columns: repeat(3, 1fr); }
-.control-dock button { min-height: 34px; padding: 6px; font-size: 9px; font-weight: 800; }
-.flight-mode.active { color: #031116; border-color: var(--cyan); background: var(--cyan); }
-.utility-action { width: 100%; margin-top: 7px; }
-.payload-actions { grid-template-columns: 1fr 1fr; }
-.payload-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
-.payload-actions span { color: var(--cyan); font-size: 14px; }
-.payload-actions button.active { border-color: var(--cyan); background: rgba(32, 191, 208, 0.2); }
-.record-symbol { width: 8px; height: 8px; display: inline-block; border-radius: 50%; background: var(--red); }
-.servo-control { display: flex; justify-content: space-between; margin-top: 12px; color: var(--muted); font: 800 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
-.servo-control output { color: var(--cyan); }
-.control-dock input[type="range"] { width: 100%; margin: 12px 0 2px; accent-color: var(--cyan); }
+.compact-actions, .mode-actions, .payload-actions { display: grid; gap: 6px; margin-top: 7px; } /* Compact grids keep related flight-mode and payload buttons aligned. */
+.compact-actions { grid-template-columns: 1fr 1fr; } /* Continue the current CSS selector or property value safely. */
+.mode-actions { grid-template-columns: repeat(3, 1fr); } /* Continue the current CSS selector or property value safely. */
+.control-dock button { min-height: 34px; padding: 6px; font-size: 9px; font-weight: 800; } /* Continue the current CSS selector or property value safely. */
+.flight-mode.active { color: #031116; border-color: var(--cyan); background: var(--cyan); } /* Continue the current CSS selector or property value safely. */
+.utility-action { width: 100%; margin-top: 7px; } /* Continue the current CSS selector or property value safely. */
+.payload-actions { grid-template-columns: 1fr 1fr; } /* Continue the current CSS selector or property value safely. */
+.payload-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; } /* Continue the current CSS selector or property value safely. */
+.payload-actions span { color: var(--cyan); font-size: 14px; } /* Continue the current CSS selector or property value safely. */
+.payload-actions button.active { border-color: var(--cyan); background: rgba(32, 191, 208, 0.2); } /* Continue the current CSS selector or property value safely. */
+.record-symbol { width: 8px; height: 8px; display: inline-block; border-radius: 50%; background: var(--red); } /* Continue the current CSS selector or property value safely. */
+.servo-control { display: flex; justify-content: space-between; margin-top: 12px; color: var(--muted); font: 800 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace; } /* Continue the current CSS selector or property value safely. */
+.servo-control output { color: var(--cyan); } /* Continue the current CSS selector or property value safely. */
+.control-dock input[type="range"] { width: 100%; margin: 12px 0 2px; accent-color: var(--cyan); } /* Continue the current CSS selector or property value safely. */
 
-/* Virtual-stick panels provide fixed touch targets for the two command axes. */
-.stick-panel {
-  position: absolute;
-  bottom: 48px;
-  z-index: 5;
-  width: 248px;
-  height: 198px;
-  padding: 9px;
-  border: 1px solid var(--line);
-  background: rgba(7, 15, 19, 0.72);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.4);
-}
-.left-stick-panel { left: 16px; }
-.right-stick-panel { right: 16px; }
-.stick-panel header { height: 24px; display: flex; justify-content: space-between; align-items: center; color: var(--muted); font: 750 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
-.stick-panel header span { color: var(--cyan); }
-.stick-zone {
-  --stick-x: 50%;
-  --stick-y: 50%;
-  position: relative;
-  width: 154px;
-  height: 154px;
-  margin: 0 auto;
-  touch-action: none;
-  border: 1px solid rgba(114, 214, 239, 0.34);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at center, rgba(114, 214, 239, 0.08) 0 2px, transparent 3px),
-    radial-gradient(circle at center, transparent 0 53%, rgba(114, 214, 239, 0.12) 54%, transparent 56%),
-    rgba(2, 8, 11, 0.56);
-}
-.stick-axis { position: absolute; background: rgba(114, 214, 239, 0.14); pointer-events: none; }
-.stick-axis.horizontal { left: 12px; right: 12px; top: 50%; height: 1px; }
-.stick-axis.vertical { top: 12px; bottom: 12px; left: 50%; width: 1px; }
-.stick-knob {
-  position: absolute;
-  left: var(--stick-x);
-  top: var(--stick-y);
-  width: 42px;
-  height: 42px;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgba(208, 244, 252, 0.74);
-  border-radius: 50%;
-  background: rgba(75, 140, 158, 0.78);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.48), inset 0 1px 4px rgba(255, 255, 255, 0.2);
-  pointer-events: none;
-  transition: left 90ms linear, top 90ms linear;
-}
-.stick-zone.dragging .stick-knob { transition: none; background: rgba(114, 214, 239, 0.82); }
+.stick-panel { /* Virtual-stick panels provide fixed touch targets for the two command axes. */
+  position: absolute; /* Set this visual property for the current component. */
+  bottom: 48px; /* Set this visual property for the current component. */
+  z-index: 5; /* Set this visual property for the current component. */
+  width: 248px; /* Set this visual property for the current component. */
+  height: 198px; /* Set this visual property for the current component. */
+  padding: 9px; /* Set this visual property for the current component. */
+  border: 1px solid var(--line); /* Set this visual property for the current component. */
+  background: rgba(7, 15, 19, 0.72); /* Set this visual property for the current component. */
+  backdrop-filter: blur(12px); /* Set this visual property for the current component. */
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.4); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.left-stick-panel { left: 16px; } /* Continue the current CSS selector or property value safely. */
+.right-stick-panel { right: 16px; } /* Continue the current CSS selector or property value safely. */
+.stick-panel header { height: 24px; display: flex; justify-content: space-between; align-items: center; color: var(--muted); font: 750 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace; } /* Continue the current CSS selector or property value safely. */
+.stick-panel header span { color: var(--cyan); } /* Continue the current CSS selector or property value safely. */
+.stick-zone { /* Open the style rule for this Flight Deck component. */
+  --stick-x: 50%; /* Set this visual property for the current component. */
+  --stick-y: 50%; /* Set this visual property for the current component. */
+  position: relative; /* Set this visual property for the current component. */
+  width: 154px; /* Set this visual property for the current component. */
+  height: 154px; /* Set this visual property for the current component. */
+  margin: 0 auto; /* Set this visual property for the current component. */
+  touch-action: none; /* Set this visual property for the current component. */
+  border: 1px solid rgba(114, 214, 239, 0.34); /* Set this visual property for the current component. */
+  border-radius: 50%; /* Set this visual property for the current component. */
+  background: /* Continue the current CSS selector or property value safely. */
+    radial-gradient(circle at center, rgba(114, 214, 239, 0.08) 0 2px, transparent 3px), /* Continue the current CSS selector or property value safely. */
+    radial-gradient(circle at center, transparent 0 53%, rgba(114, 214, 239, 0.12) 54%, transparent 56%), /* Continue the current CSS selector or property value safely. */
+    rgba(2, 8, 11, 0.56); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.stick-axis { position: absolute; background: rgba(114, 214, 239, 0.14); pointer-events: none; } /* Continue the current CSS selector or property value safely. */
+.stick-axis.horizontal { left: 12px; right: 12px; top: 50%; height: 1px; } /* Continue the current CSS selector or property value safely. */
+.stick-axis.vertical { top: 12px; bottom: 12px; left: 50%; width: 1px; } /* Continue the current CSS selector or property value safely. */
+.stick-knob { /* Open the style rule for this Flight Deck component. */
+  position: absolute; /* Set this visual property for the current component. */
+  left: var(--stick-x); /* Set this visual property for the current component. */
+  top: var(--stick-y); /* Set this visual property for the current component. */
+  width: 42px; /* Set this visual property for the current component. */
+  height: 42px; /* Set this visual property for the current component. */
+  transform: translate(-50%, -50%); /* Set this visual property for the current component. */
+  border: 1px solid rgba(208, 244, 252, 0.74); /* Set this visual property for the current component. */
+  border-radius: 50%; /* Set this visual property for the current component. */
+  background: rgba(75, 140, 158, 0.78); /* Set this visual property for the current component. */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.48), inset 0 1px 4px rgba(255, 255, 255, 0.2); /* Set this visual property for the current component. */
+  pointer-events: none; /* Set this visual property for the current component. */
+  transition: left 90ms linear, top 90ms linear; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.stick-zone.dragging .stick-knob { transition: none; background: rgba(114, 214, 239, 0.82); } /* Continue the current CSS selector or property value safely. */
 
-/* The stage footer keeps stream, position, and sensor-gate summaries below the main view. */
-.stage-footer {
-  position: absolute;
-  left: 280px;
-  right: 280px;
-  bottom: 12px;
-  z-index: 4;
-  min-height: 35px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 16px;
-  padding: 7px 12px;
-  border-top: 1px solid rgba(114, 214, 239, 0.3);
-  background: rgba(2, 9, 12, 0.58);
-  font: 750 9px/1.15 ui-monospace, SFMono-Regular, Consolas, monospace;
-}
-.stage-footer span { display: grid; gap: 2px; }
-.stage-footer span:nth-child(2) { text-align: center; }
-.stage-footer span:last-child { text-align: right; }
-.stage-footer small { color: var(--muted); font-size: 7px; }
+.stage-footer { /* The stage footer keeps stream, position, and sensor-gate summaries below the main view. */
+  position: absolute; /* Set this visual property for the current component. */
+  left: 280px; /* Set this visual property for the current component. */
+  right: 280px; /* Set this visual property for the current component. */
+  bottom: 12px; /* Set this visual property for the current component. */
+  z-index: 4; /* Set this visual property for the current component. */
+  min-height: 35px; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  grid-template-columns: 1fr auto 1fr; /* Set this visual property for the current component. */
+  align-items: center; /* Set this visual property for the current component. */
+  gap: 16px; /* Set this visual property for the current component. */
+  padding: 7px 12px; /* Set this visual property for the current component. */
+  border-top: 1px solid rgba(114, 214, 239, 0.3); /* Set this visual property for the current component. */
+  background: rgba(2, 9, 12, 0.58); /* Set this visual property for the current component. */
+  font: 750 9px/1.15 ui-monospace, SFMono-Regular, Consolas, monospace; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.stage-footer span { display: grid; gap: 2px; } /* Continue the current CSS selector or property value safely. */
+.stage-footer span:nth-child(2) { text-align: center; } /* Continue the current CSS selector or property value safely. */
+.stage-footer span:last-child { text-align: right; } /* Continue the current CSS selector or property value safely. */
+.stage-footer small { color: var(--muted); font-size: 7px; } /* Continue the current CSS selector or property value safely. */
 
-/* The telemetry strip presents system summaries in stable columns for fast scanning. */
-.telemetry-strip {
-  min-height: 58px;
-  display: grid;
-  grid-template-columns: 1.3fr repeat(6, minmax(90px, 0.7fr)) minmax(190px, 1.5fr);
-  align-items: stretch;
-  margin-top: 8px;
-  border: 1px solid var(--line);
-  background: var(--surface-strong);
-}
-.telemetry-strip > div { min-width: 0; display: grid; align-content: center; gap: 4px; padding: 7px 10px; border-right: 1px solid rgba(255, 255, 255, 0.07); }
-.telemetry-strip > div:last-child { border-right: 0; }
-.telemetry-strip span { color: var(--muted); font: 750 7px/1 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 0.08em; }
-.telemetry-strip strong { overflow: hidden; color: var(--text); font: 750 12px/1.1 ui-monospace, SFMono-Regular, Consolas, monospace; text-overflow: ellipsis; white-space: nowrap; }
-.meter { width: 100%; height: 3px; overflow: hidden; background: rgba(255,255,255,0.1); }
-.meter b { width: var(--meter, 0%); height: 100%; display: block; background: var(--cyan); transition: width 120ms linear; }
-.log-cell strong { color: var(--amber); font-size: 10px; }
+.telemetry-strip { /* The telemetry strip presents system summaries in stable columns for fast scanning. */
+  min-height: 58px; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  grid-template-columns: 1.3fr repeat(6, minmax(90px, 0.7fr)) minmax(190px, 1.5fr); /* Set this visual property for the current component. */
+  align-items: stretch; /* Set this visual property for the current component. */
+  margin-top: 8px; /* Set this visual property for the current component. */
+  border: 1px solid var(--line); /* Set this visual property for the current component. */
+  background: var(--surface-strong); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.telemetry-strip > div { min-width: 0; display: grid; align-content: center; gap: 4px; padding: 7px 10px; border-right: 1px solid rgba(255, 255, 255, 0.07); } /* Continue the current CSS selector or property value safely. */
+.telemetry-strip > div:last-child { border-right: 0; } /* Continue the current CSS selector or property value safely. */
+.telemetry-strip span { color: var(--muted); font: 750 7px/1 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 0.08em; } /* Continue the current CSS selector or property value safely. */
+.telemetry-strip strong { overflow: hidden; color: var(--text); font: 750 12px/1.1 ui-monospace, SFMono-Regular, Consolas, monospace; text-overflow: ellipsis; white-space: nowrap; } /* Continue the current CSS selector or property value safely. */
+.meter { width: 100%; height: 3px; overflow: hidden; background: rgba(255,255,255,0.1); } /* Continue the current CSS selector or property value safely. */
+.meter b { width: var(--meter, 0%); height: 100%; display: block; background: var(--cyan); transition: width 120ms linear; } /* Continue the current CSS selector or property value safely. */
+.log-cell strong { color: var(--amber); font-size: 10px; } /* Continue the current CSS selector or property value safely. */
 
-/* The emergency stop remains fixed, circular, and visually distinct from normal controls. */
-.emergency-stop {
-  position: fixed;
-  right: 22px;
-  bottom: 78px;
-  z-index: 20;
-  width: 76px;
-  height: 76px;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  border: 2px solid #ff8a87;
-  border-radius: 50%;
-  color: white;
-  background: linear-gradient(145deg, #df3431, #8d1717);
-  box-shadow: 0 12px 30px rgba(126, 9, 9, 0.48), inset 0 2px 0 rgba(255,255,255,0.22);
-}
-.emergency-stop:hover:not(:disabled) { transform: translateY(-2px) scale(1.02); border-color: white; background: linear-gradient(145deg, #fb504d, #a51b1b); }
-.emergency-stop span { font-size: 18px; font-weight: 950; }
-.emergency-stop b { font-size: 7px; letter-spacing: 0.08em; }
+.emergency-stop { /* The emergency stop remains fixed, circular, and visually distinct from normal controls. */
+  position: fixed; /* Set this visual property for the current component. */
+  right: 22px; /* Set this visual property for the current component. */
+  bottom: 78px; /* Set this visual property for the current component. */
+  z-index: 20; /* Set this visual property for the current component. */
+  width: 76px; /* Set this visual property for the current component. */
+  height: 76px; /* Set this visual property for the current component. */
+  display: grid; /* Set this visual property for the current component. */
+  place-items: center; /* Set this visual property for the current component. */
+  align-content: center; /* Set this visual property for the current component. */
+  border: 2px solid #ff8a87; /* Set this visual property for the current component. */
+  border-radius: 50%; /* Set this visual property for the current component. */
+  color: white; /* Set this visual property for the current component. */
+  background: linear-gradient(145deg, #df3431, #8d1717); /* Set this visual property for the current component. */
+  box-shadow: 0 12px 30px rgba(126, 9, 9, 0.48), inset 0 2px 0 rgba(255,255,255,0.22); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.emergency-stop:hover:not(:disabled) { transform: translateY(-2px) scale(1.02); border-color: white; background: linear-gradient(145deg, #fb504d, #a51b1b); } /* Continue the current CSS selector or property value safely. */
+.emergency-stop span { font-size: 18px; font-weight: 950; } /* Continue the current CSS selector or property value safely. */
+.emergency-stop b { font-size: 7px; letter-spacing: 0.08em; } /* Continue the current CSS selector or property value safely. */
 
-/* The credit stays small so it remains visible without competing with flight data. */
-.credit { padding: 8px 4px 0; color: #66808a; text-align: left; font: 700 8px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.08em; }
+.credit { padding: 8px 4px 0; color: #66808a; text-align: left; font: 700 8px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.08em; } /* The credit stays small so it remains visible without competing with flight data. */
 
-/* The mission workspace provides a separate engineering map and waypoint list. */
-.mission-workspace {
-  min-height: 690px;
-  padding: 24px;
-  border: 1px solid var(--line);
-  background: rgba(8, 16, 20, 0.96);
-}
-.mission-workspace[hidden] { display: none; }
-.mission-workspace > header { display: flex; justify-content: space-between; align-items: end; gap: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-.mission-workspace h2 { margin: 5px 0 0; font-size: 28px; }
-.mission-actions { display: flex; gap: 7px; }
-.mission-actions button { min-height: 36px; padding: 0 13px; font-size: 10px; font-weight: 800; }
-.mission-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 14px; margin-top: 16px; }
-.mission-map {
-  position: relative;
-  min-height: 540px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background-color: #0a1318;
-  background-image:
-    linear-gradient(rgba(114,214,239,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(114,214,239,0.08) 1px, transparent 1px),
-    linear-gradient(rgba(114,214,239,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(114,214,239,0.04) 1px, transparent 1px);
-  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-  cursor: crosshair;
-}
-.mission-map p { position: absolute; left: 16px; bottom: 12px; max-width: 520px; margin: 0; color: var(--muted); font-size: 10px; }
-.map-home, .waypoint-marker { position: absolute; z-index: 2; width: 30px; height: 30px; display: grid; place-items: center; transform: translate(-50%, -50%); border: 1px solid var(--cyan); color: var(--cyan); background: #091217; font: 800 10px/1 ui-monospace, monospace; }
-.map-home { left: 50%; top: 50%; border-radius: 50%; }
-.waypoint-marker { border-color: var(--amber); color: var(--amber); border-radius: 50%; }
-#missionPath { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.waypoint-list { min-height: 540px; margin: 0; padding: 10px 10px 10px 38px; border: 1px solid var(--line); background: var(--surface); }
-.waypoint-list li { padding: 10px 5px; border-bottom: 1px solid rgba(255,255,255,0.07); color: var(--muted); font: 700 10px/1.4 ui-monospace, monospace; }
-.waypoint-list li::marker { color: var(--amber); }
+.mission-workspace { /* The mission workspace provides a separate engineering map and waypoint list. */
+  min-height: 690px; /* Set this visual property for the current component. */
+  padding: 24px; /* Set this visual property for the current component. */
+  border: 1px solid var(--line); /* Set this visual property for the current component. */
+  background: rgba(8, 16, 20, 0.96); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.mission-workspace[hidden] { display: none; } /* Continue the current CSS selector or property value safely. */
+.mission-workspace > header { display: flex; justify-content: space-between; align-items: end; gap: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--line); } /* Continue the current CSS selector or property value safely. */
+.mission-workspace h2 { margin: 5px 0 0; font-size: 28px; } /* Continue the current CSS selector or property value safely. */
+.mission-actions { display: flex; gap: 7px; } /* Continue the current CSS selector or property value safely. */
+.mission-actions button { min-height: 36px; padding: 0 13px; font-size: 10px; font-weight: 800; } /* Continue the current CSS selector or property value safely. */
+.mission-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 14px; margin-top: 16px; } /* Continue the current CSS selector or property value safely. */
+.mission-map { /* Open the style rule for this Flight Deck component. */
+  position: relative; /* Set this visual property for the current component. */
+  min-height: 540px; /* Set this visual property for the current component. */
+  overflow: hidden; /* Set this visual property for the current component. */
+  border: 1px solid var(--line); /* Set this visual property for the current component. */
+  background-color: #0a1318; /* Set this visual property for the current component. */
+  background-image: /* Continue the current CSS selector or property value safely. */
+    linear-gradient(rgba(114,214,239,0.08) 1px, transparent 1px), /* Continue the current CSS selector or property value safely. */
+    linear-gradient(90deg, rgba(114,214,239,0.08) 1px, transparent 1px), /* Continue the current CSS selector or property value safely. */
+    linear-gradient(rgba(114,214,239,0.04) 1px, transparent 1px), /* Continue the current CSS selector or property value safely. */
+    linear-gradient(90deg, rgba(114,214,239,0.04) 1px, transparent 1px); /* Set this visual property for the current component. */
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px; /* Set this visual property for the current component. */
+  cursor: crosshair; /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.mission-map p { position: absolute; left: 16px; bottom: 12px; max-width: 520px; margin: 0; color: var(--muted); font-size: 10px; } /* Continue the current CSS selector or property value safely. */
+.map-home, .waypoint-marker { position: absolute; z-index: 2; width: 30px; height: 30px; display: grid; place-items: center; transform: translate(-50%, -50%); border: 1px solid var(--cyan); color: var(--cyan); background: #091217; font: 800 10px/1 ui-monospace, monospace; } /* Continue the current CSS selector or property value safely. */
+.map-home { left: 50%; top: 50%; border-radius: 50%; } /* Continue the current CSS selector or property value safely. */
+.waypoint-marker { border-color: var(--amber); color: var(--amber); border-radius: 50%; } /* Continue the current CSS selector or property value safely. */
+#missionPath { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; } /* Continue the current CSS selector or property value safely. */
+.waypoint-list { min-height: 540px; margin: 0; padding: 10px 10px 10px 38px; border: 1px solid var(--line); background: var(--surface); } /* Continue the current CSS selector or property value safely. */
+.waypoint-list li { padding: 10px 5px; border-bottom: 1px solid rgba(255,255,255,0.07); color: var(--muted); font: 700 10px/1.4 ui-monospace, monospace; } /* Continue the current CSS selector or property value safely. */
+.waypoint-list li::marker { color: var(--amber); } /* Continue the current CSS selector or property value safely. */
 
-/* The settings dialog groups network endpoints in a focused modal layer. */
-.settings-dialog {
-  width: min(520px, calc(100vw - 28px));
-  padding: 0;
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
-  color: var(--text);
-  background: rgba(9, 17, 21, 0.96);
-  backdrop-filter: blur(24px);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.65);
-}
-.settings-dialog::backdrop { background: rgba(1, 5, 7, 0.72); backdrop-filter: blur(4px); }
-.settings-dialog form { display: grid; gap: 8px; padding: 22px; }
-.settings-dialog header { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
-.settings-dialog h2 { margin: 4px 0 0; font-size: 22px; }
-.settings-dialog header button { width: 34px; height: 34px; font-size: 20px; }
-.settings-dialog label { margin-top: 6px; color: var(--text); font-size: 10px; font-weight: 800; }
-.settings-dialog input { width: 100%; height: 42px; padding: 0 11px; border: 1px solid var(--line); border-radius: 4px; color: var(--text); background: #060c0f; }
-.settings-dialog small { color: var(--muted); font-size: 9px; line-height: 1.5; }
-.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
-.dialog-actions button { min-width: 110px; height: 38px; }
+.settings-dialog { /* The settings dialog groups network endpoints in a focused modal layer. */
+  width: min(520px, calc(100vw - 28px)); /* Set this visual property for the current component. */
+  padding: 0; /* Set this visual property for the current component. */
+  border: 1px solid var(--line-strong); /* Set this visual property for the current component. */
+  border-radius: 6px; /* Set this visual property for the current component. */
+  color: var(--text); /* Set this visual property for the current component. */
+  background: rgba(9, 17, 21, 0.96); /* Set this visual property for the current component. */
+  backdrop-filter: blur(24px); /* Set this visual property for the current component. */
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.65); /* Set this visual property for the current component. */
+} /* Close the current visual rule block. */
+.settings-dialog::backdrop { background: rgba(1, 5, 7, 0.72); backdrop-filter: blur(4px); } /* Continue the current CSS selector or property value safely. */
+.settings-dialog form { display: grid; gap: 8px; padding: 22px; } /* Continue the current CSS selector or property value safely. */
+.settings-dialog header { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; } /* Continue the current CSS selector or property value safely. */
+.settings-dialog h2 { margin: 4px 0 0; font-size: 22px; } /* Continue the current CSS selector or property value safely. */
+.settings-dialog header button { width: 34px; height: 34px; font-size: 20px; } /* Continue the current CSS selector or property value safely. */
+.settings-dialog label { margin-top: 6px; color: var(--text); font-size: 10px; font-weight: 800; } /* Continue the current CSS selector or property value safely. */
+.settings-dialog input { width: 100%; height: 42px; padding: 0 11px; border: 1px solid var(--line); border-radius: 4px; color: var(--text); background: #060c0f; } /* Continue the current CSS selector or property value safely. */
+.settings-dialog small { color: var(--muted); font-size: 9px; line-height: 1.5; } /* Continue the current CSS selector or property value safely. */
+.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; } /* Continue the current CSS selector or property value safely. */
+.dialog-actions button { min-width: 110px; height: 38px; } /* Continue the current CSS selector or property value safely. */
 
-/* FPV mode removes nonessential chrome and expands the video stage to the viewport. */
-.flight-deck.fpv-mode .topbar,
-.flight-deck.fpv-mode .alert-bar,
-.flight-deck.fpv-mode .telemetry-strip,
-.flight-deck.fpv-mode .credit { display: none; }
-.flight-deck.fpv-mode { width: 100%; padding: 0; }
-.flight-deck.fpv-mode .operations-shell { margin: 0; }
-.flight-deck.fpv-mode .video-stage { width: 100vw; height: 100vh; max-height: none; border: 0; }
-.flight-deck.fpv-mode .control-dock { opacity: 0.2; transition: opacity 200ms ease; }
-.flight-deck.fpv-mode .control-dock:hover { opacity: 1; }
+.flight-deck.fpv-mode .topbar, /* FPV mode removes nonessential chrome and expands the video stage to the viewport. */
+.flight-deck.fpv-mode .alert-bar, /* Continue the current CSS selector or property value safely. */
+.flight-deck.fpv-mode .telemetry-strip, /* Continue the current CSS selector or property value safely. */
+.flight-deck.fpv-mode .credit { display: none; } /* Continue the current CSS selector or property value safely. */
+.flight-deck.fpv-mode { width: 100%; padding: 0; } /* Continue the current CSS selector or property value safely. */
+.flight-deck.fpv-mode .operations-shell { margin: 0; } /* Continue the current CSS selector or property value safely. */
+.flight-deck.fpv-mode .video-stage { width: 100vw; height: 100vh; max-height: none; border: 0; } /* Continue the current CSS selector or property value safely. */
+.flight-deck.fpv-mode .control-dock { opacity: 0.2; transition: opacity 200ms ease; } /* Continue the current CSS selector or property value safely. */
+.flight-deck.fpv-mode .control-dock:hover { opacity: 1; } /* Continue the current CSS selector or property value safely. */
 
-/* Camera mode keeps payload controls active while preventing accidental flight commands. */
-.flight-deck.camera-mode .control-left,
-.flight-deck.camera-mode .stick-panel { opacity: 0.18; pointer-events: none; }
-.flight-deck.camera-mode .control-right { border-color: var(--line-strong); }
+.flight-deck.camera-mode .control-left, /* Camera mode keeps payload controls active while preventing accidental flight commands. */
+.flight-deck.camera-mode .stick-panel { opacity: 0.18; pointer-events: none; } /* Continue the current CSS selector or property value safely. */
+.flight-deck.camera-mode .control-right { border-color: var(--line-strong); } /* Continue the current CSS selector or property value safely. */
 
-/* This breakpoint compresses large-desktop controls without changing their order. */
-@media (max-width: 1420px) {
-  .topbar { grid-template-columns: minmax(190px, 1fr) auto minmax(360px, 1fr); gap: 10px; }
-  .status-item b { display: none; }
-  .hud-left { left: 248px; }
-  .hud-right { right: 248px; }
-  .control-dock { width: 214px; }
-  .stick-panel { width: 222px; }
-  .stage-footer { left: 240px; right: 240px; }
-  .telemetry-strip { grid-template-columns: 1.2fr repeat(4, minmax(86px, .7fr)) minmax(180px, 1.4fr); }
-  .telemetry-strip > div:nth-child(6), .telemetry-strip > div:nth-child(7) { display: none; }
-}
+@media (max-width: 1420px) { /* This breakpoint compresses large-desktop controls without changing their order. */
+  .topbar { grid-template-columns: minmax(190px, 1fr) auto minmax(360px, 1fr); gap: 10px; } /* Continue the current CSS selector or property value safely. */
+  .status-item b { display: none; } /* Continue the current CSS selector or property value safely. */
+  .hud-left { left: 248px; } /* Continue the current CSS selector or property value safely. */
+  .hud-right { right: 248px; } /* Continue the current CSS selector or property value safely. */
+  .control-dock { width: 214px; } /* Continue the current CSS selector or property value safely. */
+  .stick-panel { width: 222px; } /* Continue the current CSS selector or property value safely. */
+  .stage-footer { left: 240px; right: 240px; } /* Continue the current CSS selector or property value safely. */
+  .telemetry-strip { grid-template-columns: 1.2fr repeat(4, minmax(86px, .7fr)) minmax(180px, 1.4fr); } /* Continue the current CSS selector or property value safely. */
+  .telemetry-strip > div:nth-child(6), .telemetry-strip > div:nth-child(7) { display: none; } /* Continue the current CSS selector or property value safely. */
+} /* Close the current visual rule block. */
 
-/* This breakpoint moves the mode switch below the top row for compact desktop and tablet widths. */
-@media (max-width: 1120px) {
-  .topbar { grid-template-columns: 1fr auto; }
-  .mode-switch { grid-row: 2; grid-column: 1 / -1; width: 100%; }
-  .top-status { grid-column: 2; }
-  .status-item { display: none; }
-  .video-stage { height: 760px; max-height: none; }
-  .hud-left { left: 238px; }
-  .hud-right { right: 238px; }
-  .hud-stack { width: 130px; }
-  .hud-readout strong { font-size: 15px; }
-  .stage-footer { display: none; }
-  .telemetry-strip { grid-template-columns: repeat(4, 1fr); }
-  .telemetry-strip > div:nth-child(5), .telemetry-strip > div:nth-child(6), .telemetry-strip > div:nth-child(7), .telemetry-strip > div:nth-child(8) { display: none; }
-}
+@media (max-width: 1120px) { /* This breakpoint moves the mode switch below the top row for compact desktop and tablet widths. */
+  .topbar { grid-template-columns: 1fr auto; } /* Continue the current CSS selector or property value safely. */
+  .mode-switch { grid-row: 2; grid-column: 1 / -1; width: 100%; } /* Continue the current CSS selector or property value safely. */
+  .top-status { grid-column: 2; } /* Continue the current CSS selector or property value safely. */
+  .status-item { display: none; } /* Continue the current CSS selector or property value safely. */
+  .video-stage { height: 760px; max-height: none; } /* Continue the current CSS selector or property value safely. */
+  .hud-left { left: 238px; } /* Continue the current CSS selector or property value safely. */
+  .hud-right { right: 238px; } /* Continue the current CSS selector or property value safely. */
+  .hud-stack { width: 130px; } /* Continue the current CSS selector or property value safely. */
+  .hud-readout strong { font-size: 15px; } /* Continue the current CSS selector or property value safely. */
+  .stage-footer { display: none; } /* Continue the current CSS selector or property value safely. */
+  .telemetry-strip { grid-template-columns: repeat(4, 1fr); } /* Continue the current CSS selector or property value safely. */
+  .telemetry-strip > div:nth-child(5), .telemetry-strip > div:nth-child(6), .telemetry-strip > div:nth-child(7), .telemetry-strip > div:nth-child(8) { display: none; } /* Continue the current CSS selector or property value safely. */
+} /* Close the current visual rule block. */
 
-/* This breakpoint stacks the live workspace into touch-friendly tablet sections. */
-@media (max-width: 820px) {
-  .flight-deck { padding: 6px; }
-  .topbar { display: flex; flex-wrap: wrap; padding: 8px; }
-  .identity { flex: 1; }
-  .top-status { margin-left: auto; }
-  .mode-switch { order: 3; min-width: 100%; }
-  .alert-bar { grid-template-columns: 1fr auto; }
-  .alert-bar strong { grid-column: 1; }
-  .alert-bar span { grid-column: 1; }
-  .alert-bar button { grid-column: 2; grid-row: 1 / span 2; }
-  .video-stage { min-height: 1180px; height: 1180px; overflow: visible; background: #071014; }
-  .video-surface, .video-shade, .engineering-grid { inset: 0 0 auto; height: 430px; overflow: hidden; }
-  .stage-label.top-left { top: 10px; left: 10px; }
-  .stage-label.top-right { top: 10px; right: 10px; }
-  .heading-tape { top: 66px; width: 54vw; }
-  .hud-stack { top: 108px; width: 118px; }
-  .hud-left { left: 10px; }
-  .hud-right { right: 10px; }
-  .attitude-reticle { top: 245px; }
-  .control-dock { top: 446px; width: calc(50% - 15px); min-height: 276px; }
-  .control-left { left: 10px; }
-  .control-right { right: 10px; }
-  .stick-panel { top: 740px; bottom: auto; width: calc(50% - 15px); height: 205px; }
-  .left-stick-panel { left: 10px; }
-  .right-stick-panel { right: 10px; }
-  .stick-zone { width: 154px; height: 154px; }
-  .stage-footer { display: grid; left: 10px; right: 10px; bottom: 10px; }
-  .telemetry-strip { grid-template-columns: repeat(2, 1fr); }
-  .telemetry-strip > div:nth-child(3), .telemetry-strip > div:nth-child(4) { display: grid; }
-  .emergency-stop { right: 16px; bottom: 16px; }
-  .mission-workspace { padding: 14px; }
-  .mission-workspace > header { align-items: start; flex-direction: column; }
-  .mission-layout { grid-template-columns: 1fr; }
-  .waypoint-list { min-height: 160px; }
-}
+@media (max-width: 820px) { /* This breakpoint stacks the live workspace into touch-friendly tablet sections. */
+  .flight-deck { padding: 6px; } /* Continue the current CSS selector or property value safely. */
+  .topbar { display: flex; flex-wrap: wrap; padding: 8px; } /* Continue the current CSS selector or property value safely. */
+  .identity { flex: 1; } /* Continue the current CSS selector or property value safely. */
+  .top-status { margin-left: auto; } /* Continue the current CSS selector or property value safely. */
+  .mode-switch { order: 3; min-width: 100%; } /* Continue the current CSS selector or property value safely. */
+  .alert-bar { grid-template-columns: 1fr auto; } /* Continue the current CSS selector or property value safely. */
+  .alert-bar strong { grid-column: 1; } /* Continue the current CSS selector or property value safely. */
+  .alert-bar span { grid-column: 1; } /* Continue the current CSS selector or property value safely. */
+  .alert-bar button { grid-column: 2; grid-row: 1 / span 2; } /* Continue the current CSS selector or property value safely. */
+  .video-stage { min-height: 1180px; height: 1180px; overflow: visible; background: #071014; } /* Continue the current CSS selector or property value safely. */
+  .video-surface, .video-shade, .engineering-grid { inset: 0 0 auto; height: 430px; overflow: hidden; } /* Continue the current CSS selector or property value safely. */
+  .stage-label.top-left { top: 10px; left: 10px; } /* Continue the current CSS selector or property value safely. */
+  .stage-label.top-right { top: 10px; right: 10px; } /* Continue the current CSS selector or property value safely. */
+  .heading-tape { top: 66px; width: 54vw; } /* Continue the current CSS selector or property value safely. */
+  .hud-stack { top: 108px; width: 118px; } /* Continue the current CSS selector or property value safely. */
+  .hud-left { left: 10px; } /* Continue the current CSS selector or property value safely. */
+  .hud-right { right: 10px; } /* Continue the current CSS selector or property value safely. */
+  .attitude-reticle { top: 245px; } /* Continue the current CSS selector or property value safely. */
+  .control-dock { top: 446px; width: calc(50% - 15px); min-height: 276px; } /* Continue the current CSS selector or property value safely. */
+  .control-left { left: 10px; } /* Continue the current CSS selector or property value safely. */
+  .control-right { right: 10px; } /* Continue the current CSS selector or property value safely. */
+  .stick-panel { top: 740px; bottom: auto; width: calc(50% - 15px); height: 205px; } /* Continue the current CSS selector or property value safely. */
+  .left-stick-panel { left: 10px; } /* Continue the current CSS selector or property value safely. */
+  .right-stick-panel { right: 10px; } /* Continue the current CSS selector or property value safely. */
+  .stick-zone { width: 154px; height: 154px; } /* Continue the current CSS selector or property value safely. */
+  .stage-footer { display: grid; left: 10px; right: 10px; bottom: 10px; } /* Continue the current CSS selector or property value safely. */
+  .telemetry-strip { grid-template-columns: repeat(2, 1fr); } /* Continue the current CSS selector or property value safely. */
+  .telemetry-strip > div:nth-child(3), .telemetry-strip > div:nth-child(4) { display: grid; } /* Continue the current CSS selector or property value safely. */
+  .emergency-stop { right: 16px; bottom: 16px; } /* Continue the current CSS selector or property value safely. */
+  .mission-workspace { padding: 14px; } /* Continue the current CSS selector or property value safely. */
+  .mission-workspace > header { align-items: start; flex-direction: column; } /* Continue the current CSS selector or property value safely. */
+  .mission-layout { grid-template-columns: 1fr; } /* Continue the current CSS selector or property value safely. */
+  .waypoint-list { min-height: 160px; } /* Continue the current CSS selector or property value safely. */
+} /* Close the current visual rule block. */
 
-/* This breakpoint places every control group in a single mobile column. */
-@media (max-width: 560px) {
-  .identity small { display: none; }
-  .identity strong { font-size: 15px; }
-  .top-status .primary-action { padding: 0 10px; }
-  .mode-button { min-width: 0; }
-  .video-stage { min-height: 1490px; height: 1490px; }
-  .video-surface, .video-shade, .engineering-grid { height: 360px; }
-  .stage-label.top-right { display: none; }
-  .heading-tape { top: 60px; width: 62vw; }
-  .hud-stack { top: 96px; width: 108px; }
-  .hud-readout { min-height: 42px; padding: 5px 7px; }
-  .hud-readout strong { font-size: 13px; }
-  .attitude-reticle { top: 215px; width: 150px; }
-  .control-dock { top: auto; width: calc(100% - 20px); }
-  .control-left { left: 10px; top: 376px; }
-  .control-right { right: 10px; top: 664px; }
-  .stick-panel { width: calc(100% - 20px); }
-  .left-stick-panel { left: 10px; top: 950px; }
-  .right-stick-panel { right: 10px; top: 1165px; }
-  .stage-footer { display: none; }
-  .telemetry-strip { grid-template-columns: 1fr 1fr; }
-  .telemetry-strip > div { min-height: 52px; }
-  .log-cell { grid-column: 1 / -1; }
-  .mission-actions { flex-wrap: wrap; }
-}
+@media (max-width: 560px) { /* This breakpoint places every control group in a single mobile column. */
+  .identity small { display: none; } /* Continue the current CSS selector or property value safely. */
+  .identity strong { font-size: 15px; } /* Continue the current CSS selector or property value safely. */
+  .top-status .primary-action { padding: 0 10px; } /* Continue the current CSS selector or property value safely. */
+  .mode-button { min-width: 0; } /* Continue the current CSS selector or property value safely. */
+  .video-stage { min-height: 1490px; height: 1490px; } /* Continue the current CSS selector or property value safely. */
+  .video-surface, .video-shade, .engineering-grid { height: 360px; } /* Continue the current CSS selector or property value safely. */
+  .stage-label.top-right { display: none; } /* Continue the current CSS selector or property value safely. */
+  .heading-tape { top: 60px; width: 62vw; } /* Continue the current CSS selector or property value safely. */
+  .hud-stack { top: 96px; width: 108px; } /* Continue the current CSS selector or property value safely. */
+  .hud-readout { min-height: 42px; padding: 5px 7px; } /* Continue the current CSS selector or property value safely. */
+  .hud-readout strong { font-size: 13px; } /* Continue the current CSS selector or property value safely. */
+  .attitude-reticle { top: 215px; width: 150px; } /* Continue the current CSS selector or property value safely. */
+  .control-dock { top: auto; width: calc(100% - 20px); } /* Continue the current CSS selector or property value safely. */
+  .control-left { left: 10px; top: 376px; } /* Continue the current CSS selector or property value safely. */
+  .control-right { right: 10px; top: 664px; } /* Continue the current CSS selector or property value safely. */
+  .stick-panel { width: calc(100% - 20px); } /* Continue the current CSS selector or property value safely. */
+  .left-stick-panel { left: 10px; top: 950px; } /* Continue the current CSS selector or property value safely. */
+  .right-stick-panel { right: 10px; top: 1165px; } /* Continue the current CSS selector or property value safely. */
+  .stage-footer { display: none; } /* Continue the current CSS selector or property value safely. */
+  .telemetry-strip { grid-template-columns: 1fr 1fr; } /* Continue the current CSS selector or property value safely. */
+  .telemetry-strip > div { min-height: 52px; } /* Continue the current CSS selector or property value safely. */
+  .log-cell { grid-column: 1 / -1; } /* Continue the current CSS selector or property value safely. */
+  .mission-actions { flex-wrap: wrap; } /* Continue the current CSS selector or property value safely. */
+} /* Close the current visual rule block. */
 
-/* Reduced-motion users receive the same interface state without long transitions or animations. */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
-}
+@media (prefers-reduced-motion: reduce) { /* Reduced-motion users receive the same interface state without long transitions or animations. */
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } /* Continue the current CSS selector or property value safely. */
+} /* Close the current visual rule block. */
+
+:root { /* Defines reusable Liquid Glass values without changing the existing layout tokens. */
+  --glass-fill: linear-gradient(145deg, rgba(240, 247, 250, 0.14), rgba(185, 202, 210, 0.065)); /* Creates a restrained white-to-grey glass surface. */
+  --glass-fill-soft: linear-gradient(145deg, rgba(240, 247, 250, 0.105), rgba(170, 191, 201, 0.045)); /* Creates a lighter glass layer for compact controls. */
+  --glass-fill-hover: linear-gradient(145deg, rgba(248, 252, 253, 0.19), rgba(192, 211, 219, 0.085)); /* Brightens glass naturally during pointer interaction. */
+  --glass-line: rgba(224, 241, 247, 0.19); /* Draws a subtle cool-white edge around glass surfaces. */
+  --glass-line-hover: rgba(229, 247, 252, 0.34); /* Makes the edge slightly clearer during hover. */
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(255, 255, 255, 0.035); /* Simulates light reflecting from the upper glass edge. */
+  --glass-shadow: 0 18px 46px rgba(0, 0, 0, 0.34), 0 3px 12px rgba(0, 0, 0, 0.18); /* Separates floating glass layers from the dark canvas. */
+  --glass-shadow-hover: 0 24px 58px rgba(0, 0, 0, 0.42), 0 5px 16px rgba(0, 0, 0, 0.22); /* Deepens the shadow without producing a harsh glow. */
+  --glass-blur: blur(18px) saturate(140%); /* Matches the requested Apple-like blur and colour saturation. */
+  --glass-radius-large: 24px; /* Gives main containers a soft premium silhouette. */
+  --glass-radius-medium: 18px; /* Gives panels and compact containers consistent corners. */
+  --glass-radius-small: 13px; /* Gives buttons and inputs comfortable rounded corners. */
+} /* Close the current visual rule block. */
+
+body { /* Preserves the dark cockpit while adding depth behind translucent surfaces. */
+  background: radial-gradient(circle at 18% 12%, rgba(185, 210, 220, 0.09), transparent 30%), radial-gradient(circle at 82% 18%, rgba(32, 191, 208, 0.08), transparent 34%), linear-gradient(145deg, #070b0e 0%, #0a1115 48%, #070a0d 100%); /* Adds quiet lighting that remains visible through the glass. */
+  background-attachment: fixed; /* Keeps the environmental lighting stable while the page scrolls. */
+} /* Close the current visual rule block. */
+
+button { /* Turns every existing action into a compact glass control without changing its function. */
+  border-color: var(--glass-line); /* Replaces the hard edge with a thin translucent border. */
+  border-radius: var(--glass-radius-small); /* Softens all action controls consistently. */
+  background: var(--glass-fill-soft); /* Gives each action a low-opacity glass surface. */
+  -webkit-backdrop-filter: var(--glass-blur); /* Enables glass blur in WebKit-based browsers. */
+  backdrop-filter: var(--glass-blur); /* Blurs content behind each action in supported browsers. */
+  box-shadow: var(--glass-highlight), 0 7px 18px rgba(0, 0, 0, 0.2); /* Adds inner reflection and restrained elevation. */
+  transition: transform 240ms var(--ease), border-color 240ms ease, background 240ms ease, box-shadow 240ms ease, filter 240ms ease, opacity 180ms ease; /* Keeps hover and press motion smooth and lightweight. */
+} /* Close the current visual rule block. */
+
+button:hover:not(:disabled) { /* Gives enabled controls a subtle physical response. */
+  transform: translateY(-2px); /* Lifts the control slightly without moving surrounding layout. */
+  border-color: var(--glass-line-hover); /* Reveals a brighter edge under the pointer. */
+  background: var(--glass-fill-hover); /* Increases the reflected light on hover. */
+  box-shadow: var(--glass-highlight), 0 12px 25px rgba(0, 0, 0, 0.28); /* Strengthens elevation while keeping shadows soft. */
+  filter: brightness(1.06); /* Adds a small brightness response similar to polished glass. */
+} /* Close the current visual rule block. */
+
+button:active:not(:disabled) { /* Makes presses feel immediate and controlled. */
+  transform: translateY(0) scale(0.985); /* Compresses the control slightly during activation. */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.18); /* Reduces elevation to communicate a pressed state. */
+} /* Close the current visual rule block. */
+
+.topbar { /* Converts the existing header into the primary Liquid Glass layer. */
+  overflow: hidden; /* Clips reflected light cleanly to the rounded header shape. */
+  border-color: var(--glass-line); /* Uses a restrained white-blue glass edge. */
+  border-radius: var(--glass-radius-large); /* Gives the header Apple-like rounded corners. */
+  background: var(--glass-fill); /* Applies balanced translucent white and grey glass. */
+  -webkit-backdrop-filter: var(--glass-blur); /* Enables the full glass effect in WebKit browsers. */
+  backdrop-filter: var(--glass-blur); /* Blurs the dark flight background behind the header. */
+  box-shadow: var(--glass-highlight), var(--glass-shadow); /* Adds an upper reflection and floating depth. */
+} /* Close the current visual rule block. */
+
+.identity-mark { /* Gives the NanoKit mark a compact inset glass treatment. */
+  border-color: rgba(114, 214, 239, 0.52); /* Retains cyan as the product identity accent. */
+  border-radius: 14px; /* Softens the square mark without turning it into a pill. */
+  background: rgba(8, 22, 28, 0.42); /* Maintains readable contrast inside the glass header. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 20px rgba(0, 0, 0, 0.2); /* Adds a small internal reflection and depth. */
+} /* Close the current visual rule block. */
+
+.mode-switch { /* Turns the existing Flight, FPV, Mission, and Camera selector into a glass capsule. */
+  border-color: var(--glass-line); /* Uses the same soft edge as other glass controls. */
+  border-radius: 16px; /* Rounds the segmented navigation container. */
+  background: rgba(5, 12, 16, 0.28); /* Keeps the navigation darker than its selected item. */
+  -webkit-backdrop-filter: var(--glass-blur); /* Preserves blur in WebKit browsers. */
+  backdrop-filter: var(--glass-blur); /* Blurs content behind the navigation capsule. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11), 0 8px 20px rgba(0, 0, 0, 0.18); /* Adds a gentle capsule reflection. */
+} /* Close the current visual rule block. */
+
+.mode-button { /* Keeps every navigation segment smooth and readable. */
+  border-radius: 12px; /* Gives each segment a soft selected surface. */
+  box-shadow: none; /* Prevents inactive segments from looking like separate floating buttons. */
+} /* Close the current visual rule block. */
+
+.mode-button.active { /* Preserves cyan as the active workspace indicator. */
+  border: 1px solid rgba(114, 214, 239, 0.38); /* Delineates the active mode with a restrained cyan edge. */
+  background: linear-gradient(145deg, rgba(114, 214, 239, 0.28), rgba(114, 214, 239, 0.11)); /* Gives the active segment a translucent cyan glass fill. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 6px 16px rgba(0, 0, 0, 0.2); /* Raises the selected segment above the capsule. */
+} /* Close the current visual rule block. */
+
+.status-item { /* Makes each aircraft status value easier to scan inside the glass header. */
+  border-left-color: rgba(255, 255, 255, 0.11); /* Softens separators between compact status values. */
+  border-radius: 10px; /* Prevents status groups from appearing mechanically sharp. */
+  background: rgba(255, 255, 255, 0.025); /* Adds a nearly invisible glass backing for legibility. */
+} /* Close the current visual rule block. */
+
+.primary-action { /* Keeps the main connection action visually dominant. */
+  border-color: rgba(182, 239, 251, 0.66); /* Adds a bright but controlled cyan-white edge. */
+  background: linear-gradient(145deg, #8de2f4, #56c9e2); /* Preserves the existing cyan action hierarchy. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 10px 24px rgba(20, 132, 157, 0.24); /* Gives the primary action a polished glass highlight. */
+} /* Close the current visual rule block. */
+
+.icon-action { /* Gives square utility actions a softer glass identity. */
+  border-radius: 13px; /* Matches small controls without changing their stable dimensions. */
+} /* Close the current visual rule block. */
+
+.alert-bar { /* Converts warning banners into readable tinted glass layers. */
+  overflow: hidden; /* Keeps the tinted reflection inside the rounded warning banner. */
+  border-color: rgba(245, 189, 79, 0.42); /* Preserves the amber warning boundary. */
+  border-radius: 16px; /* Removes the former sharp banner corners. */
+  background: linear-gradient(145deg, rgba(245, 189, 79, 0.16), rgba(82, 58, 20, 0.27)); /* Creates amber glass without weakening text contrast. */
+  -webkit-backdrop-filter: var(--glass-blur); /* Enables banner blur in WebKit browsers. */
+  backdrop-filter: var(--glass-blur); /* Blurs the interface beneath the alert. */
+  box-shadow: inset 0 1px 0 rgba(255, 245, 212, 0.15), 0 12px 28px rgba(0, 0, 0, 0.22); /* Adds a warm reflection and soft depth. */
+} /* Close the current visual rule block. */
+
+.alert-bar.critical { /* Keeps dangerous states unmistakably red. */
+  border-color: rgba(243, 93, 90, 0.58); /* Strengthens the critical boundary for rapid recognition. */
+  background: linear-gradient(145deg, rgba(243, 93, 90, 0.2), rgba(76, 22, 22, 0.34)); /* Applies red glass while preserving the dark cockpit. */
+  box-shadow: inset 0 1px 0 rgba(255, 220, 219, 0.14), 0 12px 28px rgba(60, 8, 8, 0.28); /* Adds critical-state depth without neon glow. */
+} /* Close the current visual rule block. */
+
+.alert-bar.good { /* Keeps healthy states clearly green. */
+  border-color: rgba(168, 223, 98, 0.46); /* Retains the green healthy-state boundary. */
+  background: linear-gradient(145deg, rgba(168, 223, 98, 0.16), rgba(32, 55, 19, 0.3)); /* Applies green glass with strong text contrast. */
+  box-shadow: inset 0 1px 0 rgba(238, 255, 219, 0.13), 0 12px 28px rgba(10, 35, 5, 0.22); /* Adds calm depth to healthy messages. */
+} /* Close the current visual rule block. */
+
+.video-stage { /* Softens the existing live flight canvas without changing its size or content. */
+  border-color: rgba(200, 230, 239, 0.24); /* Replaces the hard cyan frame with a quiet glass edge. */
+  border-radius: 28px; /* Gives the main camera canvas the largest corner radius. */
+  background: rgba(3, 7, 9, 0.82); /* Preserves the dark video fallback behind all overlays. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 0 90px rgba(0, 0, 0, 0.48), 0 26px 70px rgba(0, 0, 0, 0.4); /* Frames the flight canvas with realistic glass depth. */
+} /* Close the current visual rule block. */
+
+.video-surface { /* Ensures the camera image follows the rounded flight canvas. */
+  border-radius: inherit; /* Matches the media clipping to the parent glass frame. */
+} /* Close the current visual rule block. */
+
+.stage-label { /* Turns camera and link labels into small floating glass readouts. */
+  border-color: var(--glass-line); /* Uses the common translucent edge. */
+  border-radius: 14px; /* Softens each compact stage label. */
+  background: var(--glass-fill-soft); /* Places telemetry over a restrained white-grey glass layer. */
+  -webkit-backdrop-filter: var(--glass-blur); /* Supports backdrop blur in WebKit browsers. */
+  backdrop-filter: var(--glass-blur); /* Keeps text readable over changing video imagery. */
+  box-shadow: var(--glass-highlight), 0 10px 24px rgba(0, 0, 0, 0.26); /* Adds reflected light and separation from video. */
+} /* Close the current visual rule block. */
+
+.heading-tape { /* Gives the compass tape a light glass backing while preserving its position. */
+  padding: 8px 12px; /* Creates breathing room around heading values. */
+  border: 1px solid rgba(235, 247, 250, 0.11); /* Adds a nearly invisible glass edge. */
+  border-radius: 15px; /* Softens the compass container. */
+  background: rgba(230, 241, 245, 0.055); /* Adds low-opacity glass behind the heading scale. */
+  -webkit-backdrop-filter: blur(14px) saturate(130%); /* Keeps WebKit rendering smooth over video. */
+  backdrop-filter: blur(14px) saturate(130%); /* Improves heading readability over complex imagery. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 10px 24px rgba(0, 0, 0, 0.2); /* Adds a subtle reflection and elevation. */
+} /* Close the current visual rule block. */
+
+.hud-readout { /* Converts each telemetry value into a compact glass instrument. */
+  border: 1px solid rgba(222, 240, 246, 0.13); /* Encloses the measurement with a soft white edge. */
+  border-left: 2px solid rgba(114, 214, 239, 0.72); /* Retains the cyan direction marker on left-side telemetry. */
+  border-radius: 14px; /* Gives measurement cards smooth instrument corners. */
+  background: linear-gradient(110deg, rgba(234, 244, 247, 0.13), rgba(148, 174, 184, 0.035)); /* Creates readable grey glass over the camera. */
+  -webkit-backdrop-filter: blur(16px) saturate(135%); /* Supports instrument blur in WebKit browsers. */
+  backdrop-filter: blur(16px) saturate(135%); /* Keeps measurements readable over moving video. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11), 0 10px 24px rgba(0, 0, 0, 0.23); /* Adds reflection and compact depth. */
+} /* Close the current visual rule block. */
+
+.hud-right .hud-readout { /* Mirrors the glass telemetry treatment on the right stack. */
+  border: 1px solid rgba(222, 240, 246, 0.13); /* Uses the same glass enclosure as the left stack. */
+  border-right: 2px solid rgba(114, 214, 239, 0.72); /* Keeps the right-side cyan direction marker. */
+  background: linear-gradient(250deg, rgba(234, 244, 247, 0.13), rgba(148, 174, 184, 0.035)); /* Mirrors reflected light for visual balance. */
+} /* Close the current visual rule block. */
+
+.control-dock, /* Continue the current CSS selector or property value safely. */
+.stick-panel { /* Applies the same premium glass material to flight, payload, and joystick panels. */
+  border-color: var(--glass-line); /* Uses a thin cool-white border around operational panels. */
+  border-radius: var(--glass-radius-large); /* Gives primary controls soft 24-pixel corners. */
+  background: var(--glass-fill); /* Uses balanced translucent white and grey glass. */
+  -webkit-backdrop-filter: var(--glass-blur); /* Enables the requested blur in WebKit browsers. */
+  backdrop-filter: var(--glass-blur); /* Blurs the drone image behind each operational panel. */
+  box-shadow: var(--glass-highlight), var(--glass-shadow); /* Adds realistic upper reflection and floating depth. */
+  transition: transform 300ms var(--ease), border-color 300ms ease, box-shadow 300ms ease, background 300ms ease; /* Keeps panel interaction smooth and GPU-friendly. */
+} /* Close the current visual rule block. */
+
+@media (hover: hover) and (pointer: fine) { /* Limits panel lift to devices with a precise pointer. */
+  .control-dock:hover, /* Continue the current CSS selector or property value safely. */
+  .stick-panel:hover { /* Adds a restrained hover response without affecting touch devices. */
+    transform: translateY(-3px); /* Lifts the focused panel slightly over the flight canvas. */
+    border-color: var(--glass-line-hover); /* Brightens only the focused panel edge. */
+    background: var(--glass-fill-hover); /* Increases soft white reflection on hover. */
+    box-shadow: var(--glass-highlight), var(--glass-shadow-hover); /* Deepens the focused panel shadow naturally. */
+  } /* Close the current visual rule block. */
+} /* Close the current visual rule block. */
+
+.arm-hold { /* Gives the safety-critical arming control a polished but restrained surface. */
+  border-radius: 16px; /* Makes the hold target easy to distinguish and touch. */
+  background: linear-gradient(145deg, rgba(168, 223, 98, 0.16), rgba(53, 75, 35, 0.22)); /* Retains green safety meaning inside glass. */
+  box-shadow: inset 0 1px 0 rgba(245, 255, 231, 0.13); /* Adds a quiet internal reflection. */
+} /* Close the current visual rule block. */
+
+.arm-hold.armed { /* Preserves the existing red armed-state meaning. */
+  background: linear-gradient(145deg, rgba(243, 93, 90, 0.21), rgba(90, 31, 31, 0.32)); /* Uses red-tinted glass when the aircraft is armed. */
+} /* Close the current visual rule block. */
+
+.flight-mode.active { /* Keeps the selected flight law visibly cyan. */
+  border-color: rgba(188, 240, 251, 0.64); /* Defines the selected flight mode clearly. */
+  background: linear-gradient(145deg, #8de2f4, #56c9e2); /* Preserves the cyan active-state hierarchy. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.46), 0 8px 18px rgba(20, 132, 157, 0.2); /* Gives the selected mode a polished elevation. */
+} /* Close the current visual rule block. */
+
+.payload-actions button.active { /* Keeps active payload tools easy to identify. */
+  border-color: rgba(114, 214, 239, 0.58); /* Strengthens the cyan active payload boundary. */
+  background: linear-gradient(145deg, rgba(114, 214, 239, 0.27), rgba(32, 191, 208, 0.12)); /* Adds translucent cyan glass to the active tool. */
+} /* Close the current visual rule block. */
+
+.control-dock input[type="range"] { /* Modernizes the existing camera tilt input without changing its behaviour. */
+  height: 6px; /* Gives the slider a comfortable visual track. */
+  border-radius: 999px; /* Makes the range track smoothly pill-shaped. */
+  background: rgba(255, 255, 255, 0.1); /* Uses a translucent neutral track behind the cyan value. */
+} /* Close the current visual rule block. */
+
+.stick-zone { /* Gives each virtual joystick a layered glass instrument surface. */
+  border-color: rgba(177, 229, 241, 0.38); /* Softens the cyan joystick boundary. */
+  background: radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.095), transparent 28%), radial-gradient(circle at center, rgba(114, 214, 239, 0.09) 0 2px, transparent 3px), radial-gradient(circle at center, transparent 0 53%, rgba(195, 231, 239, 0.13) 54%, transparent 56%), rgba(2, 8, 11, 0.36); /* Builds realistic layered reflection while retaining axis guidance. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13), inset 0 -14px 30px rgba(0, 0, 0, 0.16), 0 12px 30px rgba(0, 0, 0, 0.24); /* Adds internal curvature and external depth. */
+} /* Close the current visual rule block. */
+
+.stick-knob { /* Makes the movable joystick handle look like a dense glass control. */
+  border-color: rgba(225, 247, 252, 0.78); /* Gives the knob a bright precision edge. */
+  background: linear-gradient(145deg, rgba(178, 231, 242, 0.72), rgba(63, 124, 140, 0.78)); /* Creates a cyan-grey glass handle. */
+  box-shadow: inset 0 2px 1px rgba(255, 255, 255, 0.34), inset 0 -5px 10px rgba(12, 55, 66, 0.28), 0 9px 24px rgba(0, 0, 0, 0.46); /* Gives the joystick knob realistic curvature and lift. */
+} /* Close the current visual rule block. */
+
+.stage-footer { /* Turns stream and sensor summaries into a floating glass status rail. */
+  border: 1px solid rgba(215, 238, 244, 0.14); /* Encloses the status rail with a soft glass line. */
+  border-radius: 15px; /* Softens the lower video status container. */
+  background: rgba(229, 241, 245, 0.075); /* Uses a low-opacity grey glass backing. */
+  -webkit-backdrop-filter: blur(16px) saturate(135%); /* Supports status-rail blur in WebKit browsers. */
+  backdrop-filter: blur(16px) saturate(135%); /* Keeps status text legible over the video. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 10px 24px rgba(0, 0, 0, 0.22); /* Adds a subtle reflected edge and elevation. */
+} /* Close the current visual rule block. */
+
+.telemetry-strip { /* Converts the persistent lower information strip into a wide glass layer. */
+  overflow: hidden; /* Clips cells to the rounded strip outline. */
+  border-color: var(--glass-line); /* Uses the same translucent edge as the cockpit panels. */
+  border-radius: var(--glass-radius-medium); /* Gives the bottom strip smooth corners. */
+  background: var(--glass-fill); /* Applies the shared white-grey glass surface. */
+  -webkit-backdrop-filter: var(--glass-blur); /* Supports the full glass effect in WebKit browsers. */
+  backdrop-filter: var(--glass-blur); /* Blurs the canvas behind the persistent system summary. */
+  box-shadow: var(--glass-highlight), var(--glass-shadow); /* Separates the strip gently from the page background. */
+} /* Close the current visual rule block. */
+
+.telemetry-strip > div { /* Softens separators while retaining the existing information grid. */
+  border-right-color: rgba(255, 255, 255, 0.1); /* Makes cell divisions visible but unobtrusive. */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent); /* Adds a faint top reflection inside each metric cell. */
+} /* Close the current visual rule block. */
+
+.meter { /* Makes the telemetry progress indicator match the rounded glass system. */
+  border-radius: 999px; /* Gives the meter a smooth pill-shaped track. */
+} /* Close the current visual rule block. */
+
+.meter b { /* Keeps the active meter value bright and polished. */
+  border-radius: inherit; /* Matches the fill to the rounded meter track. */
+  box-shadow: 0 0 10px rgba(114, 214, 239, 0.24); /* Adds a restrained cyan visibility halo. */
+} /* Close the current visual rule block. */
+
+.emergency-stop { /* Preserves the unique red emergency control while refining its material. */
+  border-color: rgba(255, 188, 185, 0.82); /* Keeps the emergency boundary immediately visible. */
+  background: linear-gradient(145deg, rgba(255, 99, 95, 0.96), rgba(136, 20, 20, 0.96)); /* Uses dense red safety glass rather than transparent neutral glass. */
+  -webkit-backdrop-filter: blur(14px) saturate(135%); /* Supports emergency-button blur in WebKit browsers. */
+  backdrop-filter: blur(14px) saturate(135%); /* Adds material depth without weakening the red signal. */
+  box-shadow: inset 0 2px 1px rgba(255, 255, 255, 0.3), inset 0 -8px 18px rgba(75, 0, 0, 0.25), 0 16px 36px rgba(126, 9, 9, 0.46); /* Makes the emergency control tactile and unmistakable. */
+} /* Close the current visual rule block. */
+
+.mission-workspace { /* Applies the same Liquid Glass language to the Mission page. */
+  border-color: var(--glass-line); /* Uses the common glass boundary. */
+  border-radius: var(--glass-radius-large); /* Gives the mission workspace smooth main-container corners. */
+  background: var(--glass-fill); /* Places mission tools on translucent white-grey glass. */
+  -webkit-backdrop-filter: var(--glass-blur); /* Enables mission workspace blur in WebKit browsers. */
+  backdrop-filter: var(--glass-blur); /* Blurs the dark engineering canvas behind the planner. */
+  box-shadow: var(--glass-highlight), var(--glass-shadow); /* Gives the planner the same depth as the Flight page. */
+} /* Close the current visual rule block. */
+
+.mission-map, /* Continue the current CSS selector or property value safely. */
+.waypoint-list { /* Styles the map and waypoint list as coordinated glass work surfaces. */
+  border-color: var(--glass-line); /* Uses a consistent translucent outline. */
+  border-radius: var(--glass-radius-medium); /* Softens both mission subpanels equally. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 12px 30px rgba(0, 0, 0, 0.22); /* Adds internal reflection and working-surface elevation. */
+} /* Close the current visual rule block. */
+
+.mission-map { /* Keeps the technical grid visible through the glass map surface. */
+  background-color: rgba(7, 16, 20, 0.74); /* Preserves the dark blueprint base with mild translucency. */
+} /* Close the current visual rule block. */
+
+.waypoint-list { /* Gives waypoint entries a readable translucent backing. */
+  background: var(--glass-fill-soft); /* Uses the compact glass surface inside the planner. */
+  -webkit-backdrop-filter: blur(16px) saturate(135%); /* Supports waypoint-list blur in WebKit browsers. */
+  backdrop-filter: blur(16px) saturate(135%); /* Separates waypoint text from the canvas behind it. */
+} /* Close the current visual rule block. */
+
+.map-home, /* Continue the current CSS selector or property value safely. */
+.waypoint-marker { /* Refines map markers without altering mission interaction. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 8px 20px rgba(0, 0, 0, 0.28); /* Adds compact glass elevation to each marker. */
+} /* Close the current visual rule block. */
+
+.settings-dialog { /* Converts the settings modal into a focused Liquid Glass sheet. */
+  overflow: hidden; /* Keeps form content inside the rounded glass window. */
+  border-color: var(--glass-line-hover); /* Gives the modal a clearer edge over its backdrop. */
+  border-radius: 26px; /* Uses a generous modal corner radius. */
+  background: linear-gradient(145deg, rgba(45, 58, 65, 0.9), rgba(14, 24, 29, 0.86)); /* Creates dense glass so input text remains highly readable. */
+  -webkit-backdrop-filter: blur(28px) saturate(145%); /* Supports strong modal blur in WebKit browsers. */
+  backdrop-filter: blur(28px) saturate(145%); /* Isolates settings from the flight view behind it. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 34px 90px rgba(0, 0, 0, 0.66); /* Adds sheet-like reflection and focused elevation. */
+} /* Close the current visual rule block. */
+
+.settings-dialog::backdrop { /* Softens the cockpit behind the open modal. */
+  background: rgba(1, 5, 7, 0.58); /* Dims the flight controls without hiding their context. */
+  -webkit-backdrop-filter: blur(8px) saturate(115%); /* Supports backdrop softening in WebKit browsers. */
+  backdrop-filter: blur(8px) saturate(115%); /* Visually separates the modal from active controls. */
+} /* Close the current visual rule block. */
+
+.settings-dialog input { /* Gives endpoint fields a polished dark-glass input surface. */
+  border-color: var(--glass-line); /* Uses the shared translucent input edge. */
+  border-radius: 14px; /* Matches input corners to other compact controls. */
+  background: rgba(3, 10, 14, 0.48); /* Maintains high contrast for endpoint values. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 2px 8px rgba(0, 0, 0, 0.2); /* Adds subtle recessed glass depth. */
+} /* Close the current visual rule block. */
+
+.settings-dialog input:focus { /* Clarifies the field currently receiving operator input. */
+  border-color: rgba(114, 214, 239, 0.62); /* Uses cyan to identify the focused input. */
+  background: rgba(4, 14, 18, 0.66); /* Slightly darkens the active input for stronger text contrast. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 0 0 4px rgba(114, 214, 239, 0.1); /* Adds an accessible but restrained focus halo. */
+} /* Close the current visual rule block. */
+
+.flight-deck.fpv-mode .video-stage { /* Keeps the immersive FPV canvas edge-to-edge. */
+  border-radius: 0; /* Removes rounded corners only in full-screen FPV mode. */
+  box-shadow: none; /* Removes page elevation when the video occupies the viewport. */
+} /* Close the current visual rule block. */
+
+@media (max-width: 820px) { /* Adapts the same glass language to stacked tablet controls. */
+  .topbar, /* Continue the current CSS selector or property value safely. */
+  .video-stage, /* Continue the current CSS selector or property value safely. */
+  .mission-workspace { /* Reduces large radii slightly on compact screens. */
+    border-radius: 21px; /* Preserves soft corners without consuming excessive mobile space. */
+  } /* Close the current visual rule block. */
+
+  .control-dock, /* Continue the current CSS selector or property value safely. */
+  .stick-panel { /* Keeps touch panels rounded and visually consistent. */
+    border-radius: 20px; /* Uses a compact but still generous mobile radius. */
+  } /* Close the current visual rule block. */
+
+  .telemetry-strip { /* Keeps the multi-row mobile status strip visually contained. */
+    border-radius: 18px; /* Matches the tighter tablet geometry. */
+  } /* Close the current visual rule block. */
+} /* Close the current visual rule block. */
+
+@media (max-width: 560px) { /* Refines glass density for narrow phone screens. */
+  .flight-deck { /* Keeps translucent surfaces away from the viewport edge. */
+    padding: 6px; /* Retains the existing compact outer spacing. */
+  } /* Close the current visual rule block. */
+
+  .topbar { /* Gives the wrapped mobile header one unified glass silhouette. */
+    border-radius: 20px; /* Keeps the header soft without reducing usable width. */
+  } /* Close the current visual rule block. */
+
+  .mode-switch { /* Keeps all four page modes inside a compact mobile capsule. */
+    border-radius: 14px; /* Uses a smaller navigation radius on phones. */
+  } /* Close the current visual rule block. */
+
+  .control-dock, /* Continue the current CSS selector or property value safely. */
+  .stick-panel { /* Raises mobile control contrast over the static camera background. */
+    background: linear-gradient(145deg, rgba(230, 241, 245, 0.16), rgba(117, 140, 150, 0.09)); /* Uses slightly denser glass for phone readability. */
+  } /* Close the current visual rule block. */
+
+  .alert-bar { /* Keeps warning text readable in the narrow two-row mobile layout. */
+    border-radius: 14px; /* Matches compact mobile controls. */
+  } /* Close the current visual rule block. */
+} /* Close the current visual rule block. */
