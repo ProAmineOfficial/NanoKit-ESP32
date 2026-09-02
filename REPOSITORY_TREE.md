@@ -144,6 +144,8 @@ NanoKit-ESP32/
 |   |-- ultrasonic_distance/
 |   |   |-- .genius/
 |   |   |   `-- README.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- docs/
@@ -159,6 +161,7 @@ NanoKit-ESP32/
 |   |   |   `-- main.cpp
 |   |   |-- test/
 |   |   |   `-- README.md
+|   |   |-- .gitignore
 |   |   |-- platformio.ini
 |   |   `-- README.md
 |   |-- PROJECT_STANDARD.md
@@ -326,6 +329,7 @@ NanoKit-ESP32/
 |-- CONTRIBUTING.md
 |-- DEVELOPMENT_CREDIT.md
 |-- LICENSE
+|-- no --cached --check option  (press RETURN)
 |-- PROJECT_SPECIFICATION.md
 |-- README.md
 |-- REPOSITORY_INDEX.md
