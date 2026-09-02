@@ -48,7 +48,7 @@ With the repository defaults, the IMU and ESC gates are false. The UI displays u
 | Path | Purpose |
 |---|---|
 | `firmware/` | Modular PlatformIO firmware for the NanoKit flight controller. |
-| `web_controller/` | Responsive Ground Control Station served by the flight controller. |
+| `firmware/web_control/` | Independent Flight Deck web interface served by the flight controller from LittleFS. |
 | `camera_node/` | Separate PlatformIO payload node with runtime PSRAM validation. |
 | `docs/` | Architecture, safety, protocol, wiring, integration, and test gates. |
 | `images/` | Mermaid source diagrams that match the current safety architecture. |
@@ -65,7 +65,7 @@ pio run -t uploadfs
 pio device monitor
 ```
 
-The web assets are mapped into LittleFS by `firmware/platformio.ini`. Upload both firmware and filesystem before opening `http://192.168.4.1`.
+The web assets are stored in `firmware/web_control/` and packaged into LittleFS by `firmware/platformio.ini`. Upload both firmware and filesystem before opening `http://192.168.4.1`.
 
 ## Build The Camera/Audio Node
 

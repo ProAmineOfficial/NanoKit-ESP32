@@ -46,6 +46,7 @@ NanoKit-ESP32/
 |   |   `-- README.md
 |   |-- weather_station/
 |   |   `-- README.md
+|   |-- PROJECT_STANDARD.md
 |   `-- README.md
 |-- articles/
 |   |-- ai/
@@ -160,6 +161,7 @@ NanoKit-ESP32/
 |   |   |   `-- README.md
 |   |   |-- platformio.ini
 |   |   `-- README.md
+|   |-- PROJECT_STANDARD.md
 |   `-- README.md
 |-- graduation_projects/
 |   |-- bachelor_projects/
@@ -176,6 +178,7 @@ NanoKit-ESP32/
 |   |   `-- README.md
 |   |-- university_thesis/
 |   |   `-- README.md
+|   |-- PROJECT_STANDARD.md
 |   `-- README.md
 |-- open_source_projects/
 |   |-- community_projects/
@@ -185,6 +188,8 @@ NanoKit-ESP32/
 |   |-- hackathon_projects/
 |   |   `-- README.md
 |   |-- nanokit_drone_4x_quadcopter/
+|   |   |-- .genius/
+|   |   |   `-- README.md
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- camera_node/
@@ -257,6 +262,14 @@ NanoKit-ESP32/
 |   |   |   |   `-- main.cpp
 |   |   |   |-- test/
 |   |   |   |   `-- README.md
+|   |   |   |-- web_control/
+|   |   |   |   |-- assets/
+|   |   |   |   |   `-- nanokit-drone-4x-reference.png
+|   |   |   |   |-- app.js
+|   |   |   |   |-- index.html
+|   |   |   |   |-- manifest.json
+|   |   |   |   |-- README.md
+|   |   |   |   `-- styles.css
 |   |   |   |-- .gitignore
 |   |   |   `-- platformio.ini
 |   |   |-- images/
@@ -265,20 +278,13 @@ NanoKit-ESP32/
 |   |   |   |-- control-loop.md
 |   |   |   |-- motor-layout.md
 |   |   |   `-- system-diagram.md
-|   |   |-- web_controller/
-|   |   |   |-- assets/
-|   |   |   |   `-- nanokit-drone-4x-reference.png
-|   |   |   |-- app.js
-|   |   |   |-- index.html
-|   |   |   |-- manifest.json
-|   |   |   |-- README.md
-|   |   |   `-- styles.css
 |   |   |-- project.yml
 |   |   `-- README.md
 |   |-- showcase_projects/
 |   |   `-- README.md
 |   |-- templates/
 |   |   `-- README.md
+|   |-- PROJECT_STANDARD.md
 |   `-- README.md
 |-- simulator/
 |   |-- assets/

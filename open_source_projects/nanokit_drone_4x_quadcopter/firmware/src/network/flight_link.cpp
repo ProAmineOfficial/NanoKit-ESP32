@@ -63,7 +63,7 @@ void FlightLink::begin(QueueHandle_t commandQueue, QueueHandle_t telemetryQueue)
   Serial.print("[NET] WebSocket port: "); // Continue this function declaration or call across this line.
   Serial.println(config::WEBSOCKET_PORT); // Continue this function declaration or call across this line.
   if (!filesystemReady_) { // A missing filesystem does not affect motor safety, but the web interface cannot load.
-    Serial.println("[NET] LittleFS unavailable; upload the web_controller filesystem image."); // Continue this function declaration or call across this line.
+    Serial.println("[NET] LittleFS unavailable; upload the firmware/web_control LittleFS image."); // Tell the operator to upload the independent Web Control assets stored inside this firmware project.
   } // Close the current scope or type definition.
 } // Close the current scope or type definition.
 

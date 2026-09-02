@@ -22,7 +22,7 @@ The page opens `ws://192.168.4.1:81` and sends protocol-v3 commands at 10 Hz. Th
 ## Local UI Preview
 
 ```powershell
-python -m http.server 8080 --directory web_controller
+python -m http.server 8080 --directory firmware/web_control
 ```
 
 Open `http://127.0.0.1:8080`. The interface can be inspected locally, but a live flight link still requires the NanoKit access point. HTTPS pages cannot open an insecure `ws://` device link because browsers block mixed content.
@@ -34,4 +34,4 @@ Open `http://127.0.0.1:8080`. The interface can be inspected locally, but a live
 - Disabled payload features remain disabled in the UI.
 - Mission upload remains locked until navigation hardware and firmware are verified.
 
-See [Wi-Fi/WebSocket Protocol](../docs/WiFi_WebSocket_Protocol.md) and [Safety](../docs/Safety.md).
+See [Wi-Fi/WebSocket Protocol](../../docs/WiFi_WebSocket_Protocol.md) and [Safety](../../docs/Safety.md).
