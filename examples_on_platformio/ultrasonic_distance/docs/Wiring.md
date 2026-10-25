@@ -4,12 +4,16 @@
 
 ## Connection Table
 
-| NanoKit Pin | GPIO | Sensor Pin | Description |
-|---:|---|---|---|
-| 36 | GPIO5 | TRIG | ESP32 output sends a 10 us trigger pulse |
-| 2 | GPIO34 | ECHO | ESP32 input measures echo pulse duration |
-| 12 or 31 | GND | GND | Shared ground reference |
-| 13 or 14 | 3V3 | VCC | Power for 3.3 V compatible ultrasonic modules |
+<!-- GENIUS:CONNECTION_TABLE:START -->
+| NanoKit Pin | GPIO | VR Address | Component | Component Pin | Direction | Status | Description |
+|---:|---|---|---|---|---|---|---|
+| 36 | GPIO5 | 0x17 | HC-SR04 ultrasonic sensor | TRIG | Output | Confirmed | Safe digital output for the 10 us trigger pulse |
+| 2 | GPIO34 | 0x56 | HC-SR04 ultrasonic sensor | ECHO | Input | Confirmed | Input-only pin is ideal for the echo pulse |
+| 12 or 31 | GND | 0xD0 | HC-SR04 ultrasonic sensor | GND | Power | Confirmed | Common ground reference, required for correct timing |
+| 13 or 14 | 3V3 | - | HC-SR04 ultrasonic sensor | VCC | Power | Confirmed | Preferred for 3.3 V compatible modules |
+<!-- GENIUS:CONNECTION_TABLE:END -->
+
+Generated from [`../nanokit.yaml`](../nanokit.yaml) and `registry/nanokit-esp32.yaml` by `python tools/genius/generate.py`.
 
 ## Electrical Notes
 

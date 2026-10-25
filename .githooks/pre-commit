@@ -1,6 +1,21 @@
 #!/usr/bin/env sh
 # Developed by Amine Saoud ibn al-Bashir.
+# Enable once per clone:  git config core.hooksPath .githooks
 set -eu
 
+# 1. Validate every nanokit.yaml and regenerate diagrams, pin tables, and .genius reports.
+#    A validation error (flash pin, input-only output, manifest/code mismatch, ...) aborts the commit.
+python tools/genius/generate.py
+
+# 2. Refresh the repository tree, index, and per-area catalogs from the manifests.
 python tools/update_repository_index.py
-git add README.md REPOSITORY_TREE.md REPOSITORY_INDEX.md examples_on_platformio/README.md open_source_projects/README.md applications_on_platformio/README.md
+
+# 3. Stage what the generators changed.
+git add README.md REPOSITORY_TREE.md REPOSITORY_INDEX.md \
+  examples_on_platformio/README.md open_source_projects/README.md \
+  applications_on_platformio/README.md graduation_projects/README.md
+for manifest in $(find . -name nanokit.yaml -not -path './.git/*' -not -path '*/.pio/*'); do
+  project=$(dirname "$manifest")
+  git add "$project/README.md" "$project/.genius" "$project/images/connection-diagram.md" "$project/images/system-diagram.md" 2>/dev/null || true
+  git add "$project"/docs/Wiring.md "$project"/*/docs/Wiring.md 2>/dev/null || true
+done

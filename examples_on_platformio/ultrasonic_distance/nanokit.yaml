@@ -1,0 +1,34 @@
+# Developed by Amine Saoud ibn al-Bashir.
+# Genius hardware manifest - the single source of truth for this project's wiring.
+# `python tools/genius/generate.py` validates it against registry/nanokit-esp32.yaml,
+# cross-checks the `symbol` constants in src/, and regenerates the diagrams and tables.
+genius: 1
+name: Ultrasonic Distance
+category: example
+status: complete
+board: nanokit-esp32
+summary: Measures distance with an HC-SR04-style ultrasonic sensor and prints median-filtered centimeters.
+
+firmware:
+  - id: main
+    path: .
+    code_roots: [src, include]
+    wifi: false
+
+docs:
+  readme: README.md
+  wiring: docs/Wiring.md
+  images: images
+
+components:
+  - id: hcsr04
+    name: HC-SR04 ultrasonic sensor
+    kind: sensor
+    status: confirmed
+    power: { rail: 3V3 }
+    note: Use a 3.3 V compatible module, or level-shift ECHO when the module drives 5 V.
+    pins:
+      - { pin: TRIG, gpio: 5,  dir: out, symbol: TRIGGER_PIN, note: Safe digital output for the 10 us trigger pulse }
+      - { pin: ECHO, gpio: 34, dir: in,  symbol: ECHO_PIN, level: 5V, level_shift: required, note: Input-only pin is ideal for the echo pulse }
+      - { pin: VCC,  rail: 3V3, note: Preferred for 3.3 V compatible modules }
+      - { pin: GND,  rail: GND, note: "Common ground reference, required for correct timing" }

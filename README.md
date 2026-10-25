@@ -16,12 +16,22 @@ This is not a demo repository and not a template repository. It is the official 
 
 See [PROJECT_SPECIFICATION.md](PROJECT_SPECIFICATION.md) for the master repository rules, growth model, example standards, documentation requirements, and Definition of Done.
 
+## Hardware Manifests and Generated Documentation
+
+Every example, application, open-source project, and graduation project describes its hardware once, in a `nanokit.yaml` manifest. `python tools/genius/generate.py` validates it against the board registry [`registry/nanokit-esp32.yaml`](registry/nanokit-esp32.yaml) and the firmware constants, then regenerates:
+
+- `images/connection-diagram.md` and `images/system-diagram.md` with `Pin <NanoKit pin> / GPIO<n>` labels and Confirmed / Proposed / Blocked styling,
+- the NanoKit pin table in each project README and the connection table in each `docs/Wiring.md`,
+- `.genius/VALIDATION_REPORT.md` with the rules checked, findings, and code evidence.
+
+The reference project is [`examples_on_platformio/ultrasonic_distance/`](examples_on_platformio/ultrasonic_distance/). Schema and rules: [`tools/genius/README.md`](tools/genius/README.md). Design record: [`docs/software/genius-generator-spec.md`](docs/software/genius-generator-spec.md).
+
 ## Generated Indexes
 
-- [Repository Index](REPOSITORY_INDEX.md) summarizes the main repository areas.
+- [Repository Index](REPOSITORY_INDEX.md) summarizes the main repository areas and counts real projects (folders with a manifest).
 - [Repository Tree](REPOSITORY_TREE.md) shows the generated file tree.
 
-Run `python tools/update_repository_index.py` after adding examples, applications, open-source projects, tutorials, articles, docs, assets, or templates. On this local checkout, the pre-commit hook also refreshes the generated index files automatically before commits.
+Run `python tools/genius/generate.py` and then `python tools/update_repository_index.py` after adding or changing a project. Enable the local hook once with `git config core.hooksPath .githooks`; the GitHub workflow runs the same two tools on every push to `main` and validates pull requests.
 
 ## Interactive Repository Tree
 
@@ -42,7 +52,9 @@ NanoKit-ESP32/
 |-- applications_on_platformio/
 |   |-- face_rotation_tracking_camera/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- docs/
@@ -61,9 +73,11 @@ NanoKit-ESP32/
 |   |   |   |   `-- README.md
 |   |   |   `-- platformio.ini
 |   |   |-- images/
-|   |   |   `-- connection-diagram.md
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
 |   |   |-- vision/
 |   |   |   `-- README.md
+|   |   |-- nanokit.yaml
 |   |   `-- README.md
 |   |-- industrial_monitoring/
 |   |   `-- README.md
@@ -107,6 +121,8 @@ NanoKit-ESP32/
 |   |   `-- README.md
 |   |-- architecture/
 |   |   `-- README.md
+|   |-- audits/
+|   |   `-- 2026-10-25-repository-audit.md
 |   |-- getting_started/
 |   |   `-- README.md
 |   |-- hardware/
@@ -117,6 +133,7 @@ NanoKit-ESP32/
 |   |-- roadmap/
 |   |   `-- README.md
 |   |-- software/
+|   |   |-- genius-generator-spec.md
 |   |   |-- platformio-example-standard.md
 |   |   `-- README.md
 |   |-- troubleshooting/
@@ -128,14 +145,17 @@ NanoKit-ESP32/
 |-- examples_on_platformio/
 |   |-- camera_tracking/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- docs/
 |   |   |   |-- Implementation_Guide.md
 |   |   |   `-- Wiring.md
 |   |   |-- images/
-|   |   |   `-- connection-diagram.md
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
 |   |   |-- include/
 |   |   |   `-- README.md
 |   |   |-- lib/
@@ -144,18 +164,22 @@ NanoKit-ESP32/
 |   |   |   `-- main.cpp
 |   |   |-- test/
 |   |   |   `-- README.md
+|   |   |-- nanokit.yaml
 |   |   |-- platformio.ini
 |   |   `-- README.md
 |   |-- stepper_motor_control/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- docs/
 |   |   |   |-- Implementation_Guide.md
 |   |   |   `-- Wiring.md
 |   |   |-- images/
-|   |   |   `-- connection-diagram.md
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
 |   |   |-- include/
 |   |   |   `-- README.md
 |   |   |-- lib/
@@ -164,11 +188,14 @@ NanoKit-ESP32/
 |   |   |   `-- main.cpp
 |   |   |-- test/
 |   |   |   `-- README.md
+|   |   |-- nanokit.yaml
 |   |   |-- platformio.ini
 |   |   `-- README.md
 |   |-- ultrasonic_distance/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- .vscode/
 |   |   |   `-- extensions.json
 |   |   |-- assets/
@@ -177,7 +204,8 @@ NanoKit-ESP32/
 |   |   |   |-- Implementation_Guide.md
 |   |   |   `-- Wiring.md
 |   |   |-- images/
-|   |   |   `-- connection-diagram.md
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
 |   |   |-- include/
 |   |   |   `-- README.md
 |   |   |-- lib/
@@ -187,6 +215,7 @@ NanoKit-ESP32/
 |   |   |-- test/
 |   |   |   `-- README.md
 |   |   |-- .gitignore
+|   |   |-- nanokit.yaml
 |   |   |-- platformio.ini
 |   |   `-- README.md
 |   |-- PROJECT_STANDARD.md
@@ -217,7 +246,9 @@ NanoKit-ESP32/
 |   |   `-- README.md
 |   |-- nanokit_drone_4x_quadcopter/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- camera_node/
@@ -306,6 +337,7 @@ NanoKit-ESP32/
 |   |   |   |-- control-loop.md
 |   |   |   |-- motor-layout.md
 |   |   |   `-- system-diagram.md
+|   |   |-- nanokit.yaml
 |   |   |-- project.yml
 |   |   `-- README.md
 |   |-- showcase_projects/
@@ -313,6 +345,9 @@ NanoKit-ESP32/
 |   |-- templates/
 |   |   `-- README.md
 |   |-- PROJECT_STANDARD.md
+|   `-- README.md
+|-- registry/
+|   |-- nanokit-esp32.yaml
 |   `-- README.md
 |-- simulator/
 |   |-- assets/
@@ -335,6 +370,12 @@ NanoKit-ESP32/
 |   |   `-- README.md
 |   `-- README.md
 |-- tools/
+|   |-- genius/
+|   |   |-- tests/
+|   |   |   `-- test_generate.py
+|   |   |-- generate.py
+|   |   `-- README.md
+|   |-- README.md
 |   |-- sync_with_github.ps1
 |   `-- update_repository_index.py
 |-- tutorials/
@@ -349,12 +390,12 @@ NanoKit-ESP32/
 |   |-- video_links/
 |   |   `-- README.md
 |   `-- README.md
+|-- .gitattributes
 |-- .gitignore
 |-- CHANGELOG.md
 |-- CONTRIBUTING.md
 |-- DEVELOPMENT_CREDIT.md
 |-- LICENSE
-|-- no --cached --check option  (press RETURN)
 |-- PROJECT_SPECIFICATION.md
 |-- README.md
 |-- REPOSITORY_INDEX.md

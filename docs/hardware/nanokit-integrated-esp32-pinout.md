@@ -56,12 +56,12 @@ Use normal ESP32 GPIO numbers in code. Always document the NanoKit board pin num
 | Pin | Board Address | Board Label | ESP32 GPIO | Notes |
 |---:|---|---|---|---|
 | 1 | - | Pull-down | - | Board pull-down reference, not a GPIO |
-| 2 | 0x5E | VR_ADC_IN6 | GPIO34 | ADC1_CH6, input only |
+| 2 | 0x56 | VR_ADC_IN6 | GPIO34 | ADC1_CH6, input only |
 | 3 | 0x71 | VR_DAC_OUT1 | GPIO25 | DAC1, ADC2_CH8 capable |
-| 4 | 0x5B | VR_ADC_IN3 | GPIO39 | SensorVN, ADC1_CH3, input only |
-| 5 | 0x58 | VR_ADC_IN0 | GPIO36 | SensorVP, ADC1_CH0, input only |
+| 4 | 0x53 | VR_ADC_IN3 | GPIO39 | SensorVN, ADC1_CH3, input only |
+| 5 | 0x50 | VR_ADC_IN0 | GPIO36 | SensorVP, ADC1_CH0, input only |
 | 6 | 0x80 | VR_GPIO00 | GPIO35 | ADC1_CH7, input only |
-| 7 | 0x5C | VR_ADC_IN4 | GPIO32 | Touch9, ADC1_CH4, general GPIO capable |
+| 7 | 0x54 | VR_ADC_IN4 | GPIO32 | Touch9, ADC1_CH4, general GPIO capable |
 | 8 | 0x10 | VR_SPI_MOSI0 | GPIO13 | HSPI MOSI |
 | 9 | 0x13 | VR_SPI_CS0 | GPIO15 | HSPI CS |
 | 10 | 0x81 | VR_GPIO01 | GPIO4 | Touch0, ADC2_CH0, general GPIO capable |

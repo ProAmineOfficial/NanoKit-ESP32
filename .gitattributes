@@ -1,0 +1,5 @@
+# Developed by Amine Saoud ibn al-Bashir.
+# Git hooks and shell scripts must keep LF line endings on every machine.
+# On Windows (core.autocrlf=true) a CRLF hook fails with: /usr/bin/env: 'sh\r': No such file or directory
+.githooks/* text eol=lf
+*.sh text eol=lf

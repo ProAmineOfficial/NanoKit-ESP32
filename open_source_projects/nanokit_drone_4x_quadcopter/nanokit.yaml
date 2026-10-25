@@ -1,0 +1,263 @@
+# Developed by Amine Saoud ibn al-Bashir.
+# Genius hardware manifest - single source of truth for NanoKit Drone 4X wiring.
+#
+# Status vocabulary (matches docs/Sensor_Integration.md and PROJECT_STANDARD.md):
+#   confirmed - pin, voltage and direction verified; firmware constant exists (symbol:)
+#   proposed  - a concrete recommendation from the pinout reference, not yet bench-verified
+#   blocked   - intentionally unassigned (TODO); appears in diagrams so it is never forgotten
+# Blocked components keep `gpio: null`. The generator refuses a confirmed pin without a GPIO.
+genius: 1
+name: NanoKit Drone 4X
+category: open_source
+status: bench-development
+board: nanokit-esp32
+summary: Safety-first Quad-X flight controller with a browser Flight Deck and an isolated camera/audio payload node.
+
+firmware:
+  - id: flight
+    name: NanoKit flight controller
+    role: sole motor authority · 250 Hz loop
+    path: firmware
+    code_roots: [src, include]
+    wifi: true
+  - id: camera
+    name: NanoKit 2 camera/audio node
+    role: payload only · no motor authority
+    path: camera_node
+    code_roots: [src, include]
+    wifi: true
+
+docs:
+  readme: README.md
+  wiring: docs/Wiring.md
+  images: images
+
+buses:
+  - id: i2c0
+    type: i2c
+    firmware: flight
+    status: confirmed
+    speed: 400 kHz
+    pins:
+      - { role: SDA, gpio: 21, symbol: I2C_SDA_PIN, note: "Confirmed I2C0 SDA, module pull-ups" }
+      - { role: SCL, gpio: 22, symbol: I2C_SCL_PIN, note: Confirmed I2C0 SCL }
+  - id: uart2
+    type: uart
+    firmware: flight
+    status: proposed
+    speed: 38400 baud (u-blox default)
+    pins:
+      - { role: TX, gpio: 17, note: Recommended UART2 TX keeps USB Serial free; not bench-verified }
+      - { role: RX, gpio: 16, note: "Recommended UART2 RX; GNSS TX is 3.3 V on most M9N modules, verify" }
+  - id: vspi
+    type: spi
+    firmware: flight
+    status: proposed
+    pins:
+      - { role: MOSI, gpio: 23, note: Recommended VSPI MOSI }
+      - { role: MISO, gpio: 19, note: Recommended VSPI MISO }
+      - { role: SCLK, gpio: 18, note: Recommended VSPI clock }
+
+components:
+  # ---------------------------------------------------------------- confirmed
+  - id: esc
+    name: 4-in-1 ESC (signal inputs)
+    kind: actuator
+    firmware: flight
+    status: confirmed
+    power: { rail: external, note: "Motor current comes from the LiPo through the PDB, never through NanoKit" }
+    note: Signal pins are confirmed; analogue 1000-2000 us acceptance is gated by NANOKIT_ESC_ANALOG_PWM_CONFIRMED=0.
+    pins:
+      - { pin: M1, gpio: 25, dir: out, type: pwm, symbol: MOTOR_1_PIN, note: "M1 front-left CCW, LEDC channel 0" }
+      - { pin: M2, gpio: 26, dir: out, type: pwm, symbol: MOTOR_2_PIN, note: "M2 front-right CW, LEDC channel 1" }
+      - { pin: M3, gpio: 27, dir: out, type: pwm, symbol: MOTOR_3_PIN, note: "M3 rear-right CCW, LEDC channel 2" }
+      - { pin: M4, gpio: 32, dir: out, type: pwm, symbol: MOTOR_4_PIN, note: "M4 rear-left CW, LEDC channel 3" }
+      - { pin: GND, rail: GND, note: Common signal ground with the ESC }
+
+  # ----------------------------------------------------------- power chain
+  - id: battery
+    name: LiPo battery + rated PDB
+    kind: power
+    firmware: flight
+    status: proposed
+    power: { rail: none }
+    note: Select battery, PDB, wire gauge, connectors and capacitor as one measured power system.
+  - id: bec
+    name: Regulated 5 V BEC
+    kind: power
+    firmware: flight
+    status: proposed
+    power: { rail: none }
+    note: Feeds NanoKit +5V_IN (Pin 11 or Pin 32); USB power is switched off automatically when external 5 V is present.
+    pins:
+      - { pin: 5V out, rail: 5V, note: Into NanoKit +5V_IN/OUT }
+      - { pin: GND,    rail: GND, note: Common ground }
+
+  # --------------------------------------------- I2C sensors (all blocked/TODO)
+  - id: icm20948
+    name: ICM-20948 IMU
+    kind: sensor
+    firmware: flight
+    status: blocked
+    bus: i2c0
+    address: "0x68 default (unverified)"
+    power: { rail: 3V3 }
+    note: Wiring, address strap, orientation, interrupt pin and driver TODO. Mandatory for arming.
+  - id: dps310
+    name: DPS310 barometer
+    kind: sensor
+    firmware: flight
+    status: blocked
+    bus: i2c0
+    address: "0x76/0x77 (unverified)"
+    power: { rail: 3V3 }
+    note: Address may collide with BME280; scan the bus or isolate through TCA9548A.
+  - id: bme280
+    name: BME280 environment sensor
+    kind: sensor
+    firmware: flight
+    status: blocked
+    bus: i2c0
+    address: "0x76/0x77 (unverified)"
+    power: { rail: 3V3 }
+    note: Address may collide with DPS310; scan the bus or isolate through TCA9548A.
+  - id: tca9548a
+    name: TCA9548A I2C multiplexer
+    kind: driver
+    firmware: flight
+    status: blocked
+    bus: i2c0
+    address: "0x70 default (unverified)"
+    power: { rail: 3V3 }
+    note: Required before duplicate-address devices are enabled.
+  - id: vl53_ring
+    name: 6x VL53L1CX time-of-flight ring
+    kind: sensor
+    firmware: flight
+    status: blocked
+    bus: i2c0
+    address: "0x29 each, behind TCA9548A channels 0-5"
+    power: { rail: 3V3 }
+    note: All six share 0x29, so each needs its own multiplexer channel; mounting TODO.
+  - id: ina226
+    name: INA226 battery monitor
+    kind: sensor
+    firmware: flight
+    status: blocked
+    bus: i2c0
+    address: "0x40 default (unverified)"
+    power: { rail: 3V3 }
+    note: Shunt design, address and calibration TODO.
+  - id: at24c256
+    name: AT24C256 EEPROM
+    kind: storage
+    firmware: flight
+    status: blocked
+    bus: i2c0
+    address: "0x50 default (unverified)"
+    power: { rail: 3V3 }
+    note: Persistent configuration; write protection and driver TODO.
+
+  # ------------------------------------------------ other flight peripherals
+  - id: gnss_m9n
+    name: u-blox M9N GNSS
+    kind: sensor
+    firmware: flight
+    status: blocked
+    bus: uart2
+    power: { rail: 3V3 }
+    note: UART pins proposed only; module voltage and antenna placement TODO.
+  - id: pmw3901
+    name: PMW3901 optical flow
+    kind: sensor
+    firmware: flight
+    status: blocked
+    bus: vspi
+    power: { rail: 3V3 }
+    note: Chip select, orientation and driver TODO.
+    pins:
+      - { pin: CS, gpio: null, dir: out, note: Chip select not assigned yet; Pin 36 / GPIO5 is the recommended VSPI CS }
+  - id: hcsr04
+    name: HC-SR04 bench ranger
+    kind: sensor
+    firmware: flight
+    status: blocked
+    power: { rail: 5V }
+    note: Bench distance input only. ECHO is 5 V on most modules and needs a divider or level shifter.
+    pins:
+      - { pin: TRIG, gpio: null, dir: out, note: Trigger pin not assigned yet }
+      - { pin: ECHO, gpio: null, dir: in, level: 5V, level_shift: required, note: Echo pin not assigned; must be an input-only ADC1 pin behind level shifting }
+  - id: status_led
+    name: Status LED
+    kind: display
+    firmware: flight
+    status: blocked
+    power: { rail: none }
+    note: Onboard LED on Pin 17 / GPIO2 is the natural candidate; unconfirmed.
+    pins:
+      - { pin: LED, gpio: null, dir: out, note: Pin not assigned yet }
+  - id: buzzer
+    name: Buzzer
+    kind: actuator
+    firmware: flight
+    status: blocked
+    power: { rail: 3V3 }
+    note: Arming and failsafe feedback; pin not chosen yet.
+    pins:
+      - { pin: Signal, gpio: null, dir: out, note: Pin not assigned yet }
+
+  # --------------------------------------------- camera/audio payload node
+  - id: ov2640
+    name: OV2640 camera
+    kind: sensor
+    firmware: camera
+    status: blocked
+    power: { rail: 3V3 }
+    note: Requires 8 MB PSRAM verified at runtime and a dedicated camera pin map before any GPIO is assigned.
+  - id: microsd
+    name: microSD card (SPI)
+    kind: storage
+    firmware: camera
+    status: blocked
+    power: { rail: 3V3 }
+    note: Enable only after a latency and current test with the camera running.
+  - id: inmp441
+    name: INMP441 I2S microphone
+    kind: sensor
+    firmware: camera
+    status: blocked
+    power: { rail: 3V3 }
+    note: I2S pins and clock domain unverified.
+  - id: max98357a
+    name: MAX98357A I2S speaker amplifier
+    kind: actuator
+    firmware: camera
+    status: blocked
+    power: { rail: 5V }
+    note: Shares the I2S clock domain with the microphone.
+  - id: camera_servo
+    name: Camera tilt servo
+    kind: actuator
+    firmware: camera
+    status: blocked
+    power: { rail: external, note: Separate regulated 5 V rail }
+    note: Never powered from a GPIO.
+  - id: bh1750
+    name: BH1750 ambient light sensor
+    kind: sensor
+    firmware: camera
+    status: blocked
+    power: { rail: 3V3 }
+    note: Exposure hint only; address 0x23 or 0x5C.
+
+externals:
+  - { id: deck, name: "Flight Deck browser (http://192.168.4.1)" }
+
+links:
+  - { from: deck, to: flight, label: "Wi-Fi SoftAP NanoKit-Drone-4X · WebSocket v3 port 81 · commands + validity-gated telemetry", kind: both }
+  - { from: camera, to: flight, label: "Wi-Fi client of the flight AP · status only", kind: dashed }
+  - { from: camera, to: deck, label: "media/status over HTTP · no motor authority", kind: dashed }
+  - { from: tca9548a, to: vl53_ring, label: "6 isolated channels", kind: dashed }
+  - { from: battery, to: esc, label: "motor power", kind: one }
+  - { from: battery, to: bec, label: "battery voltage", kind: one }
+  - { from: bec, to: flight, label: "regulated 5 V to +5V_IN Pin 11 or Pin 32", kind: one }

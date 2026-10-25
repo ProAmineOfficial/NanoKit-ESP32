@@ -1,0 +1,55 @@
+# Developed by Amine Saoud ibn al-Bashir.
+# Genius hardware manifest - single source of truth for this application's wiring.
+genius: 1
+name: Face Rotation Tracking Camera
+category: application
+status: complete
+board: nanokit-esp32
+summary: Rotates a camera on a pan/tilt mount toward a detected face reported by a companion vision process.
+
+firmware:
+  - id: esp32
+    name: NanoKit Integrated ESP32 · servo controller
+    path: esp32
+    code_roots: [src, include]
+    wifi: false
+
+docs:
+  readme: README.md
+  wiring: esp32/docs/Wiring.md
+  images: images
+
+components:
+  - id: pan_servo
+    name: Pan servo
+    kind: actuator
+    status: confirmed
+    power: { rail: external, note: External 5 V servo supply }
+    pins:
+      - { pin: Signal, gpio: 26, dir: out, type: pwm, symbol: PAN_SERVO_PIN, note: PWM output for horizontal camera rotation }
+      - { pin: VCC,    rail: external, note: External 5 V servo supply }
+      - { pin: GND,    rail: GND, note: Common ground with the servo supply }
+
+  - id: tilt_servo
+    name: Tilt servo
+    kind: actuator
+    status: confirmed
+    power: { rail: external, note: External 5 V servo supply }
+    pins:
+      - { pin: Signal, gpio: 25, dir: out, type: pwm, symbol: TILT_SERVO_PIN, note: PWM output for vertical camera rotation }
+      - { pin: VCC,    rail: external, note: External 5 V servo supply }
+      - { pin: GND,    rail: GND, note: Common ground with the servo supply }
+
+  - id: builtin_led
+    name: Onboard status LED
+    kind: display
+    status: confirmed
+    power: { rail: none }
+    pins:
+      - { pin: LED, gpio: 2, dir: out, symbol: STATUS_LED_PIN, note: Onboard LED indicates active tracking }
+
+externals:
+  - { id: vision, name: "Vision process (Serial FACE x y confidence)" }
+
+links:
+  - { from: vision, to: esp32, label: "USB Serial 115200", kind: one }

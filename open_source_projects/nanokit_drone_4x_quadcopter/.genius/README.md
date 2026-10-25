@@ -4,19 +4,18 @@
 
 ## Current Status
 
-No automatic Genius generator is installed or executed for NanoKit Drone 4X. This directory is reserved for future project-local engineering guides, integration checklists, summaries, and validation reports.
+This directory is written by NanoKit Genius Generator 1.0.0 (`tools/genius/generate.py`). Last run: 2026-10-25 20:33:13 UTC — result **PASSED WITH WARNINGS**.
 
-The authoritative engineering material remains the project `README.md`, `docs/`, `images/`, firmware documentation, Camera Node documentation, Flight Deck documentation, source code, and tests.
+Inputs: `nanokit.yaml` in this project, `registry/nanokit-esp32.yaml`, and the firmware source constants listed in the report.
 
-## Generated Artifact Requirements
+## Files
 
-Only store a generated artifact here after a real generator has run. Each artifact must identify:
+- `VALIDATION_REPORT.md` — generator, command, inputs, rules, findings, code evidence.
+- `project.json` — the same data for machines (Git Architecture Diagram, Genius, CI).
 
-- Generator name and version.
-- Exact command used.
-- Input files, hardware evidence, and configuration.
-- Generation date and time.
-- Build or validation result.
-- Known limitations and Blocked/TODO hardware.
+## Generated Elsewhere In This Project
 
-This directory does not enable hardware, assign pins, run validation, or update repository indexes by itself.
+- `images/connection-diagram.md` and `images/system-diagram.md` are fully generated.
+- The pin tables between `GENIUS:*` markers in `README.md` and `docs/Wiring.md` are generated.
+
+Edit `nanokit.yaml`, then run `python tools/genius/generate.py`. Do not edit generated files by hand.

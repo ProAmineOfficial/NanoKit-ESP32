@@ -15,7 +15,7 @@ A complete application should keep all implementation and documentation inside i
 - User-interface instructions when a web, desktop, or mobile controller exists.
 - Bring-up tests, integration tests, failure behavior, safety rules, and troubleshooting.
 - Mermaid connection, architecture, power, bus, boot, firmware-flow, and safety diagrams as applicable.
-- A truthful `.genius/README.md` when the project reserves space for generated engineering guides.
+- A `nanokit.yaml` hardware manifest and the `.genius/` reports it generates.
 
 Use `examples_on_platformio/ultrasonic_distance/` as the minimum detail benchmark for each hardware-facing node, while adapting the material to the application's real architecture.
 
@@ -42,7 +42,7 @@ When repeated bus addresses exist, document the verified re-addressing sequence 
 
 ## Genius Guides
 
-The `.genius/` directory is an optional destination for generated checklists, summaries, and validation reports. It is not automation by itself. A generated file must record the generator, command, inputs, and generation time.
+`.genius/` is written by a real generator: `python tools/genius/generate.py` reads the project `nanokit.yaml`, validates every pin against `registry/nanokit-esp32.yaml` and the firmware constants, regenerates `images/connection-diagram.md`, `images/system-diagram.md`, and the marked pin tables, and records the generator, command, inputs, generation time, findings, and code evidence in `.genius/VALIDATION_REPORT.md` and `.genius/project.json`. Classify every component in the manifest as `confirmed`, `proposed`, or `blocked`; blocked components keep `gpio: null` and still appear in the diagrams.
 
 ## Repository Registration
 

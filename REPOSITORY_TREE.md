@@ -17,7 +17,9 @@ NanoKit-ESP32/
 |-- applications_on_platformio/
 |   |-- face_rotation_tracking_camera/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- docs/
@@ -36,9 +38,11 @@ NanoKit-ESP32/
 |   |   |   |   `-- README.md
 |   |   |   `-- platformio.ini
 |   |   |-- images/
-|   |   |   `-- connection-diagram.md
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
 |   |   |-- vision/
 |   |   |   `-- README.md
+|   |   |-- nanokit.yaml
 |   |   `-- README.md
 |   |-- industrial_monitoring/
 |   |   `-- README.md
@@ -82,6 +86,8 @@ NanoKit-ESP32/
 |   |   `-- README.md
 |   |-- architecture/
 |   |   `-- README.md
+|   |-- audits/
+|   |   `-- 2026-10-25-repository-audit.md
 |   |-- getting_started/
 |   |   `-- README.md
 |   |-- hardware/
@@ -92,6 +98,7 @@ NanoKit-ESP32/
 |   |-- roadmap/
 |   |   `-- README.md
 |   |-- software/
+|   |   |-- genius-generator-spec.md
 |   |   |-- platformio-example-standard.md
 |   |   `-- README.md
 |   |-- troubleshooting/
@@ -103,14 +110,17 @@ NanoKit-ESP32/
 |-- examples_on_platformio/
 |   |-- camera_tracking/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- docs/
 |   |   |   |-- Implementation_Guide.md
 |   |   |   `-- Wiring.md
 |   |   |-- images/
-|   |   |   `-- connection-diagram.md
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
 |   |   |-- include/
 |   |   |   `-- README.md
 |   |   |-- lib/
@@ -119,18 +129,22 @@ NanoKit-ESP32/
 |   |   |   `-- main.cpp
 |   |   |-- test/
 |   |   |   `-- README.md
+|   |   |-- nanokit.yaml
 |   |   |-- platformio.ini
 |   |   `-- README.md
 |   |-- stepper_motor_control/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- docs/
 |   |   |   |-- Implementation_Guide.md
 |   |   |   `-- Wiring.md
 |   |   |-- images/
-|   |   |   `-- connection-diagram.md
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
 |   |   |-- include/
 |   |   |   `-- README.md
 |   |   |-- lib/
@@ -139,11 +153,14 @@ NanoKit-ESP32/
 |   |   |   `-- main.cpp
 |   |   |-- test/
 |   |   |   `-- README.md
+|   |   |-- nanokit.yaml
 |   |   |-- platformio.ini
 |   |   `-- README.md
 |   |-- ultrasonic_distance/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- .vscode/
 |   |   |   `-- extensions.json
 |   |   |-- assets/
@@ -152,7 +169,8 @@ NanoKit-ESP32/
 |   |   |   |-- Implementation_Guide.md
 |   |   |   `-- Wiring.md
 |   |   |-- images/
-|   |   |   `-- connection-diagram.md
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
 |   |   |-- include/
 |   |   |   `-- README.md
 |   |   |-- lib/
@@ -162,6 +180,7 @@ NanoKit-ESP32/
 |   |   |-- test/
 |   |   |   `-- README.md
 |   |   |-- .gitignore
+|   |   |-- nanokit.yaml
 |   |   |-- platformio.ini
 |   |   `-- README.md
 |   |-- PROJECT_STANDARD.md
@@ -192,7 +211,9 @@ NanoKit-ESP32/
 |   |   `-- README.md
 |   |-- nanokit_drone_4x_quadcopter/
 |   |   |-- .genius/
-|   |   |   `-- README.md
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
 |   |   |-- assets/
 |   |   |   `-- README.md
 |   |   |-- camera_node/
@@ -281,6 +302,7 @@ NanoKit-ESP32/
 |   |   |   |-- control-loop.md
 |   |   |   |-- motor-layout.md
 |   |   |   `-- system-diagram.md
+|   |   |-- nanokit.yaml
 |   |   |-- project.yml
 |   |   `-- README.md
 |   |-- showcase_projects/
@@ -288,6 +310,9 @@ NanoKit-ESP32/
 |   |-- templates/
 |   |   `-- README.md
 |   |-- PROJECT_STANDARD.md
+|   `-- README.md
+|-- registry/
+|   |-- nanokit-esp32.yaml
 |   `-- README.md
 |-- simulator/
 |   |-- assets/
@@ -310,6 +335,12 @@ NanoKit-ESP32/
 |   |   `-- README.md
 |   `-- README.md
 |-- tools/
+|   |-- genius/
+|   |   |-- tests/
+|   |   |   `-- test_generate.py
+|   |   |-- generate.py
+|   |   `-- README.md
+|   |-- README.md
 |   |-- sync_with_github.ps1
 |   `-- update_repository_index.py
 |-- tutorials/
@@ -324,12 +355,12 @@ NanoKit-ESP32/
 |   |-- video_links/
 |   |   `-- README.md
 |   `-- README.md
+|-- .gitattributes
 |-- .gitignore
 |-- CHANGELOG.md
 |-- CONTRIBUTING.md
 |-- DEVELOPMENT_CREDIT.md
 |-- LICENSE
-|-- no --cached --check option  (press RETURN)
 |-- PROJECT_SPECIFICATION.md
 |-- README.md
 |-- REPOSITORY_INDEX.md

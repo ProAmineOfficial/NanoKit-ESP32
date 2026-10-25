@@ -25,6 +25,8 @@ This repository is the official educational and professional PlatformIO ecosyste
 - Document NanoKit pin number, ESP32 GPIO number, function, reason for selection, electrical notes, and warnings whenever GPIOs are used.
 - Use `docs/hardware/nanokit-integrated-esp32-pinout.md` as the pinout reference.
 - Use `docs/software/platformio-example-standard.md` as the example structure and Definition of Done reference.
+- Describe hardware once, in `nanokit.yaml`; never edit generated diagrams or the tables between `GENIUS:*` markers by hand.
+- Run `python tools/genius/generate.py` before committing (or enable the hook once with `git config core.hooksPath .githooks`); a validation error blocks the commit and the pull request.
 - Keep generated guide content inside each project `.genius/` folder.
 - Do not commit local build outputs, generated firmware binaries, secrets, or editor caches.
 
@@ -32,19 +34,13 @@ This repository is the official educational and professional PlatformIO ecosyste
 
 When relevant, examples should include:
 
-- `README.md`
+- `README.md` with the `GENIUS:PIN_MAP` markers
+- `nanokit.yaml` hardware manifest (schema: `tools/genius/README.md`)
 - `platformio.ini`
-- `src/main.cpp`
-- `docs/Wiring.md`
-- `docs/Algorithm.md`
-- `docs/Flowchart.md`
-- `docs/Pseudocode.md`
-- `docs/Components.md`
-- `docs/Testing.md`
-- `docs/Troubleshooting.md`
-- `docs/Learning_Notes.md`
-- `docs/Exercises.md`
-- Assets or diagrams when useful
+- `src/main.cpp` with pin constants named in the manifest `symbol:` fields
+- `docs/Wiring.md` with the `GENIUS:CONNECTION_TABLE` markers
+- `docs/Implementation_Guide.md` (algorithm, flowchart, pseudocode, components, testing, troubleshooting, learning notes, exercises)
+- Generated `images/connection-diagram.md`, `images/system-diagram.md`, and `.genius/` reports (run `python tools/genius/generate.py`)
 - PDF-ready documentation structure
 
 ## Definition of Done

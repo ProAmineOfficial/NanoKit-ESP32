@@ -4,14 +4,19 @@
 
 ## Connection Table
 
-| NanoKit Pin | GPIO | Driver Pin | Description |
-|---:|---|---|---|
-| 3 | GPIO25 | IN1 | First coil control input |
-| 37 | GPIO26 | IN2 | Second coil control input |
-| 19 | GPIO27 | IN3 | Third coil control input |
-| 7 | GPIO32 | IN4 | Fourth coil control input |
-| 12 or 31 | GND | GND | Common ground between NanoKit and driver |
-| External 5 V | - | VCC | Motor power input for the driver |
+
+<!-- GENIUS:CONNECTION_TABLE:START -->
+| NanoKit Pin | GPIO | VR Address | Component | Component Pin | Direction | Status | Description |
+|---:|---|---|---|---|---|---|---|
+| 3 | GPIO25 | 0x71 | ULN2003 driver board | IN1 | Output | Confirmed | First coil control input, general GPIO safe output |
+| 37 | GPIO26 | 0x8A | ULN2003 driver board | IN2 | Output | Confirmed | Second coil control input, general GPIO safe output |
+| 19 | GPIO27 | 0x82 | ULN2003 driver board | IN3 | Output | Confirmed | Third coil control input, general GPIO safe output |
+| 7 | GPIO32 | 0x54 | ULN2003 driver board | IN4 | Output | Confirmed | Fourth coil control input, general GPIO safe output |
+| 12 or 31 | GND | 0xD0 | ULN2003 driver board | GND | Power | Confirmed | Common ground between NanoKit and the driver |
+| - | External | - | ULN2003 driver board | VCC | Power | Confirmed | 5 V motor supply for the driver |
+<!-- GENIUS:CONNECTION_TABLE:END -->
+
+Generated from [`../nanokit.yaml`](../nanokit.yaml) and `registry/nanokit-esp32.yaml` by `python tools/genius/generate.py`.
 
 ## Electrical Notes
 

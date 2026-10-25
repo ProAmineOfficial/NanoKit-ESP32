@@ -1,13 +1,32 @@
 # Developed by Amine Saoud ibn al-Bashir.
-name: Refresh Repository Index
+name: Genius Validation and Repository Index
 
 on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
-  refresh-index:
+  validate:
+    name: Validate hardware manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install generator dependencies
+        run: python -m pip install --quiet pyyaml pytest
+      - name: Generator self-tests
+        run: python -m pytest tools/genius/tests -q
+      - name: Validate every nanokit.yaml against the board registry and firmware sources
+        run: python tools/genius/generate.py --check
+
+  refresh:
+    name: Regenerate diagrams, tables, and indexes
+    needs: validate
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,12 +35,23 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Regenerate repository index
+      - name: Install generator dependencies
+        run: python -m pip install --quiet pyyaml
+      - name: Generate connection/system diagrams, pin tables, and .genius reports
+        run: python tools/genius/generate.py
+      - name: Regenerate repository index and catalogs
         run: python tools/update_repository_index.py
       - name: Commit generated repository updates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md REPOSITORY_TREE.md REPOSITORY_INDEX.md examples_on_platformio/README.md open_source_projects/README.md applications_on_platformio/README.md
-          git diff --cached --quiet || git commit -m "chore: refresh repository indexes"
+          git add README.md REPOSITORY_TREE.md REPOSITORY_INDEX.md \
+            examples_on_platformio/README.md open_source_projects/README.md \
+            applications_on_platformio/README.md graduation_projects/README.md
+          for manifest in $(find . -name nanokit.yaml -not -path './.git/*' -not -path '*/.pio/*'); do
+            project=$(dirname "$manifest")
+            git add "$project/README.md" "$project/.genius" "$project/images/connection-diagram.md" "$project/images/system-diagram.md" 2>/dev/null || true
+            git add "$project"/docs/Wiring.md "$project"/*/docs/Wiring.md 2>/dev/null || true
+          done
+          git diff --cached --quiet || git commit -m "chore: regenerate Genius diagrams, tables, and repository indexes"
           git push

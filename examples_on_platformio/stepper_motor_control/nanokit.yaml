@@ -1,0 +1,44 @@
+# Developed by Amine Saoud ibn al-Bashir.
+# Genius hardware manifest - single source of truth for this project's wiring.
+genius: 1
+name: Stepper Motor Control
+category: example
+status: complete
+board: nanokit-esp32
+summary: Drives a 28BYJ-48 geared stepper through a ULN2003 driver with half-step sequencing and Serial commands.
+
+firmware:
+  - id: main
+    path: .
+    code_roots: [src, include]
+    wifi: false
+
+docs:
+  readme: README.md
+  wiring: docs/Wiring.md
+  images: images
+
+components:
+  - id: uln2003
+    name: ULN2003 driver board
+    kind: driver
+    status: confirmed
+    power: { rail: external, note: "5 V motor supply, never from a GPIO" }
+    note: Logic inputs only; motor current flows from the external supply through the driver.
+    pins:
+      - { pin: IN1, gpio: 25, dir: out, symbol: "MOTOR_PINS[0]", note: "First coil control input, general GPIO safe output" }
+      - { pin: IN2, gpio: 26, dir: out, symbol: "MOTOR_PINS[1]", note: "Second coil control input, general GPIO safe output" }
+      - { pin: IN3, gpio: 27, dir: out, symbol: "MOTOR_PINS[2]", note: "Third coil control input, general GPIO safe output" }
+      - { pin: IN4, gpio: 32, dir: out, symbol: "MOTOR_PINS[3]", note: "Fourth coil control input, general GPIO safe output" }
+      - { pin: GND, rail: GND, note: Common ground between NanoKit and the driver }
+      - { pin: VCC, rail: external, note: 5 V motor supply for the driver }
+
+  - id: stepper
+    name: 28BYJ-48 stepper motor
+    kind: actuator
+    status: confirmed
+    power: { rail: external }
+    note: Connected to the driver's 5-pin motor connector, not to NanoKit.
+
+links:
+  - { from: uln2003, to: stepper, label: "5-pin motor cable", kind: one }

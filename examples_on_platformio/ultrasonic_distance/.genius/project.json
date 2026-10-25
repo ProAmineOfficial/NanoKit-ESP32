@@ -1,0 +1,116 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 21:17:13 UTC",
+  "project": "examples_on_platformio/ultrasonic_distance",
+  "manifest": {
+    "genius": 1,
+    "name": "Ultrasonic Distance",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Measures distance with an HC-SR04-style ultrasonic sensor and prints median-filtered centimeters.",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "components": [
+      {
+        "id": "hcsr04",
+        "name": "HC-SR04 ultrasonic sensor",
+        "kind": "sensor",
+        "status": "confirmed",
+        "power": {
+          "rail": "3V3"
+        },
+        "note": "Use a 3.3 V compatible module, or level-shift ECHO when the module drives 5 V.",
+        "pins": [
+          {
+            "pin": "TRIG",
+            "gpio": 5,
+            "dir": "out",
+            "symbol": "TRIGGER_PIN",
+            "note": "Safe digital output for the 10 us trigger pulse"
+          },
+          {
+            "pin": "ECHO",
+            "gpio": 34,
+            "dir": "in",
+            "symbol": "ECHO_PIN",
+            "level": "5V",
+            "level_shift": "required",
+            "note": "Input-only pin is ideal for the echo pulse"
+          },
+          {
+            "pin": "VCC",
+            "rail": "3V3",
+            "note": "Preferred for 3.3 V compatible modules"
+          },
+          {
+            "pin": "GND",
+            "rail": "GND",
+            "note": "Common ground reference, required for correct timing"
+          }
+        ]
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "HC-SR04 ultrasonic sensor"
+    ],
+    "proposed": [],
+    "blocked": []
+  },
+  "findings": [
+    {
+      "level": "info",
+      "rule": "strapping",
+      "message": "GPIO5 (NanoKit Pin 36): affects SDIO slave timing only; safe as a general output.",
+      "where": "hcsr04.TRIG"
+    },
+    {
+      "level": "warning",
+      "rule": "5v-input",
+      "message": "hcsr04.ECHO: 5 V signal on GPIO34 needs the declared level shifting (required).",
+      "where": "hcsr04.ECHO"
+    }
+  ],
+  "evidence": [
+    {
+      "symbol": "TRIGGER_PIN",
+      "expected": 5,
+      "found": 5,
+      "location": "examples_on_platformio/ultrasonic_distance/src/main.cpp:8",
+      "status": "match"
+    },
+    {
+      "symbol": "ECHO_PIN",
+      "expected": 34,
+      "found": 34,
+      "location": "examples_on_platformio/ultrasonic_distance/src/main.cpp:9",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED WITH WARNINGS",
+  "command": "python tools/genius/generate.py"
+}

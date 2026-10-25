@@ -119,14 +119,16 @@ Every example must contain:
 
 ```text
 README.md
+nanokit.yaml      (hardware manifest, validated and rendered by tools/genius/generate.py)
 platformio.ini
 src/
 include/
 lib/
 test/
 assets/
-images/
+images/           (connection-diagram.md and system-diagram.md are generated)
 docs/
+.genius/          (generated validation report)
 ```
 
 Every example must include, where relevant:
@@ -187,7 +189,9 @@ Use NanoKit Integrated ESP32 pin numbering. Always document the mapping:
 NanoKit Pin -> GPIO -> Electronic Component Pin -> Description
 ```
 
-Use `docs/hardware/nanokit-integrated-esp32-pinout.md` as the primary pinout reference.
+Use `docs/hardware/nanokit-integrated-esp32-pinout.md` as the primary pinout reference; its machine-readable twin is `registry/nanokit-esp32.yaml`, which the generator enforces.
+
+Describe the hardware once, in the project `nanokit.yaml`. The pin tables and the connection/system diagrams are generated from it and from the firmware constants, so the three can never disagree.
 
 ## 4. Applications
 
@@ -362,6 +366,7 @@ A project is complete only when:
 
 - Code works.
 - PlatformIO builds successfully.
+- `nanokit.yaml` exists and `python tools/genius/generate.py --check` reports no error.
 - Documentation exists.
 - Wiring exists where hardware is used.
 - Pin mapping exists where hardware is used.

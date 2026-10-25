@@ -7,11 +7,11 @@ View from above. The nose and optional camera point toward the top.
 ```mermaid
 flowchart TD
   Nose(["Nose / optional camera"])
-  M1["M1 front-left\nCCW\nGPIO25"]
-  M2["M2 front-right\nCW\nGPIO26"]
+  M1["M1 front-left\nCCW\nPin 3 / GPIO25"]
+  M2["M2 front-right\nCW\nPin 37 / GPIO26"]
   FC["NanoKit ESP32\ncentered flight controller"]
-  M4["M4 rear-left\nCW\nGPIO32"]
-  M3["M3 rear-right\nCCW\nGPIO27"]
+  M4["M4 rear-left\nCW\nPin 7 / GPIO32"]
+  M3["M3 rear-right\nCCW\nPin 19 / GPIO27"]
 
   Nose --> M1
   Nose --> M2
@@ -28,11 +28,11 @@ flowchart TD
   class Nose reference
 ```
 
-| Motor | Position | Rotation | Signal GPIO |
-|---|---|---|---|
-| M1 | Front left | CCW | GPIO25 |
-| M2 | Front right | CW | GPIO26 |
-| M3 | Rear right | CCW | GPIO27 |
-| M4 | Rear left | CW | GPIO32 |
+| Motor | Position | Rotation | NanoKit Pin | Signal GPIO | LEDC channel |
+|---|---|---|---:|---|---:|
+| M1 | Front left | CCW | 3 | GPIO25 | 0 |
+| M2 | Front right | CW | 37 | GPIO26 | 1 |
+| M3 | Rear right | CCW | 19 | GPIO27 | 2 |
+| M4 | Rear left | CW | 7 | GPIO32 | 3 |
 
 The motor pins are confirmed, but the exact ESC analogue PWM protocol is not. Keep propellers removed and the compile-time confirmation gate at `0` until bench verification is documented.

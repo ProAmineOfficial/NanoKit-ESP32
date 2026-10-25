@@ -1,0 +1,87 @@
+# Developed by Amine Saoud ibn al-Bashir.
+# NanoKit Integrated ESP32 Dev Board V2020 SMD/THT - machine-readable board registry.
+#
+# This file is the single source of truth that `tools/genius/generate.py` uses to
+# validate every project `nanokit.yaml` and to label generated diagrams and tables.
+# Source of the numbers: assets/images/nanokit-integrated-esp32-pinout-v2020-smd-tht.jpg
+# (board datasheet) cross-checked with docs/hardware/nanokit-integrated-esp32-pinout.md.
+#
+# Rules encoded here:
+#   flash: true        -> GPIO6-11 are the internal SPI flash. Never assign a signal.
+#   input_only: true   -> GPIO34/35/36/39 cannot drive outputs and have no internal pulls.
+#   strapping: <text>  -> GPIO0 / GPIO2 / GPIO12 / GPIO15 boot-strapping considerations.
+#   uart0: true        -> GPIO1/GPIO3 are shared with the USB-serial bridge.
+#   adc.unit: 2        -> ADC2 channels are unreadable while Wi-Fi is active.
+#
+# VR (Virtual Register) addresses are virtual on NanoKit Integrated; they are documented
+# for traceability with the UMT vision only. PlatformIO code uses plain ESP32 GPIO numbers.
+
+board:
+  id: nanokit-esp32
+  name: NanoKit Integrated ESP32
+  revision: V2020 SMD/THT
+  module: ESP32-D0WD (NanoKit-iM-ESP32)
+  logic_voltage: 3.3
+  five_volt_tolerant: false
+  platformio:
+    platform: espressif32
+    board: esp32dev
+    framework: arduino
+  header_pins: 40
+
+rails:
+  GND:  { header: [12, 31], label: VR_GND, vr: "0xD0", note: Ground rail }
+  3V3:  { header: [13, 14], label: +3V3_OUT, note: "3.3 V output rail, approx. 0.5 W (PC) / 1 W (charger) available for sensors" }
+  5V:   { header: [11, 32], label: +5V_IN/OUT, note: "5 V in/out rail, approx. 1 W (PC) / 3 W (charger); also the external power input" }
+
+pins:
+  - { header: 1,  label: Pull-down,     gpio: null, kind: pulldown, note: "10 kOhm pull-down reference for MOSFET/transistor circuits, not a GPIO" }
+  - { header: 2,  label: VR_ADC_IN6,    vr: "0x56", gpio: 34, input_only: true, adc: { unit: 1, ch: 6 }, rtc: 4,  functions: [ADC1_CH6] }
+  - { header: 3,  label: VR_DAC_OUT1,   vr: "0x71", gpio: 25, dac: 1, adc: { unit: 2, ch: 8 }, rtc: 6, functions: [DAC1, ADC2_CH8] }
+  - { header: 4,  label: VR_ADC_IN3,    vr: "0x53", gpio: 39, input_only: true, adc: { unit: 1, ch: 3 }, rtc: 3,  functions: [SensorVN, ADC1_CH3] }
+  - { header: 5,  label: VR_ADC_IN0,    vr: "0x50", gpio: 36, input_only: true, adc: { unit: 1, ch: 0 }, rtc: 0,  functions: [SensorVP, ADC1_CH0] }
+  - { header: 6,  label: VR_GPIO00,     vr: "0x80", gpio: 35, input_only: true, adc: { unit: 1, ch: 7 }, rtc: 5,  functions: [ADC1_CH7] }
+  - { header: 7,  label: VR_ADC_IN4,    vr: "0x54", gpio: 32, adc: { unit: 1, ch: 4 }, touch: 9, rtc: 9, functions: [ADC1_CH4, TOUCH9, XTAL_P] }
+  - { header: 8,  label: VR_SPI_MOSI0,  vr: "0x10", gpio: 13, adc: { unit: 2, ch: 4 }, touch: 4, rtc: 14, functions: [HSPI_MOSI, ADC2_CH4, TOUCH4] }
+  - { header: 9,  label: VR_SPI_CS0,    vr: "0x13", gpio: 15, adc: { unit: 2, ch: 3 }, touch: 3, rtc: 13, strapping: "Must not be pulled low at boot (disables boot log); keep free of pull-downs", functions: [HSPI_CS, ADC2_CH3, TOUCH3] }
+  - { header: 10, label: VR_GPIO01,     vr: "0x81", gpio: 4,  adc: { unit: 2, ch: 0 }, touch: 0, rtc: 10, functions: [ADC2_CH0, TOUCH0] }
+  - { header: 11, label: +5V_IN/OUT,    gpio: null, kind: power, rail: 5V }
+  - { header: 12, label: VR_GND,        vr: "0xD0", gpio: null, kind: ground, rail: GND }
+  - { header: 13, label: +3V3_OUT,      gpio: null, kind: power, rail: 3V3 }
+  - { header: 14, label: +3V3_OUT,      gpio: null, kind: power, rail: 3V3 }
+  - { header: 15, label: VR_SPI_SCLK0,  vr: "0x12", gpio: 14, adc: { unit: 2, ch: 6 }, touch: 6, rtc: 16, functions: [HSPI_CLK, ADC2_CH6, TOUCH6] }
+  - { header: 16, label: VR_SPI_MISO1,  vr: "0x15", gpio: 19, functions: [VSPI_MISO] }
+  - { header: 17, label: VR_PWM_OUT0,   vr: "0xC0", gpio: 2,  adc: { unit: 2, ch: 2 }, touch: 2, rtc: 12, builtin_led: true, strapping_minor: "must be low or floating at boot for download mode; the onboard LED and a signal output are acceptable loads", functions: [PWM, ADC2_CH2, TOUCH2, BUILTIN_LED] }
+  - { header: 18, label: VR_I2C_SCL0,   vr: "0x31", gpio: 22, functions: [I2C_SCL] }
+  - { header: 19, label: VR_GPIO02,     vr: "0x82", gpio: 27, adc: { unit: 2, ch: 7 }, touch: 7, rtc: 17, functions: [ADC2_CH7, TOUCH7] }
+  - { header: 20, label: VR_GPIO03,     vr: "0x83", gpio: 33, adc: { unit: 1, ch: 5 }, touch: 8, rtc: 8, functions: [ADC1_CH5, TOUCH8, XTAL_N] }
+  - { header: 21, label: VR_GPIO04,     vr: "0x84", gpio: 11, flash: true, functions: [HSPI_FLASH_CMD] }
+  - { header: 22, label: VR_GPIO05,     vr: "0x85", gpio: 10, flash: true, functions: [HSPI_FLASH_D3] }
+  - { header: 23, label: VR_I2C_SDA0,   vr: "0x30", gpio: 21, functions: [I2C_SDA] }
+  - { header: 24, label: VR_SPI_MOSI1,  vr: "0x14", gpio: 23, functions: [VSPI_MOSI] }
+  - { header: 25, label: VR_UART_TX0,   vr: "0x01", gpio: 1,  uart0: true, functions: [UART0_TX] }
+  - { header: 26, label: VR_UART_RX0,   vr: "0x00", gpio: 3,  uart0: true, functions: [UART0_RX] }
+  - { header: 27, label: VR_GPIO06,     vr: "0x86", gpio: 9,  flash: true, functions: [HSPI_FLASH_D2] }
+  - { header: 28, label: VR_GPIO07,     vr: "0x87", gpio: 6,  flash: true, functions: [HSPI_FLASH_SCK] }
+  - { header: 29, label: VR_GPIO08,     vr: "0x88", gpio: 7,  flash: true, functions: [HSPI_FLASH_D0] }
+  - { header: 30, label: VR_GPIO09,     vr: "0x89", gpio: 8,  flash: true, functions: [HSPI_FLASH_D1] }
+  - { header: 31, label: VR_GND,        vr: "0xD0", gpio: null, kind: ground, rail: GND }
+  - { header: 32, label: +5V_IN/OUT,    gpio: null, kind: power, rail: 5V }
+  - { header: 33, label: VR_SPI_MISO0,  vr: "0x11", gpio: 12, adc: { unit: 2, ch: 5 }, touch: 5, rtc: 15, strapping: "Must not be pulled high at reset (selects 1.8 V flash and prevents boot)", functions: [HSPI_MISO, ADC2_CH5, TOUCH5] }
+  - { header: 34, label: VR_BOOT,       vr: "0x38", gpio: 0,  adc: { unit: 2, ch: 1 }, touch: 1, rtc: 11, strapping: "BOOT pin, must be high at power-on; avoid for normal applications", functions: [BOOT, ADC2_CH1, TOUCH1] }
+  - { header: 35, label: VR_RST,        vr: "0xFF", gpio: null, kind: reset, functions: [EN], note: "Reset / Enable, not a GPIO" }
+  - { header: 36, label: VR_SPI_CS1,    vr: "0x17", gpio: 5,  strapping_minor: "affects SDIO slave timing only; safe as a general output", functions: [VSPI_CS] }
+  - { header: 37, label: VR_GPIO10,     vr: "0x8A", gpio: 26, dac: 2, adc: { unit: 2, ch: 9 }, rtc: 7, functions: [DAC2, ADC2_CH9] }
+  - { header: 38, label: VR_SPI_SCLK1,  vr: "0x16", gpio: 18, functions: [VSPI_CLK] }
+  - { header: 39, label: VR_UART_TX2,   vr: "0x05", gpio: 17, functions: [UART2_TX] }
+  - { header: 40, label: VR_UART_RX2,   vr: "0x04", gpio: 16, functions: [UART2_RX] }
+
+# Recommended first choices, used by the generator for advisory hints only.
+recommended:
+  builtin_led: 2
+  i2c0: { sda: 21, scl: 22 }
+  uart2: { tx: 17, rx: 16 }
+  vspi:  { mosi: 23, miso: 19, sclk: 18, cs: 5 }
+  hspi:  { mosi: 13, miso: 12, sclk: 14, cs: 15 }
+  safe_outputs: [25, 26, 27, 32, 33, 4, 2, 5, 18, 19, 23, 16, 17, 13, 14]
+  safe_inputs:  [34, 35, 36, 39, 32, 33, 25, 26, 27, 4, 16, 17, 18, 19, 23, 5]

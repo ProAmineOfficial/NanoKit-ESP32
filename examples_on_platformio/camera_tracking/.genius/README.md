@@ -4,18 +4,18 @@
 
 ## Current Status
 
-No automatic Genius generator is installed or executed for this example. This directory is reserved for future project-local engineering guides, checklists, summaries, and validation reports.
+This directory is written by NanoKit Genius Generator 1.0.0 (`tools/genius/generate.py`). Last run: 2026-10-25 20:33:13 UTC — result **PASSED**.
 
-The authoritative material remains the example `README.md`, `docs/`, `images/`, source code, and tests.
+Inputs: `nanokit.yaml` in this project, `registry/nanokit-esp32.yaml`, and the firmware source constants listed in the report.
 
-## Generated Artifact Requirements
+## Files
 
-Only store a generated artifact here after a real generator has run. Each artifact must identify:
+- `VALIDATION_REPORT.md` — generator, command, inputs, rules, findings, code evidence.
+- `project.json` — the same data for machines (Git Architecture Diagram, Genius, CI).
 
-- Generator name and version.
-- Exact command used.
-- Input files or evidence.
-- Generation date and time.
-- Validation status and known limitations.
+## Generated Elsewhere In This Project
 
-Do not treat this directory as automation by itself.
+- `images/connection-diagram.md` and `images/system-diagram.md` are fully generated.
+- The pin tables between `GENIUS:*` markers in `README.md` and `docs/Wiring.md` are generated.
+
+Edit `nanokit.yaml`, then run `python tools/genius/generate.py`. Do not edit generated files by hand.

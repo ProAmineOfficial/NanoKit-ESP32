@@ -1,0 +1,149 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 21:17:13 UTC",
+  "project": "examples_on_platformio/stepper_motor_control",
+  "manifest": {
+    "genius": 1,
+    "name": "Stepper Motor Control",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Drives a 28BYJ-48 geared stepper through a ULN2003 driver with half-step sequencing and Serial commands.",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "components": [
+      {
+        "id": "uln2003",
+        "name": "ULN2003 driver board",
+        "kind": "driver",
+        "status": "confirmed",
+        "power": {
+          "rail": "external",
+          "note": "5 V motor supply, never from a GPIO"
+        },
+        "note": "Logic inputs only; motor current flows from the external supply through the driver.",
+        "pins": [
+          {
+            "pin": "IN1",
+            "gpio": 25,
+            "dir": "out",
+            "symbol": "MOTOR_PINS[0]",
+            "note": "First coil control input, general GPIO safe output"
+          },
+          {
+            "pin": "IN2",
+            "gpio": 26,
+            "dir": "out",
+            "symbol": "MOTOR_PINS[1]",
+            "note": "Second coil control input, general GPIO safe output"
+          },
+          {
+            "pin": "IN3",
+            "gpio": 27,
+            "dir": "out",
+            "symbol": "MOTOR_PINS[2]",
+            "note": "Third coil control input, general GPIO safe output"
+          },
+          {
+            "pin": "IN4",
+            "gpio": 32,
+            "dir": "out",
+            "symbol": "MOTOR_PINS[3]",
+            "note": "Fourth coil control input, general GPIO safe output"
+          },
+          {
+            "pin": "GND",
+            "rail": "GND",
+            "note": "Common ground between NanoKit and the driver"
+          },
+          {
+            "pin": "VCC",
+            "rail": "external",
+            "note": "5 V motor supply for the driver"
+          }
+        ]
+      },
+      {
+        "id": "stepper",
+        "name": "28BYJ-48 stepper motor",
+        "kind": "actuator",
+        "status": "confirmed",
+        "power": {
+          "rail": "external"
+        },
+        "note": "Connected to the driver's 5-pin motor connector, not to NanoKit."
+      }
+    ],
+    "links": [
+      {
+        "from": "uln2003",
+        "to": "stepper",
+        "label": "5-pin motor cable",
+        "kind": "one"
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "ULN2003 driver board",
+      "28BYJ-48 stepper motor"
+    ],
+    "proposed": [],
+    "blocked": []
+  },
+  "findings": [],
+  "evidence": [
+    {
+      "symbol": "MOTOR_PINS[0]",
+      "expected": 25,
+      "found": 25,
+      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:10",
+      "status": "match"
+    },
+    {
+      "symbol": "MOTOR_PINS[1]",
+      "expected": 26,
+      "found": 26,
+      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:10",
+      "status": "match"
+    },
+    {
+      "symbol": "MOTOR_PINS[2]",
+      "expected": 27,
+      "found": 27,
+      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:10",
+      "status": "match"
+    },
+    {
+      "symbol": "MOTOR_PINS[3]",
+      "expected": 32,
+      "found": 32,
+      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:10",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED",
+  "command": "python tools/genius/generate.py"
+}

@@ -18,7 +18,7 @@ Each implemented project should be self-contained inside its project directory a
 - Standalone bring-up test and acceptance criteria for every component.
 - Mermaid system, physical connection, power, bus, firmware-flow, boot, and failsafe diagrams as applicable.
 - Project license and contribution information when required by the project.
-- A truthful `.genius/README.md` when generated engineering output is reserved.
+- A `nanokit.yaml` hardware manifest and the `.genius/` reports it generates.
 
 Use `examples_on_platformio/ultrasonic_distance/` as the minimum documentation-detail benchmark for individual hardware connections, then expand it to match the project's complete architecture.
 
@@ -46,13 +46,14 @@ For repeated I2C addresses, document verified multiplexer channels or re-address
 
 ## Genius Guides
 
-The `.genius/` directory is only a destination for generated engineering guides, checklists, summaries, and validation reports. It is not an automatic system by itself. Every generated artifact must state the generator, command, inputs, generation time, and validation result.
+`.genius/` is written by a real generator: `python tools/genius/generate.py` reads the project `nanokit.yaml`, validates every pin against `registry/nanokit-esp32.yaml` and the firmware constants, regenerates `images/connection-diagram.md`, `images/system-diagram.md`, and the marked pin tables, and records the generator, command, inputs, generation time, findings, and code evidence in `.genius/VALIDATION_REPORT.md` and `.genius/project.json`. Classify every component in the manifest as `confirmed`, `proposed`, or `blocked`; blocked components keep `gpio: null` and still appear in the diagrams.
 
 ## Repository Registration
 
 After explicitly creating, removing, or renaming an open-source project, run:
 
 ```powershell
+python tools/genius/generate.py
 python tools/update_repository_index.py
 ```
 
