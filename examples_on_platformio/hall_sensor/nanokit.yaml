@@ -1,0 +1,36 @@
+# Developed by Amine Saoud ibn al-Bashir.
+# Genius hardware manifest - single source of truth for this project's wiring.
+genius: 1
+name: Hall Sensor
+category: example
+status: complete
+board: nanokit-esp32
+summary: Reads the Hall-effect sensor built into the ESP32 chip, averages the noisy value, and lights the onboard LED when a magnet comes near the module.
+
+firmware:
+  - id: main
+    path: .
+    code_roots: [src, include]
+    wifi: false
+
+docs:
+  readme: README.md
+  wiring: docs/Wiring.md
+  images: images
+
+components:
+  - id: hall_sensor
+    name: Built-in Hall-effect sensor
+    kind: sensor
+    status: confirmed
+    power: { rail: none }
+    note: "Inside the ESP32 chip, under the metal shield of the NanoKit-iM module; nothing is wired. hallRead() measures through ADC1 channels 0 and 3, i.e. NanoKit Pin 5 / GPIO36 and NanoKit Pin 4 / GPIO39, which must stay unconnected while the sensor is used."
+
+  - id: builtin_led
+    name: Onboard LED
+    kind: display
+    status: confirmed
+    power: { rail: none }
+    note: Lights while the averaged reading differs from the baseline by more than the detection threshold.
+    pins:
+      - { pin: LED, gpio: 2, dir: out, symbol: BUILTIN_LED_PIN, note: Onboard LED on the PWM_OUT0 pin }

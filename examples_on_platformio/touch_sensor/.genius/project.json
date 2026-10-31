@@ -1,0 +1,110 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 22:56:04 UTC",
+  "project": "examples_on_platformio/touch_sensor",
+  "manifest": {
+    "genius": 1,
+    "name": "Touch Sensor",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Reads the ESP32 built-in capacitive touch channel T0 through a bare wire, calibrates a baseline at start-up, and lights an LED while the pad is touched.",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "components": [
+      {
+        "id": "touch_pad",
+        "name": "Touch pad (jumper wire / foil)",
+        "kind": "sensor",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "A bare jumper wire is already a working pad; a small piece of aluminium foil folded over its end gives a larger, more comfortable touch surface.",
+        "pins": [
+          {
+            "pin": "Pad wire",
+            "gpio": 4,
+            "dir": "in",
+            "type": "touch",
+            "symbol": "TOUCH_PIN",
+            "note": "Touch channel T0; the count drops when a finger adds capacitance to the wire"
+          }
+        ]
+      },
+      {
+        "id": "led",
+        "name": "External LED + 220 ohm resistor",
+        "kind": "display",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Series resistor limits current to about 7 mA at 3.3 V, well inside the ESP32 GPIO rating.",
+        "pins": [
+          {
+            "pin": "Anode via 220 ohm",
+            "gpio": 26,
+            "dir": "out",
+            "symbol": "LED_PIN",
+            "note": "Safe general-purpose output lights the LED while the pad is touched"
+          },
+          {
+            "pin": "Cathode",
+            "rail": "GND",
+            "note": "Return path for the LED current"
+          }
+        ]
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "Touch pad (jumper wire / foil)",
+      "External LED + 220 ohm resistor"
+    ],
+    "proposed": [],
+    "blocked": []
+  },
+  "findings": [],
+  "evidence": [
+    {
+      "symbol": "TOUCH_PIN",
+      "expected": 4,
+      "found": 4,
+      "location": "examples_on_platformio/touch_sensor/src/main.cpp:5",
+      "status": "match"
+    },
+    {
+      "symbol": "LED_PIN",
+      "expected": 26,
+      "found": 26,
+      "location": "examples_on_platformio/touch_sensor/src/main.cpp:6",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED",
+  "command": "python tools/genius/generate.py --project examples_on_platformio/touch_sensor"
+}

@@ -1,0 +1,116 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 22:56:18 UTC",
+  "project": "examples_on_platformio/preferences_flash_storage",
+  "manifest": {
+    "genius": 1,
+    "name": "Preferences Flash Storage",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Stores a boot counter and the LED state in NVS flash with the Preferences library, so both survive reset and power loss; a button toggles and saves the LED.",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "components": [
+      {
+        "id": "button",
+        "name": "Push button",
+        "kind": "sensor",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Normally-open momentary switch between the GPIO and GND; the ESP32 internal pull-up replaces an external resistor. Each debounced press toggles the LED and writes the new state to flash.",
+        "pins": [
+          {
+            "pin": "Leg 1",
+            "gpio": 4,
+            "dir": "in",
+            "symbol": "BUTTON_PIN",
+            "note": "Internal pull-up keeps the pin HIGH; pressing reads LOW"
+          },
+          {
+            "pin": "Leg 2",
+            "rail": "GND",
+            "note": "Pressing connects the GPIO to ground"
+          }
+        ]
+      },
+      {
+        "id": "builtin_led",
+        "name": "Onboard LED",
+        "kind": "display",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Shows the state restored from flash at boot; no wiring needed.",
+        "pins": [
+          {
+            "pin": "LED",
+            "gpio": 2,
+            "dir": "out",
+            "symbol": "BUILTIN_LED_PIN",
+            "note": "Onboard LED on the PWM_OUT0 pin shows the saved state"
+          }
+        ]
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "Push button",
+      "Onboard LED"
+    ],
+    "proposed": [],
+    "blocked": []
+  },
+  "findings": [
+    {
+      "level": "info",
+      "rule": "strapping",
+      "message": "GPIO2 (NanoKit Pin 17): must be low or floating at boot for download mode; the onboard LED and a signal output are acceptable loads.",
+      "where": "builtin_led.LED"
+    }
+  ],
+  "evidence": [
+    {
+      "symbol": "BUTTON_PIN",
+      "expected": 4,
+      "found": 4,
+      "location": "examples_on_platformio/preferences_flash_storage/src/main.cpp:6",
+      "status": "match"
+    },
+    {
+      "symbol": "BUILTIN_LED_PIN",
+      "expected": 2,
+      "found": 2,
+      "location": "examples_on_platformio/preferences_flash_storage/src/main.cpp:7",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED",
+  "command": "python tools/genius/generate.py --project examples_on_platformio/preferences_flash_storage"
+}

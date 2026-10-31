@@ -312,6 +312,71 @@ See `REPOSITORY_TREE.md` for the full generated tree and `registry/nanokit-esp32
     (ROOT / "REPOSITORY_INDEX.md").write_text(body, encoding="utf-8", newline="\n")
 
 
+BACKLOG_PATH = ROOT / "docs" / "roadmap" / "project-backlog.md"
+
+
+def _is_table_row(line: str) -> list[str] | None:
+    if not line.startswith("|"):
+        return None
+    cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+    if not cells or cells[0] in {"Topic"} or all(set(cell) <= set("-: ") for cell in cells):
+        return None
+    return cells
+
+
+def update_backlog_status() -> dict[str, dict[str, int]]:
+    """Refresh the Status column of docs/roadmap/project-backlog.md from what exists on disk.
+
+    Project rows (6 columns: Topic | Area | Folder | Wave | Hardware | Status) are `done` when the
+    folder carries nanokit.yaml, `in progress` when the folder exists without one, else `planned`.
+    Tutorial/article rows (4 columns: Topic | Area | Path | Status) are `done` when the file exists.
+    Returns per-wave counts for the roadmap summary."""
+    counts: dict[str, dict[str, int]] = {}
+    if not BACKLOG_PATH.exists():
+        return counts
+    lines = BACKLOG_PATH.read_text(encoding="utf-8").splitlines()
+    updated = []
+    for line in lines:
+        cells = _is_table_row(line)
+        if cells and len(cells) in {4, 6}:
+            target = ROOT / cells[2]
+            if len(cells) == 6:
+                status = "done" if (target / MANIFEST_NAME).exists() else ("in progress" if target.exists() else "planned")
+                wave = f"wave {cells[3]}"
+            else:
+                status = "done" if target.exists() else "planned"
+                wave = "tutorials and articles"
+            cells[-1] = status
+            bucket = counts.setdefault(wave, {"done": 0, "in progress": 0, "planned": 0})
+            bucket[status] += 1
+            line = "| " + " | ".join(cells) + " |"
+        updated.append(line)
+    BACKLOG_PATH.write_text("\n".join(updated) + "\n", encoding="utf-8", newline="\n")
+    return counts
+
+
+def write_roadmap_readme(counts: dict[str, dict[str, int]]) -> None:
+    rows = []
+    for wave in sorted(counts, key=lambda name: (not name.startswith("wave"), name)):
+        bucket = counts[wave]
+        total = sum(bucket.values())
+        rows.append(f"| {wave} | {bucket['done']} | {bucket['in progress']} | {bucket['planned']} | {total} |")
+    table = "\n".join(rows) if rows else "| - | 0 | 0 | 0 | 0 |"
+    body = f"""# Roadmap
+
+**Developed by Amine Saoud ibn al-Bashir.**
+
+The full topic list lives in [`project-backlog.md`](project-backlog.md); its Status column and this summary are refreshed by `python tools/update_repository_index.py`.
+
+| Wave | Done | In progress | Planned | Total |
+|---|---:|---:|---:|---:|
+{table}
+
+Waves: 1 board fundamentals, 2 sensors and modules, 3 web applications, 4 protocols and cloud, 5 external modules. Simple interface-free projects go to `examples_on_platformio/`; projects with a web interface go to `applications_on_platformio/`.
+"""
+    (ROOT / "docs" / "roadmap" / "README.md").write_text(body, encoding="utf-8", newline="\n")
+
+
 def main() -> None:
     os.chdir(ROOT)
     write_repository_tree()
@@ -333,7 +398,8 @@ def main() -> None:
         "Graduation Projects",
         "Academic project workspaces and templates for NanoKit-ESP32: bachelor, master, engineering, institute, capstone, and university-thesis work.",
     )
-    print("Updated REPOSITORY_TREE.md, REPOSITORY_INDEX.md, and generated catalogs.")
+    write_roadmap_readme(update_backlog_status())
+    print("Updated REPOSITORY_TREE.md, REPOSITORY_INDEX.md, generated catalogs, and the project backlog status.")
 
 
 if __name__ == "__main__":

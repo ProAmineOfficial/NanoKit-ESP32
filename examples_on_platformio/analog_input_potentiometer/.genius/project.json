@@ -1,0 +1,123 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 22:53:19 UTC",
+  "project": "examples_on_platformio/analog_input_potentiometer",
+  "manifest": {
+    "genius": 1,
+    "name": "Analog Input Potentiometer",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Reads a potentiometer with ADC1 (16-sample average, calibrated millivolts) and shows the value as a text bar and as onboard LED brightness.",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "components": [
+      {
+        "id": "potentiometer",
+        "name": "10 kOhm potentiometer",
+        "kind": "sensor",
+        "status": "confirmed",
+        "power": {
+          "rail": "3V3"
+        },
+        "note": "Voltage divider: the wiper swings from 0 V to 3.3 V as the knob turns. ADC1 was chosen on purpose so the reading survives a future Wi-Fi upgrade; ADC2 is unusable while Wi-Fi runs.",
+        "pins": [
+          {
+            "pin": "Wiper (middle leg)",
+            "gpio": 34,
+            "dir": "in",
+            "type": "adc",
+            "symbol": "POT_PIN",
+            "note": "ADC1_CH6 on an input-only pin; 11 dB attenuation covers the full 0-3.3 V range"
+          },
+          {
+            "pin": "Outer leg A",
+            "rail": "3V3",
+            "note": "Top of the voltage divider"
+          },
+          {
+            "pin": "Outer leg B",
+            "rail": "GND",
+            "note": "Bottom of the voltage divider"
+          }
+        ]
+      },
+      {
+        "id": "builtin_led",
+        "name": "Onboard LED",
+        "kind": "display",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Brightness follows the knob position through LEDC channel 0; nothing is wired to it.",
+        "pins": [
+          {
+            "pin": "LED",
+            "gpio": 2,
+            "dir": "out",
+            "type": "pwm",
+            "symbol": "BUILTIN_LED_PIN",
+            "note": "Onboard LED on the PWM_OUT0 pin"
+          }
+        ]
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "10 kOhm potentiometer",
+      "Onboard LED"
+    ],
+    "proposed": [],
+    "blocked": []
+  },
+  "findings": [
+    {
+      "level": "info",
+      "rule": "strapping",
+      "message": "GPIO2 (NanoKit Pin 17): must be low or floating at boot for download mode; the onboard LED and a signal output are acceptable loads.",
+      "where": "builtin_led.LED"
+    }
+  ],
+  "evidence": [
+    {
+      "symbol": "POT_PIN",
+      "expected": 34,
+      "found": 34,
+      "location": "examples_on_platformio/analog_input_potentiometer/src/main.cpp:5",
+      "status": "match"
+    },
+    {
+      "symbol": "BUILTIN_LED_PIN",
+      "expected": 2,
+      "found": 2,
+      "location": "examples_on_platformio/analog_input_potentiometer/src/main.cpp:6",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED",
+  "command": "python tools/genius/generate.py --project examples_on_platformio/analog_input_potentiometer"
+}

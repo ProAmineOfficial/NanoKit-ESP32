@@ -1,0 +1,39 @@
+# Developed by Amine Saoud ibn al-Bashir.
+# Genius hardware manifest - single source of truth for this project's wiring.
+genius: 1
+name: Preferences Flash Storage
+category: example
+status: complete
+board: nanokit-esp32
+summary: Stores a boot counter and the LED state in NVS flash with the Preferences library, so both survive reset and power loss; a button toggles and saves the LED.
+
+firmware:
+  - id: main
+    path: .
+    code_roots: [src, include]
+    wifi: false
+
+docs:
+  readme: README.md
+  wiring: docs/Wiring.md
+  images: images
+
+components:
+  - id: button
+    name: Push button
+    kind: sensor
+    status: confirmed
+    power: { rail: none }
+    note: Normally-open momentary switch between the GPIO and GND; the ESP32 internal pull-up replaces an external resistor. Each debounced press toggles the LED and writes the new state to flash.
+    pins:
+      - { pin: Leg 1, gpio: 4, dir: in, symbol: BUTTON_PIN, note: "Internal pull-up keeps the pin HIGH; pressing reads LOW" }
+      - { pin: Leg 2, rail: GND, note: Pressing connects the GPIO to ground }
+
+  - id: builtin_led
+    name: Onboard LED
+    kind: display
+    status: confirmed
+    power: { rail: none }
+    note: Shows the state restored from flash at boot; no wiring needed.
+    pins:
+      - { pin: LED, gpio: 2, dir: out, symbol: BUILTIN_LED_PIN, note: Onboard LED on the PWM_OUT0 pin shows the saved state }

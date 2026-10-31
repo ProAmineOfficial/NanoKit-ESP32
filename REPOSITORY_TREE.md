@@ -13,6 +13,7 @@ NanoKit-ESP32/
 |-- .github/
 |   `-- workflows/
 |       |-- deploy-documentation.yml
+|       |-- platformio-build.yml
 |       `-- repository-index.yml
 |-- applications_on_platformio/
 |   |-- face_rotation_tracking_camera/
@@ -96,6 +97,7 @@ NanoKit-ESP32/
 |   |-- installation/
 |   |   `-- README.md
 |   |-- roadmap/
+|   |   |-- project-backlog.md
 |   |   `-- README.md
 |   |-- software/
 |   |   |-- genius-generator-spec.md
@@ -108,6 +110,33 @@ NanoKit-ESP32/
 |   |-- index.html
 |   `-- README.md
 |-- examples_on_platformio/
+|   |-- analog_input_potentiometer/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
 |   |-- camera_tracking/
 |   |   |-- .genius/
 |   |   |   |-- project.json
@@ -132,6 +161,222 @@ NanoKit-ESP32/
 |   |   |-- nanokit.yaml
 |   |   |-- platformio.ini
 |   |   `-- README.md
+|   |-- deep_sleep_wakeup/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- digital_input_output/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- dual_core_tasks/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- hall_sensor/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- i2c_scanner/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- interrupts_and_timers/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- preferences_flash_storage/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- pwm_led_fade/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
 |   |-- stepper_motor_control/
 |   |   |-- .genius/
 |   |   |   |-- project.json
@@ -153,6 +398,33 @@ NanoKit-ESP32/
 |   |   |   `-- main.cpp
 |   |   |-- test/
 |   |   |   `-- README.md
+|   |   |-- nanokit.yaml
+|   |   |-- platformio.ini
+|   |   `-- README.md
+|   |-- touch_sensor/
+|   |   |-- .genius/
+|   |   |   |-- project.json
+|   |   |   |-- README.md
+|   |   |   `-- VALIDATION_REPORT.md
+|   |   |-- .vscode/
+|   |   |   `-- extensions.json
+|   |   |-- assets/
+|   |   |   `-- README.md
+|   |   |-- docs/
+|   |   |   |-- Implementation_Guide.md
+|   |   |   `-- Wiring.md
+|   |   |-- images/
+|   |   |   |-- connection-diagram.md
+|   |   |   `-- system-diagram.md
+|   |   |-- include/
+|   |   |   `-- README.md
+|   |   |-- lib/
+|   |   |   `-- README.md
+|   |   |-- src/
+|   |   |   `-- main.cpp
+|   |   |-- test/
+|   |   |   `-- README.md
+|   |   |-- .gitignore
 |   |   |-- nanokit.yaml
 |   |   |-- platformio.ini
 |   |   `-- README.md

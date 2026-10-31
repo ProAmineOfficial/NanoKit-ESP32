@@ -1,0 +1,121 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 22:53:41 UTC",
+  "project": "examples_on_platformio/deep_sleep_wakeup",
+  "manifest": {
+    "genius": 1,
+    "name": "Deep Sleep Wakeup",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Puts the ESP32 into deep sleep, wakes it with a 10 s timer or a push button on an RTC GPIO, and keeps a boot counter alive in RTC memory.",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "components": [
+      {
+        "id": "wake_button",
+        "name": "Wake button + 10 kOhm pull-down",
+        "kind": "sensor",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Momentary button between 3.3 V and the GPIO. The 10 kOhm resistor to GND holds the pin LOW while the button is open, so a press is a clean LOW-to-HIGH edge that ext0 can detect in deep sleep.",
+        "pins": [
+          {
+            "pin": "Button leg 1",
+            "gpio": 33,
+            "dir": "in",
+            "symbol": "WAKE_BUTTON_PIN",
+            "note": "RTC GPIO used as the ext0 wake-up source; the pull-down keeps it LOW, pressing drives it HIGH"
+          },
+          {
+            "pin": "Button leg 2",
+            "rail": "3V3",
+            "note": "Pressing connects 3.3 V to the GPIO (never 5 V)"
+          },
+          {
+            "pin": "Pull-down resistor",
+            "rail": "GND",
+            "note": "10 kOhm from the GPIO to ground so the pin never floats"
+          }
+        ]
+      },
+      {
+        "id": "builtin_led",
+        "name": "Onboard LED",
+        "kind": "display",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Blinks three times at every wake-up so each boot is visible without the Serial Monitor.",
+        "pins": [
+          {
+            "pin": "LED",
+            "gpio": 2,
+            "dir": "out",
+            "symbol": "BUILTIN_LED_PIN",
+            "note": "Onboard LED on the PWM_OUT0 pin"
+          }
+        ]
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "Wake button + 10 kOhm pull-down",
+      "Onboard LED"
+    ],
+    "proposed": [],
+    "blocked": []
+  },
+  "findings": [
+    {
+      "level": "info",
+      "rule": "strapping",
+      "message": "GPIO2 (NanoKit Pin 17): must be low or floating at boot for download mode; the onboard LED and a signal output are acceptable loads.",
+      "where": "builtin_led.LED"
+    }
+  ],
+  "evidence": [
+    {
+      "symbol": "WAKE_BUTTON_PIN",
+      "expected": 33,
+      "found": 33,
+      "location": "examples_on_platformio/deep_sleep_wakeup/src/main.cpp:6",
+      "status": "match"
+    },
+    {
+      "symbol": "BUILTIN_LED_PIN",
+      "expected": 2,
+      "found": 2,
+      "location": "examples_on_platformio/deep_sleep_wakeup/src/main.cpp:7",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED",
+  "command": "python tools/genius/generate.py --project examples_on_platformio/deep_sleep_wakeup"
+}

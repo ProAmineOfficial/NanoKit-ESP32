@@ -15,9 +15,10 @@ A complete example should normally contain:
 - `src/main.cpp` or the project-owned source files.
 - `docs/Wiring.md` for connection tables, electrical notes, and wiring order.
 - `docs/Implementation_Guide.md` for the algorithm, pseudocode, flowchart, tests, troubleshooting, and exercises.
-- `images/connection-diagram.md` for a Mermaid physical connection diagram.
+- `nanokit.yaml`, the hardware manifest: every component, bus, and pin with its status and the firmware constant (`symbol:`) that carries it.
+- `images/connection-diagram.md` and `images/system-diagram.md`, generated from the manifest (never edited by hand).
 - Project-local `assets/`, `include/`, `lib/`, and `test/` notes when those areas are used.
-- `.genius/README.md` describing the truthful status of generated engineering guides.
+- `.genius/VALIDATION_REPORT.md` and `.genius/project.json`, generated validation output.
 
 ## Hardware Evidence
 
@@ -47,13 +48,14 @@ Mermaid diagrams should cover the physical connection and firmware flow. Add sys
 
 ## Genius Guides
 
-The `.genius/` directory is only a project-local destination for generated guides, checklists, summaries, and validation reports. Do not describe it as automated unless a generator exists and is actually executed. Generated output must identify its generator, command, inputs, and generation time.
+`.genius/` is written by a real generator: `python tools/genius/generate.py` reads the example `nanokit.yaml`, validates every pin against `registry/nanokit-esp32.yaml` (flash pins, input-only pins, strapping pins, UART0, ADC2 with Wi-Fi, 5 V inputs, double assignment) and against the firmware constants, regenerates `images/connection-diagram.md`, `images/system-diagram.md`, and the marked pin tables in `README.md` and `docs/Wiring.md`, and records the generator, command, inputs, generation time, findings, and code evidence in `.genius/VALIDATION_REPORT.md` and `.genius/project.json`. Write "Pin 36 / GPIO5" in full everywhere; never abbreviate the NanoKit pin.
 
 ## Repository Registration
 
 After explicitly creating, removing, or renaming an example, run:
 
 ```powershell
+python tools/genius/generate.py
 python tools/update_repository_index.py
 ```
 

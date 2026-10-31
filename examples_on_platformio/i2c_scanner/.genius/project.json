@@ -1,0 +1,112 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 22:51:55 UTC",
+  "project": "examples_on_platformio/i2c_scanner",
+  "manifest": {
+    "genius": 1,
+    "name": "I2C Scanner",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Scans the NanoKit I2C0 bus every 5 s, prints every responding 7-bit address with a hint of the usual chip, and explains what to check when nothing answers.",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "buses": [
+      {
+        "id": "i2c0",
+        "type": "i2c",
+        "status": "confirmed",
+        "speed": "100 kHz",
+        "pins": [
+          {
+            "role": "SDA",
+            "gpio": 21,
+            "symbol": "I2C_SDA_PIN",
+            "note": "NanoKit I2C0 data line; open-drain, so it needs a pull-up to 3.3 V"
+          },
+          {
+            "role": "SCL",
+            "gpio": 22,
+            "symbol": "I2C_SCL_PIN",
+            "note": "NanoKit I2C0 clock line; open-drain, so it needs a pull-up to 3.3 V"
+          }
+        ]
+      }
+    ],
+    "components": [
+      {
+        "id": "i2c_module",
+        "name": "Any 3.3 V I2C module (OLED, BME280, MPU-6050, ...)",
+        "kind": "other",
+        "status": "proposed",
+        "bus": "i2c0",
+        "power": {
+          "rail": "3V3"
+        },
+        "note": "Proposed because the scanner works with whichever module you plug in. Most breakout modules carry their own 4.7-10 kOhm pull-ups on SDA and SCL, so no extra resistor is needed.",
+        "pins": [
+          {
+            "pin": "VCC",
+            "rail": "3V3",
+            "note": "Power the module from the 3.3 V rail only"
+          },
+          {
+            "pin": "GND",
+            "rail": "GND",
+            "note": "Common ground with NanoKit"
+          }
+        ]
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "bus i2c0 (I2C)"
+    ],
+    "proposed": [
+      "Any 3.3 V I2C module (OLED, BME280, MPU-6050, ...)"
+    ],
+    "blocked": []
+  },
+  "findings": [],
+  "evidence": [
+    {
+      "symbol": "I2C_SDA_PIN",
+      "expected": 21,
+      "found": 21,
+      "location": "examples_on_platformio/i2c_scanner/src/main.cpp:6",
+      "status": "match"
+    },
+    {
+      "symbol": "I2C_SCL_PIN",
+      "expected": 22,
+      "found": 22,
+      "location": "examples_on_platformio/i2c_scanner/src/main.cpp:7",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED",
+  "command": "python tools/genius/generate.py --project examples_on_platformio/i2c_scanner"
+}

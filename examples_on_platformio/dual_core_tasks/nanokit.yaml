@@ -1,0 +1,39 @@
+# Developed by Amine Saoud ibn al-Bashir.
+# Genius hardware manifest - single source of truth for this project's wiring.
+genius: 1
+name: Dual Core Tasks
+category: example
+status: complete
+board: nanokit-esp32
+summary: Runs one FreeRTOS blink task pinned to each ESP32 core and reports free heap and task stack usage from loop().
+
+firmware:
+  - id: main
+    path: .
+    code_roots: [src, include]
+    wifi: false
+
+docs:
+  readme: README.md
+  wiring: docs/Wiring.md
+  images: images
+
+components:
+  - id: led_core0
+    name: External LED + 220 ohm resistor
+    kind: display
+    status: confirmed
+    power: { rail: none }
+    note: Blinked every 1000 ms by the task pinned to core 0. Series resistor limits current to about 7 mA at 3.3 V.
+    pins:
+      - { pin: Anode via 220 ohm, gpio: 26, dir: out, symbol: LED_CORE0_PIN, note: Safe general-purpose output toggled by the core 0 task }
+      - { pin: Cathode, rail: GND, note: Return path for the LED current }
+
+  - id: builtin_led
+    name: Onboard LED
+    kind: display
+    status: confirmed
+    power: { rail: none }
+    note: Blinked every 300 ms by the task pinned to core 1; needs no wiring.
+    pins:
+      - { pin: LED, gpio: 2, dir: out, symbol: LED_CORE1_PIN, note: Onboard LED on the PWM_OUT0 pin toggled by the core 1 task }

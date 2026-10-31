@@ -1,0 +1,114 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 22:55:33 UTC",
+  "project": "examples_on_platformio/interrupts_and_timers",
+  "manifest": {
+    "genius": 1,
+    "name": "Interrupts and Timers",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Blinks an LED from a hardware timer alarm and changes the blink period from a debounced GPIO interrupt, with all work done in loop() behind flags.",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "components": [
+      {
+        "id": "button",
+        "name": "Push button",
+        "kind": "sensor",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Normally-open momentary switch between the GPIO and GND; the internal pull-up turns a press into the HIGH -> LOW edge that triggers the interrupt.",
+        "pins": [
+          {
+            "pin": "Leg 1",
+            "gpio": 4,
+            "dir": "in",
+            "symbol": "BUTTON_PIN",
+            "note": "FALLING-edge interrupt; internal pull-up keeps the pin HIGH, pressing reads LOW"
+          },
+          {
+            "pin": "Leg 2",
+            "rail": "GND",
+            "note": "Pressing connects the GPIO to ground"
+          }
+        ]
+      },
+      {
+        "id": "led",
+        "name": "External LED + 220 ohm resistor",
+        "kind": "display",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Toggled from loop() each time the hardware timer alarm raises its flag; the series resistor limits current to about 7 mA at 3.3 V.",
+        "pins": [
+          {
+            "pin": "Anode via 220 ohm",
+            "gpio": 26,
+            "dir": "out",
+            "symbol": "LED_PIN",
+            "note": "Safe general-purpose output drives the LED HIGH = on"
+          },
+          {
+            "pin": "Cathode",
+            "rail": "GND",
+            "note": "Return path for the LED current"
+          }
+        ]
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "Push button",
+      "External LED + 220 ohm resistor"
+    ],
+    "proposed": [],
+    "blocked": []
+  },
+  "findings": [],
+  "evidence": [
+    {
+      "symbol": "BUTTON_PIN",
+      "expected": 4,
+      "found": 4,
+      "location": "examples_on_platformio/interrupts_and_timers/src/main.cpp:5",
+      "status": "match"
+    },
+    {
+      "symbol": "LED_PIN",
+      "expected": 26,
+      "found": 26,
+      "location": "examples_on_platformio/interrupts_and_timers/src/main.cpp:6",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED",
+  "command": "python tools/genius/generate.py --project examples_on_platformio/interrupts_and_timers"
+}

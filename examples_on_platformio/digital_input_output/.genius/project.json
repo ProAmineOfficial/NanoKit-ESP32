@@ -1,0 +1,148 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 22:44:05 UTC",
+  "project": "examples_on_platformio/digital_input_output",
+  "manifest": {
+    "genius": 1,
+    "name": "Digital Input Output",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Reads a push button with the internal pull-up, debounces it without delay(), and toggles an LED on each press.",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "components": [
+      {
+        "id": "button",
+        "name": "Push button",
+        "kind": "sensor",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Normally-open momentary switch between the GPIO and GND; the ESP32 internal pull-up replaces an external resistor.",
+        "pins": [
+          {
+            "pin": "Leg 1",
+            "gpio": 4,
+            "dir": "in",
+            "symbol": "BUTTON_PIN",
+            "note": "Internal pull-up keeps the pin HIGH; pressing reads LOW"
+          },
+          {
+            "pin": "Leg 2",
+            "rail": "GND",
+            "note": "Pressing connects the GPIO to ground"
+          }
+        ]
+      },
+      {
+        "id": "led",
+        "name": "External LED + 220 ohm resistor",
+        "kind": "display",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Series resistor limits current to about 7 mA at 3.3 V, well inside the ESP32 GPIO rating.",
+        "pins": [
+          {
+            "pin": "Anode via 220 ohm",
+            "gpio": 26,
+            "dir": "out",
+            "symbol": "LED_PIN",
+            "note": "Safe general-purpose output drives the LED HIGH = on"
+          },
+          {
+            "pin": "Cathode",
+            "rail": "GND",
+            "note": "Return path for the LED current"
+          }
+        ]
+      },
+      {
+        "id": "builtin_led",
+        "name": "Onboard LED",
+        "kind": "display",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Mirrors the external LED so the example can be tried with no wiring at all.",
+        "pins": [
+          {
+            "pin": "LED",
+            "gpio": 2,
+            "dir": "out",
+            "symbol": "BUILTIN_LED_PIN",
+            "note": "Onboard LED on the PWM_OUT0 pin"
+          }
+        ]
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "Push button",
+      "External LED + 220 ohm resistor",
+      "Onboard LED"
+    ],
+    "proposed": [],
+    "blocked": []
+  },
+  "findings": [
+    {
+      "level": "info",
+      "rule": "strapping",
+      "message": "GPIO2 (NanoKit Pin 17): must be low or floating at boot for download mode; the onboard LED and a signal output are acceptable loads.",
+      "where": "builtin_led.LED"
+    }
+  ],
+  "evidence": [
+    {
+      "symbol": "BUTTON_PIN",
+      "expected": 4,
+      "found": 4,
+      "location": "examples_on_platformio/digital_input_output/src/main.cpp:5",
+      "status": "match"
+    },
+    {
+      "symbol": "LED_PIN",
+      "expected": 26,
+      "found": 26,
+      "location": "examples_on_platformio/digital_input_output/src/main.cpp:6",
+      "status": "match"
+    },
+    {
+      "symbol": "BUILTIN_LED_PIN",
+      "expected": 2,
+      "found": 2,
+      "location": "examples_on_platformio/digital_input_output/src/main.cpp:7",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED",
+  "command": "python tools/genius/generate.py --project examples_on_platformio/digital_input_output"
+}

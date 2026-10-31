@@ -1,0 +1,116 @@
+{
+  "generator": {
+    "name": "NanoKit Genius Generator",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-10-25 22:54:11 UTC",
+  "project": "examples_on_platformio/dual_core_tasks",
+  "manifest": {
+    "genius": 1,
+    "name": "Dual Core Tasks",
+    "category": "example",
+    "status": "complete",
+    "board": "nanokit-esp32",
+    "summary": "Runs one FreeRTOS blink task pinned to each ESP32 core and reports free heap and task stack usage from loop().",
+    "firmware": [
+      {
+        "id": "main",
+        "path": ".",
+        "code_roots": [
+          "src",
+          "include"
+        ],
+        "wifi": false
+      }
+    ],
+    "docs": {
+      "readme": "README.md",
+      "wiring": "docs/Wiring.md",
+      "images": "images"
+    },
+    "components": [
+      {
+        "id": "led_core0",
+        "name": "External LED + 220 ohm resistor",
+        "kind": "display",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Blinked every 1000 ms by the task pinned to core 0. Series resistor limits current to about 7 mA at 3.3 V.",
+        "pins": [
+          {
+            "pin": "Anode via 220 ohm",
+            "gpio": 26,
+            "dir": "out",
+            "symbol": "LED_CORE0_PIN",
+            "note": "Safe general-purpose output toggled by the core 0 task"
+          },
+          {
+            "pin": "Cathode",
+            "rail": "GND",
+            "note": "Return path for the LED current"
+          }
+        ]
+      },
+      {
+        "id": "builtin_led",
+        "name": "Onboard LED",
+        "kind": "display",
+        "status": "confirmed",
+        "power": {
+          "rail": "none"
+        },
+        "note": "Blinked every 300 ms by the task pinned to core 1; needs no wiring.",
+        "pins": [
+          {
+            "pin": "LED",
+            "gpio": 2,
+            "dir": "out",
+            "symbol": "LED_CORE1_PIN",
+            "note": "Onboard LED on the PWM_OUT0 pin toggled by the core 1 task"
+          }
+        ]
+      }
+    ]
+  },
+  "board": {
+    "id": "nanokit-esp32",
+    "name": "NanoKit Integrated ESP32",
+    "revision": "V2020 SMD/THT"
+  },
+  "classification": {
+    "confirmed": [
+      "External LED + 220 ohm resistor",
+      "Onboard LED"
+    ],
+    "proposed": [],
+    "blocked": []
+  },
+  "findings": [
+    {
+      "level": "info",
+      "rule": "strapping",
+      "message": "GPIO2 (NanoKit Pin 17): must be low or floating at boot for download mode; the onboard LED and a signal output are acceptable loads.",
+      "where": "builtin_led.LED"
+    }
+  ],
+  "evidence": [
+    {
+      "symbol": "LED_CORE0_PIN",
+      "expected": 26,
+      "found": 26,
+      "location": "examples_on_platformio/dual_core_tasks/src/main.cpp:5",
+      "status": "match"
+    },
+    {
+      "symbol": "LED_CORE1_PIN",
+      "expected": 2,
+      "found": 2,
+      "location": "examples_on_platformio/dual_core_tasks/src/main.cpp:6",
+      "status": "match"
+    }
+  ],
+  "result": "PASSED",
+  "command": "python tools/genius/generate.py --project examples_on_platformio/dual_core_tasks"
+}
