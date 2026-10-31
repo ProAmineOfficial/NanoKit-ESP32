@@ -3,15 +3,15 @@
 **Developed by Amine Saoud ibn al-Bashir.**
 
 - Generator: NanoKit Genius Generator 1.0.0
-- Command: `python tools/genius/generate.py --project examples_on_platformio/analog_input_potentiometer`
-- Generated: 2026-10-25 22:53:19 UTC
+- Command: `python tools/genius/generate.py`
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/analog_input_potentiometer/nanokit.yaml` · sha256 72b17b594e18
-- `examples_on_platformio/analog_input_potentiometer/src/main.cpp` · sha256 4861934619c2
+- `examples_on_platformio/analog_input_potentiometer/src/main.cpp` · sha256 9fcb27aa4649
 
 ## Hardware Classification
 
@@ -33,8 +33,8 @@ flash-pin (GPIO6-11), input-only (GPIO34/35/36/39), uart0-shared (GPIO1/3), stra
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `POT_PIN` | 34 | 34 | examples_on_platformio/analog_input_potentiometer/src/main.cpp:5 | match |
-| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/analog_input_potentiometer/src/main.cpp:6 | match |
+| `POT_PIN` | 34 | 34 | examples_on_platformio/analog_input_potentiometer/src/main.cpp:6 | match |
+| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/analog_input_potentiometer/src/main.cpp:7 | match |
 
 ## Known Limitations
 

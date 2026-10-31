@@ -3,7 +3,7 @@
     "name": "NanoKit Genius Generator",
     "version": "1.0.0"
   },
-  "generated_at": "2026-10-25 22:56:18 UTC",
+  "generated_at": "2026-10-31 23:35:27 UTC",
   "project": "examples_on_platformio/preferences_flash_storage",
   "manifest": {
     "genius": 1,
@@ -100,17 +100,17 @@
       "symbol": "BUTTON_PIN",
       "expected": 4,
       "found": 4,
-      "location": "examples_on_platformio/preferences_flash_storage/src/main.cpp:6",
+      "location": "examples_on_platformio/preferences_flash_storage/src/main.cpp:7",
       "status": "match"
     },
     {
       "symbol": "BUILTIN_LED_PIN",
       "expected": 2,
       "found": 2,
-      "location": "examples_on_platformio/preferences_flash_storage/src/main.cpp:7",
+      "location": "examples_on_platformio/preferences_flash_storage/src/main.cpp:8",
       "status": "match"
     }
   ],
   "result": "PASSED",
-  "command": "python tools/genius/generate.py --project examples_on_platformio/preferences_flash_storage"
+  "command": "python tools/genius/generate.py"
 }

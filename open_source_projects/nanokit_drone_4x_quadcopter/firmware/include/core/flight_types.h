@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include <Arduino.h> // Arduino supplies fixed-width integer types and the UINT32_MAX constant.

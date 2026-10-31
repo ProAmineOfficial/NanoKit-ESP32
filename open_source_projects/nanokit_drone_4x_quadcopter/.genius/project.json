@@ -3,7 +3,7 @@
     "name": "NanoKit Genius Generator",
     "version": "1.0.0"
   },
-  "generated_at": "2026-10-25 21:17:13 UTC",
+  "generated_at": "2026-10-31 23:35:27 UTC",
   "project": "open_source_projects/nanokit_drone_4x_quadcopter",
   "manifest": {
     "genius": 1,
@@ -549,42 +549,42 @@
       "symbol": "I2C_SDA_PIN",
       "expected": 21,
       "found": 21,
-      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:8",
+      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:9",
       "status": "match"
     },
     {
       "symbol": "I2C_SCL_PIN",
       "expected": 22,
       "found": 22,
-      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:9",
+      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:10",
       "status": "match"
     },
     {
       "symbol": "MOTOR_1_PIN",
       "expected": 25,
       "found": 25,
-      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:12",
+      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:13",
       "status": "match"
     },
     {
       "symbol": "MOTOR_2_PIN",
       "expected": 26,
       "found": 26,
-      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:13",
+      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:14",
       "status": "match"
     },
     {
       "symbol": "MOTOR_3_PIN",
       "expected": 27,
       "found": 27,
-      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:14",
+      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:15",
       "status": "match"
     },
     {
       "symbol": "MOTOR_4_PIN",
       "expected": 32,
       "found": 32,
-      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:15",
+      "location": "open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:16",
       "status": "match"
     }
   ],

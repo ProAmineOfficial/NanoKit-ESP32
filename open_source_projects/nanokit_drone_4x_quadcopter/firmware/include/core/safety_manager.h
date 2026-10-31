@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include "core/flight_types.h" // Shared flight types define the safety state and command-related data.

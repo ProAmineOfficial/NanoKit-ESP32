@@ -1,4 +1,5 @@
 // Developed by Amine Saoud ibn al-Bashir.
+// SPDX-License-Identifier: AGPL-3.0-only
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
 
 const repositoryRaw = "https://raw.githubusercontent.com/ProAmineOfficial/NanoKit-ESP32/main";

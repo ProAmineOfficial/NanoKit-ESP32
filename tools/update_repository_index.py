@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Developed by Amine Saoud ibn al-Bashir.
+# SPDX-License-Identifier: AGPL-3.0-only
 """Generate repository tree and project catalogs for NanoKit-ESP32."""
 
 from __future__ import annotations

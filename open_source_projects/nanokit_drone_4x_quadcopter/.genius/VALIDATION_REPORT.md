@@ -4,40 +4,40 @@
 
 - Generator: NanoKit Genius Generator 1.0.0
 - Command: `python tools/genius/generate.py`
-- Generated: 2026-10-25 20:33:13 UTC
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED WITH WARNINGS** (0 errors, 1 warnings)
 
 ## Inputs
 
-- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/include/audio_service.h` · sha256 a6a1f0d981cf
-- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/include/camera_node_config.h` · sha256 89f992968d6c
-- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/include/camera_service.h` · sha256 5ed189325dd4
-- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/include/recording_service.h` · sha256 64685bde66f5
-- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/audio_service.cpp` · sha256 892bf77c7cb2
-- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/camera_service.cpp` · sha256 d5e6d5457e05
-- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/main.cpp` · sha256 207f23e3c82d
-- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/recording_service.cpp` · sha256 74ab5e354e97
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h` · sha256 486af367c1b8
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/feature_flags.h` · sha256 07c30154a7ec
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/control/flight_controller.h` · sha256 ee8fb0aaa3fb
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/control/motor_mixer.h` · sha256 02587772c933
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/control/pid_controller.h` · sha256 9d3eeeccce34
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/core/flight_types.h` · sha256 29dbdfb99d7c
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/core/safety_manager.h` · sha256 e78fe2872938
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/navigation/navigation_manager.h` · sha256 95bfbbd94356
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/network/flight_link.h` · sha256 ef2b772ad687
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/sensors/sensor_hub.h` · sha256 56b19dc43b21
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/storage/config_store.h` · sha256 8e4d9c312753
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/control/flight_controller.cpp` · sha256 4fe148c94173
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/control/motor_mixer.cpp` · sha256 4d9718841fb9
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/core/flight_types.cpp` · sha256 1022a50150e1
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/core/safety_manager.cpp` · sha256 3ca9c6d0b726
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/main.cpp` · sha256 e3b351c1abed
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/navigation/navigation_manager.cpp` · sha256 fe84a9c5e4aa
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/network/flight_link.cpp` · sha256 a108200a0244
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/sensors/sensor_hub.cpp` · sha256 666c119f733d
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/storage/config_store.cpp` · sha256 822c28c3e688
+- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/include/audio_service.h` · sha256 d0d9a049aeea
+- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/include/camera_node_config.h` · sha256 5d55a56e7ac4
+- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/include/camera_service.h` · sha256 2db9652e27cb
+- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/include/recording_service.h` · sha256 7b9bb7108d96
+- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/audio_service.cpp` · sha256 e548329a7c35
+- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/camera_service.cpp` · sha256 7216fb3ab082
+- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/main.cpp` · sha256 bde41c7f6bbf
+- `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/recording_service.cpp` · sha256 4e1b892fdc27
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h` · sha256 ae9b33438315
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/feature_flags.h` · sha256 debbac389e99
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/control/flight_controller.h` · sha256 76ac01ba7ef5
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/control/motor_mixer.h` · sha256 ce023e96e9d9
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/control/pid_controller.h` · sha256 623ce3e6ed37
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/core/flight_types.h` · sha256 b3f0fceccdd1
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/core/safety_manager.h` · sha256 a532fa6a113f
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/navigation/navigation_manager.h` · sha256 acdd2d77b0b0
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/network/flight_link.h` · sha256 4503c04f1979
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/sensors/sensor_hub.h` · sha256 d53d36c9d9b6
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/storage/config_store.h` · sha256 4038245ddb8c
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/control/flight_controller.cpp` · sha256 80c663277f5a
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/control/motor_mixer.cpp` · sha256 430624a0ba90
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/core/flight_types.cpp` · sha256 8025f26b67d2
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/core/safety_manager.cpp` · sha256 86273f97061f
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/main.cpp` · sha256 241d014115d0
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/navigation/navigation_manager.cpp` · sha256 d8f3cf0ee308
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/network/flight_link.cpp` · sha256 334c1be74c04
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/sensors/sensor_hub.cpp` · sha256 2c7cd9d5d368
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/storage/config_store.cpp` · sha256 b3c2c6ba517c
 - `open_source_projects/nanokit_drone_4x_quadcopter/nanokit.yaml` · sha256 2e59c80fc3c4
 
 ## Hardware Classification
@@ -60,12 +60,12 @@ flash-pin (GPIO6-11), input-only (GPIO34/35/36/39), uart0-shared (GPIO1/3), stra
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `I2C_SDA_PIN` | 21 | 21 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:8 | match |
-| `I2C_SCL_PIN` | 22 | 22 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:9 | match |
-| `MOTOR_1_PIN` | 25 | 25 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:12 | match |
-| `MOTOR_2_PIN` | 26 | 26 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:13 | match |
-| `MOTOR_3_PIN` | 27 | 27 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:14 | match |
-| `MOTOR_4_PIN` | 32 | 32 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:15 | match |
+| `I2C_SDA_PIN` | 21 | 21 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:9 | match |
+| `I2C_SCL_PIN` | 22 | 22 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:10 | match |
+| `MOTOR_1_PIN` | 25 | 25 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:13 | match |
+| `MOTOR_2_PIN` | 26 | 26 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:14 | match |
+| `MOTOR_3_PIN` | 27 | 27 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:15 | match |
+| `MOTOR_4_PIN` | 32 | 32 | open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h:16 | match |
 
 ## Known Limitations
 

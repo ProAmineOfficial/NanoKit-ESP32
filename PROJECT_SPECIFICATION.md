@@ -24,6 +24,7 @@ Everything generated for this repository must be production-ready, educational, 
 - Analyze existing files before creating new ones.
 - Build upon what already exists.
 - Add the exact attribution `Developed by Amine Saoud ibn al-Bashir.` to each new NanoKit example, application, and open-source project README, and to the header of each new firmware source file.
+- Add `SPDX-License-Identifier: AGPL-3.0-only` on the line after the attribution in every new source file (C/C++, Python, JavaScript, CSS, HTML). The repository is licensed under the GNU AGPL v3 only with the additional terms in `NOTICE`.
 
 ## Target Platform
 

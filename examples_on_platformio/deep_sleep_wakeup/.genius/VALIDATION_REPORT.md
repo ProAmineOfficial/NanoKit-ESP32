@@ -3,15 +3,15 @@
 **Developed by Amine Saoud ibn al-Bashir.**
 
 - Generator: NanoKit Genius Generator 1.0.0
-- Command: `python tools/genius/generate.py --project examples_on_platformio/deep_sleep_wakeup`
-- Generated: 2026-10-25 22:53:41 UTC
+- Command: `python tools/genius/generate.py`
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/deep_sleep_wakeup/nanokit.yaml` · sha256 f1238810f36e
-- `examples_on_platformio/deep_sleep_wakeup/src/main.cpp` · sha256 7a340aa08020
+- `examples_on_platformio/deep_sleep_wakeup/src/main.cpp` · sha256 0e991cc2f403
 
 ## Hardware Classification
 
@@ -33,8 +33,8 @@ flash-pin (GPIO6-11), input-only (GPIO34/35/36/39), uart0-shared (GPIO1/3), stra
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `WAKE_BUTTON_PIN` | 33 | 33 | examples_on_platformio/deep_sleep_wakeup/src/main.cpp:6 | match |
-| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/deep_sleep_wakeup/src/main.cpp:7 | match |
+| `WAKE_BUTTON_PIN` | 33 | 33 | examples_on_platformio/deep_sleep_wakeup/src/main.cpp:7 | match |
+| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/deep_sleep_wakeup/src/main.cpp:8 | match |
 
 ## Known Limitations
 

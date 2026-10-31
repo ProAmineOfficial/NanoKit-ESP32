@@ -1,4 +1,5 @@
 // Developed by Amine Saoud ibn al-Bashir.
+// SPDX-License-Identifier: AGPL-3.0-only
 #include <Arduino.h>
 #include <esp_sleep.h>   // Deep sleep API: wake-up sources, wake-up cause, and esp_deep_sleep_start().
 

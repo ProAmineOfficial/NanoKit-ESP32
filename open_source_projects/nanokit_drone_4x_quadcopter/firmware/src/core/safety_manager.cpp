@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "core/safety_manager.h" // Import the SafetyManager contract and SafetyInputs structure.
 
 #include <cstring> // strncpy copies status text into the fixed diagnostic buffer.

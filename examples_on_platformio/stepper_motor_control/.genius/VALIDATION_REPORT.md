@@ -4,14 +4,14 @@
 
 - Generator: NanoKit Genius Generator 1.0.0
 - Command: `python tools/genius/generate.py`
-- Generated: 2026-10-25 20:33:13 UTC
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/stepper_motor_control/nanokit.yaml` · sha256 12509061b695
-- `examples_on_platformio/stepper_motor_control/src/main.cpp` · sha256 52eef6efaf0e
+- `examples_on_platformio/stepper_motor_control/src/main.cpp` · sha256 ad6a3629228e
 
 ## Hardware Classification
 
@@ -31,10 +31,10 @@ No findings.
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `MOTOR_PINS[0]` | 25 | 25 | examples_on_platformio/stepper_motor_control/src/main.cpp:10 | match |
-| `MOTOR_PINS[1]` | 26 | 26 | examples_on_platformio/stepper_motor_control/src/main.cpp:10 | match |
-| `MOTOR_PINS[2]` | 27 | 27 | examples_on_platformio/stepper_motor_control/src/main.cpp:10 | match |
-| `MOTOR_PINS[3]` | 32 | 32 | examples_on_platformio/stepper_motor_control/src/main.cpp:10 | match |
+| `MOTOR_PINS[0]` | 25 | 25 | examples_on_platformio/stepper_motor_control/src/main.cpp:11 | match |
+| `MOTOR_PINS[1]` | 26 | 26 | examples_on_platformio/stepper_motor_control/src/main.cpp:11 | match |
+| `MOTOR_PINS[2]` | 27 | 27 | examples_on_platformio/stepper_motor_control/src/main.cpp:11 | match |
+| `MOTOR_PINS[3]` | 32 | 32 | examples_on_platformio/stepper_motor_control/src/main.cpp:11 | match |
 
 ## Known Limitations
 

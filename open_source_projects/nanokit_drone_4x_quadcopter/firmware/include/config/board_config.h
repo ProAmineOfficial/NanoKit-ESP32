@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include <Arduino.h> // Arduino provides the fixed-width types and FreeRTOS task types used below.

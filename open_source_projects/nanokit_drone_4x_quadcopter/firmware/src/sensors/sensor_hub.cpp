@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "sensors/sensor_hub.h" // Import the SensorHub contract and shared SensorState.
 
 #include <Wire.h> // Wire provides the confirmed ESP32 I2C bus used by future sensor drivers.

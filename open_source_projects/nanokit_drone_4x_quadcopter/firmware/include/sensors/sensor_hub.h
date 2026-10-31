@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include "core/flight_types.h" // SensorState is the truthful data contract shared with safety and telemetry.

@@ -3,15 +3,15 @@
 **Developed by Amine Saoud ibn al-Bashir.**
 
 - Generator: NanoKit Genius Generator 1.0.0
-- Command: `python tools/genius/generate.py --project examples_on_platformio/dual_core_tasks`
-- Generated: 2026-10-25 22:57:18 UTC
+- Command: `python tools/genius/generate.py`
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/dual_core_tasks/nanokit.yaml` · sha256 1eba9a574346
-- `examples_on_platformio/dual_core_tasks/src/main.cpp` · sha256 37bf81bdd142
+- `examples_on_platformio/dual_core_tasks/src/main.cpp` · sha256 eb02b94e8971
 
 ## Hardware Classification
 
@@ -33,8 +33,8 @@ flash-pin (GPIO6-11), input-only (GPIO34/35/36/39), uart0-shared (GPIO1/3), stra
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `LED_CORE0_PIN` | 26 | 26 | examples_on_platformio/dual_core_tasks/src/main.cpp:5 | match |
-| `LED_CORE1_PIN` | 2 | 2 | examples_on_platformio/dual_core_tasks/src/main.cpp:6 | match |
+| `LED_CORE0_PIN` | 26 | 26 | examples_on_platformio/dual_core_tasks/src/main.cpp:6 | match |
+| `LED_CORE1_PIN` | 2 | 2 | examples_on_platformio/dual_core_tasks/src/main.cpp:7 | match |
 
 ## Known Limitations
 

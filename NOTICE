@@ -1,0 +1,69 @@
+NanoKit-ESP32
+Copyright (C) 2026 Pro_Amine LLC
+Created and developed by Amine Saoud ibn al-Bashir.
+https://github.com/ProAmineOfficial/NanoKit-ESP32 - https://proamine.tech
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by the
+Free Software Foundation, version 3 of the License only
+(SPDX-License-Identifier: AGPL-3.0-only).
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License in the
+LICENSE file for more details.
+
+
+ADDITIONAL TERMS UNDER SECTION 7 OF THE GNU AGPL v3
+---------------------------------------------------
+
+The copyright holder supplements the license with the following terms, as
+permitted by section 7 of the GNU Affero General Public License v3. They
+apply to all material in this repository authored by the copyright holder.
+
+1. Author attribution - section 7(b)
+   Any copy or modified version of this work, or of any part of it, must
+   preserve the line "Developed by Amine Saoud ibn al-Bashir." wherever it
+   appears in source files and documentation, and must keep this NOTICE
+   file. A redistributed or modified version must state, in its README or
+   equivalent documentation, that it is based on NanoKit-ESP32 by
+   Amine Saoud ibn al-Bashir (Pro_Amine LLC), with a link to
+   https://github.com/ProAmineOfficial/NanoKit-ESP32.
+   This term requires a text attribution only; it never requires anyone to
+   display a logo or other trademark.
+
+2. Origin and modified versions - section 7(c)
+   A modified version must be marked in a reasonable way as different from
+   the original, for example in its README and in the header of each changed
+   file, and must not be presented as the official NanoKit-ESP32 repository
+   or as an official Pro_Amine LLC release.
+
+3. Publicity - section 7(d)
+   The names of the copyright holder and of the author may not be used to
+   endorse or promote a derived work or product without prior written
+   permission, other than the attribution required by term 1.
+
+4. Trademarks - section 7(e)
+   No rights are granted under trademark law to use the names "NanoKit",
+   "NanoKit Integrated ESP32", "NanoKit-iM", "Pro_Amine", "Pro_Amine LLC",
+   "UMT" or "Unified Microchip Technology", or the associated logos.
+   A redistributed or modified version must use a different name for itself.
+   Descriptive references required by term 1, such as "based on
+   NanoKit-ESP32", and references to the NanoKit Integrated ESP32 board as
+   the hardware a program runs on, are permitted.
+
+
+EARLIER RELEASES
+----------------
+
+Versions of this repository published before the switch to the GNU AGPL v3
+were distributed under the Apache License 2.0. Copies obtained under that
+license keep it. All later versions are licensed under the GNU AGPL v3 only,
+with the additional terms above.
+
+
+THIRD-PARTY MATERIAL
+--------------------
+
+assets/icons/fluent/  Fluent Emoji 3D icons by Microsoft Corporation,
+                      MIT License, see assets/icons/fluent/LICENSE.

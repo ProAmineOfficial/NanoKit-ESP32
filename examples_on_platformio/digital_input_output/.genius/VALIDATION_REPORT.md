@@ -3,15 +3,15 @@
 **Developed by Amine Saoud ibn al-Bashir.**
 
 - Generator: NanoKit Genius Generator 1.0.0
-- Command: `python tools/genius/generate.py --project examples_on_platformio/digital_input_output`
-- Generated: 2026-10-25 22:44:05 UTC
+- Command: `python tools/genius/generate.py`
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/digital_input_output/nanokit.yaml` · sha256 05bce87439ff
-- `examples_on_platformio/digital_input_output/src/main.cpp` · sha256 e7db8f656330
+- `examples_on_platformio/digital_input_output/src/main.cpp` · sha256 bf175b9f0ee0
 
 ## Hardware Classification
 
@@ -33,9 +33,9 @@ flash-pin (GPIO6-11), input-only (GPIO34/35/36/39), uart0-shared (GPIO1/3), stra
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `BUTTON_PIN` | 4 | 4 | examples_on_platformio/digital_input_output/src/main.cpp:5 | match |
-| `LED_PIN` | 26 | 26 | examples_on_platformio/digital_input_output/src/main.cpp:6 | match |
-| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/digital_input_output/src/main.cpp:7 | match |
+| `BUTTON_PIN` | 4 | 4 | examples_on_platformio/digital_input_output/src/main.cpp:6 | match |
+| `LED_PIN` | 26 | 26 | examples_on_platformio/digital_input_output/src/main.cpp:7 | match |
+| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/digital_input_output/src/main.cpp:8 | match |
 
 ## Known Limitations
 

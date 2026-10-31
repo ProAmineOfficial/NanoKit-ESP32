@@ -73,6 +73,44 @@ NanoKit-ESP32/
 |   |-- banners/
 |   |   `-- .gitkeep
 |   |-- icons/
+|   |   |-- fluent/
+|   |   |   |-- backhand-index-pointing-right.png
+|   |   |   |-- bar-chart.png
+|   |   |   |-- books.png
+|   |   |   |-- brain.png
+|   |   |   |-- building-construction.png
+|   |   |   |-- bullseye.png
+|   |   |   |-- check-mark-button.png
+|   |   |   |-- deciduous-tree.png
+|   |   |   |-- downwards-button.png
+|   |   |   |-- e-mail.png
+|   |   |   |-- electric-plug.png
+|   |   |   |-- file-folder.png
+|   |   |   |-- gear.png
+|   |   |   |-- globe-showing-europe-africa.png
+|   |   |   |-- globe-with-meridians.png
+|   |   |   |-- graduation-cap.png
+|   |   |   |-- hammer-and-wrench.png
+|   |   |   |-- handshake.png
+|   |   |   |-- helicopter.png
+|   |   |   |-- laptop.png
+|   |   |   |-- LICENSE
+|   |   |   |-- light-bulb.png
+|   |   |   |-- link.png
+|   |   |   |-- locked-with-key.png
+|   |   |   |-- memo.png
+|   |   |   |-- movie-camera.png
+|   |   |   |-- page-facing-up.png
+|   |   |   |-- puzzle-piece.png
+|   |   |   |-- robot.png
+|   |   |   |-- rocket.png
+|   |   |   |-- satellite-antenna.png
+|   |   |   |-- scroll.png
+|   |   |   |-- spiral-calendar.png
+|   |   |   |-- star.png
+|   |   |   |-- technologist.png
+|   |   |   |-- telephone-receiver.png
+|   |   |   `-- warning.png
 |   |   `-- .gitkeep
 |   |-- images/
 |   |   |-- .gitkeep
@@ -94,6 +132,30 @@ NanoKit-ESP32/
 |   |-- hardware/
 |   |   |-- nanokit-integrated-esp32-pinout.md
 |   |   `-- README.md
+|   |-- i18n/
+|   |   |-- README.ar.md
+|   |   |-- README.de.md
+|   |   |-- README.el.md
+|   |   |-- README.es.md
+|   |   |-- README.fa.md
+|   |   |-- README.fr.md
+|   |   |-- README.id.md
+|   |   |-- README.it.md
+|   |   |-- README.ja.md
+|   |   |-- README.ko.md
+|   |   |-- README.md
+|   |   |-- README.ml.md
+|   |   |-- README.pl.md
+|   |   |-- README.pt-BR.md
+|   |   |-- README.ro.md
+|   |   |-- README.ru.md
+|   |   |-- README.th.md
+|   |   |-- README.tr.md
+|   |   |-- README.uk.md
+|   |   |-- README.ur-Latn.md
+|   |   |-- README.vi.md
+|   |   |-- README.zh-CN.md
+|   |   `-- README.zh-TW.md
 |   |-- installation/
 |   |   `-- README.md
 |   |-- roadmap/
@@ -633,6 +695,7 @@ NanoKit-ESP32/
 |-- CONTRIBUTING.md
 |-- DEVELOPMENT_CREDIT.md
 |-- LICENSE
+|-- NOTICE
 |-- PROJECT_SPECIFICATION.md
 |-- README.md
 |-- REPOSITORY_INDEX.md

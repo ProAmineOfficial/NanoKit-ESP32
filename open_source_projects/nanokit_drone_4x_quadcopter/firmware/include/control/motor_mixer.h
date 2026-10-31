@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include "core/flight_types.h" // MotorOutput is shared with safety, telemetry, and control modules.

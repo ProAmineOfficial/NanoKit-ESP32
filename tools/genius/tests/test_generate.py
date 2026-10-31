@@ -1,4 +1,5 @@
 # Developed by Amine Saoud ibn al-Bashir.
+# SPDX-License-Identifier: AGPL-3.0-only
 """Self-tests for the Genius generator. Run: python -m pytest tools/genius/tests -q
 
 The tests build a throw-away project inside the repository, feed it deliberately wrong

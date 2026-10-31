@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "recording_service.h" // Import the RecordingService public contract.
 
 #include "camera_node_config.h" // The microSD feature flag blocks unverified SPI wiring.

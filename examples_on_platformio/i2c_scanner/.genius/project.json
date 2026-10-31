@@ -3,7 +3,7 @@
     "name": "NanoKit Genius Generator",
     "version": "1.0.0"
   },
-  "generated_at": "2026-10-25 22:51:55 UTC",
+  "generated_at": "2026-10-31 23:35:27 UTC",
   "project": "examples_on_platformio/i2c_scanner",
   "manifest": {
     "genius": 1,
@@ -96,17 +96,17 @@
       "symbol": "I2C_SDA_PIN",
       "expected": 21,
       "found": 21,
-      "location": "examples_on_platformio/i2c_scanner/src/main.cpp:6",
+      "location": "examples_on_platformio/i2c_scanner/src/main.cpp:7",
       "status": "match"
     },
     {
       "symbol": "I2C_SCL_PIN",
       "expected": 22,
       "found": 22,
-      "location": "examples_on_platformio/i2c_scanner/src/main.cpp:7",
+      "location": "examples_on_platformio/i2c_scanner/src/main.cpp:8",
       "status": "match"
     }
   ],
   "result": "PASSED",
-  "command": "python tools/genius/generate.py --project examples_on_platformio/i2c_scanner"
+  "command": "python tools/genius/generate.py"
 }

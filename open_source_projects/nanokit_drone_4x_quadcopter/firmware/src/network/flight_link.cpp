@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "network/flight_link.h" // Import the FlightLink contract and its HTTP/WebSocket server members.
 
 #include <LittleFS.h> // LittleFS serves the packaged Flight Deck files from ESP32 flash.

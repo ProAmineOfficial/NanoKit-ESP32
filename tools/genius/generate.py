@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Developed by Amine Saoud ibn al-Bashir.
+# SPDX-License-Identifier: AGPL-3.0-only
 """Genius hardware generator for NanoKit-ESP32.
 
 Reads `registry/nanokit-esp32.yaml` (the board as data) and every project

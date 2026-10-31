@@ -1,4 +1,5 @@
 #include <Arduino.h> // NanoKit Drone 4X camera and audio node. Developed by Amine Saoud ibn al-Bashir. Arduino supplies setup(), loop(), serial output, timing, and String.
+// SPDX-License-Identifier: AGPL-3.0-only
 #include <ESPmDNS.h> // mDNS publishes an optional human-readable local hostname.
 #include <WebServer.h> // WebServer exposes status and future payload-control endpoints.
 #include <WiFi.h> // WiFi joins the flight controller's isolated NanoKit SoftAP as a station.

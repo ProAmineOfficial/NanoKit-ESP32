@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "camera_service.h" // Import the CameraService public contract.
 
 #include "camera_node_config.h" // Camera feature flags and the required PSRAM capacity come from one configuration.

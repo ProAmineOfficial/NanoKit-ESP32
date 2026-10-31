@@ -3,7 +3,7 @@
     "name": "NanoKit Genius Generator",
     "version": "1.0.0"
   },
-  "generated_at": "2026-10-25 21:17:13 UTC",
+  "generated_at": "2026-10-31 23:35:27 UTC",
   "project": "examples_on_platformio/camera_tracking",
   "manifest": {
     "genius": 1,
@@ -137,14 +137,14 @@
       "symbol": "PAN_SERVO_PIN",
       "expected": 2,
       "found": 2,
-      "location": "examples_on_platformio/camera_tracking/src/main.cpp:7",
+      "location": "examples_on_platformio/camera_tracking/src/main.cpp:8",
       "status": "match"
     },
     {
       "symbol": "TILT_SERVO_PIN",
       "expected": 26,
       "found": 26,
-      "location": "examples_on_platformio/camera_tracking/src/main.cpp:8",
+      "location": "examples_on_platformio/camera_tracking/src/main.cpp:9",
       "status": "match"
     }
   ],

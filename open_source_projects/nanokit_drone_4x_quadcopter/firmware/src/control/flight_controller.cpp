@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "control/flight_controller.h" // Import the FlightController contract and its embedded PID members.
 
 namespace nanokit { // Developed by Amine Saoud ibn al-Bashir.

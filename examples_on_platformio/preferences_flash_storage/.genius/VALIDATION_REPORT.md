@@ -3,15 +3,15 @@
 **Developed by Amine Saoud ibn al-Bashir.**
 
 - Generator: NanoKit Genius Generator 1.0.0
-- Command: `python tools/genius/generate.py --project examples_on_platformio/preferences_flash_storage`
-- Generated: 2026-10-25 22:56:18 UTC
+- Command: `python tools/genius/generate.py`
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/preferences_flash_storage/nanokit.yaml` · sha256 33a220a6f870
-- `examples_on_platformio/preferences_flash_storage/src/main.cpp` · sha256 347996fa5767
+- `examples_on_platformio/preferences_flash_storage/src/main.cpp` · sha256 291f8c81f915
 
 ## Hardware Classification
 
@@ -33,8 +33,8 @@ flash-pin (GPIO6-11), input-only (GPIO34/35/36/39), uart0-shared (GPIO1/3), stra
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `BUTTON_PIN` | 4 | 4 | examples_on_platformio/preferences_flash_storage/src/main.cpp:6 | match |
-| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/preferences_flash_storage/src/main.cpp:7 | match |
+| `BUTTON_PIN` | 4 | 4 | examples_on_platformio/preferences_flash_storage/src/main.cpp:7 | match |
+| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/preferences_flash_storage/src/main.cpp:8 | match |
 
 ## Known Limitations
 

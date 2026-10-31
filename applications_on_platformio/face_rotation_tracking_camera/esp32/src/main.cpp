@@ -1,4 +1,5 @@
 // Developed by Amine Saoud ibn al-Bashir.
+// SPDX-License-Identifier: AGPL-3.0-only
 #include <Arduino.h>
 #include <cstdio>
 

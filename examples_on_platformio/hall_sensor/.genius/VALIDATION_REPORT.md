@@ -3,15 +3,15 @@
 **Developed by Amine Saoud ibn al-Bashir.**
 
 - Generator: NanoKit Genius Generator 1.0.0
-- Command: `python tools/genius/generate.py --project examples_on_platformio/hall_sensor`
-- Generated: 2026-10-25 22:57:53 UTC
+- Command: `python tools/genius/generate.py`
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/hall_sensor/nanokit.yaml` · sha256 962c76256faf
-- `examples_on_platformio/hall_sensor/src/main.cpp` · sha256 202a135f4532
+- `examples_on_platformio/hall_sensor/src/main.cpp` · sha256 d3d3b522a226
 
 ## Hardware Classification
 
@@ -33,7 +33,7 @@ flash-pin (GPIO6-11), input-only (GPIO34/35/36/39), uart0-shared (GPIO1/3), stra
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/hall_sensor/src/main.cpp:5 | match |
+| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/hall_sensor/src/main.cpp:6 | match |
 
 ## Known Limitations
 

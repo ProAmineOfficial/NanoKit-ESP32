@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include <algorithm> // std::min and std::max provide portable limits without custom clamp code.

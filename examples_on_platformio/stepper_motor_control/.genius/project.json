@@ -3,7 +3,7 @@
     "name": "NanoKit Genius Generator",
     "version": "1.0.0"
   },
-  "generated_at": "2026-10-25 21:17:13 UTC",
+  "generated_at": "2026-10-31 23:35:27 UTC",
   "project": "examples_on_platformio/stepper_motor_control",
   "manifest": {
     "genius": 1,
@@ -119,28 +119,28 @@
       "symbol": "MOTOR_PINS[0]",
       "expected": 25,
       "found": 25,
-      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:10",
+      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:11",
       "status": "match"
     },
     {
       "symbol": "MOTOR_PINS[1]",
       "expected": 26,
       "found": 26,
-      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:10",
+      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:11",
       "status": "match"
     },
     {
       "symbol": "MOTOR_PINS[2]",
       "expected": 27,
       "found": 27,
-      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:10",
+      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:11",
       "status": "match"
     },
     {
       "symbol": "MOTOR_PINS[3]",
       "expected": 32,
       "found": 32,
-      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:10",
+      "location": "examples_on_platformio/stepper_motor_control/src/main.cpp:11",
       "status": "match"
     }
   ],

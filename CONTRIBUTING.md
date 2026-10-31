@@ -68,6 +68,15 @@ When the repository already contains content:
 - Improve documentation and educational value.
 - Preserve compatibility unless a change is intentionally documented.
 
+## License of Contributions
+
+NanoKit-ESP32 is licensed under the GNU Affero General Public License v3.0 only (`LICENSE`), with the additional section 7 terms in `NOTICE` (author attribution, marking of modified versions, no trademark rights in the NanoKit, Pro_Amine and UMT names). By opening a pull request you agree that your contribution is licensed under the same terms. Every new source file starts with:
+
+```cpp
+// Developed by Amine Saoud ibn al-Bashir.
+// SPDX-License-Identifier: AGPL-3.0-only
+```
+
 ## Pull Requests
 
 Before opening a pull request, make sure the relevant example or application has a README, builds locally where possible, and includes only source, docs, tests, assets, or templates needed by the project.

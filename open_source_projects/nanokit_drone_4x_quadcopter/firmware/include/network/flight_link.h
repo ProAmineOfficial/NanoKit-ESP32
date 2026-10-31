@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include <WebServer.h> // WebServer serves the Flight Deck while WebSocketsServer carries live packets.

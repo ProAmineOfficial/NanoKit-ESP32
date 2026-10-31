@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "control/motor_mixer.h" // Import the MotorMixer public contract.
 
 #include <algorithm> // The standard limits keep motor pulse calculations inside a safe range.

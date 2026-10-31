@@ -4,14 +4,14 @@
 
 - Generator: NanoKit Genius Generator 1.0.0
 - Command: `python tools/genius/generate.py`
-- Generated: 2026-10-25 23:00:52 UTC
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/touch_sensor/nanokit.yaml` · sha256 1c6283b38cf2
-- `examples_on_platformio/touch_sensor/src/main.cpp` · sha256 055688138bfe
+- `examples_on_platformio/touch_sensor/src/main.cpp` · sha256 d653fef3efff
 
 ## Hardware Classification
 
@@ -31,8 +31,8 @@ No findings.
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `TOUCH_PIN` | 4 | 4 | examples_on_platformio/touch_sensor/src/main.cpp:5 | match |
-| `LED_PIN` | 26 | 26 | examples_on_platformio/touch_sensor/src/main.cpp:6 | match |
+| `TOUCH_PIN` | 4 | 4 | examples_on_platformio/touch_sensor/src/main.cpp:6 | match |
+| `LED_PIN` | 26 | 26 | examples_on_platformio/touch_sensor/src/main.cpp:7 | match |
 
 ## Known Limitations
 

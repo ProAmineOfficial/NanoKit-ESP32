@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 namespace nanokit_camera { // Developed by Amine Saoud ibn al-Bashir.

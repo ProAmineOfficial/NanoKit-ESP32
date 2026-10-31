@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include <Arduino.h> // Arduino supplies size_t and fixed-width integer types for this configuration.

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "navigation/navigation_manager.h" // Import the mode validation interface.
 
 #include "config/feature_flags.h" // Feature flags define which advanced flight modes are compiled as available.

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "core/flight_types.h" // Import the enum declarations that are converted to readable text here.
 
 namespace nanokit { // Developed by Amine Saoud ibn al-Bashir.

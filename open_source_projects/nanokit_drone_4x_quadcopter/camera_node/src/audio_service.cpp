@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "audio_service.h" // Import the AudioService public contract.
 
 #include "camera_node_config.h" // Feature flags decide whether verified I2S integration may be compiled.

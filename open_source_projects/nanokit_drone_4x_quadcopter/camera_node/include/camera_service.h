@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include <Arduino.h> // Arduino supplies ESP32 runtime types and PSRAM helper APIs used by the implementation.

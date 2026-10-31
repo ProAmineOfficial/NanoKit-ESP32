@@ -3,15 +3,15 @@
 **Developed by Amine Saoud ibn al-Bashir.**
 
 - Generator: NanoKit Genius Generator 1.0.0
-- Command: `python tools/genius/generate.py --project examples_on_platformio/pwm_led_fade`
-- Generated: 2026-10-25 22:50:46 UTC
+- Command: `python tools/genius/generate.py`
+- Generated: 2026-10-31 23:35:27 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/pwm_led_fade/nanokit.yaml` · sha256 ae14e787f237
-- `examples_on_platformio/pwm_led_fade/src/main.cpp` · sha256 904ec76e7774
+- `examples_on_platformio/pwm_led_fade/src/main.cpp` · sha256 53ac7907a68f
 
 ## Hardware Classification
 
@@ -33,8 +33,8 @@ flash-pin (GPIO6-11), input-only (GPIO34/35/36/39), uart0-shared (GPIO1/3), stra
 
 | Symbol | Manifest GPIO | Code value | Location | Status |
 |---|---:|---:|---|---|
-| `LED_PIN` | 26 | 26 | examples_on_platformio/pwm_led_fade/src/main.cpp:5 | match |
-| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/pwm_led_fade/src/main.cpp:6 | match |
+| `LED_PIN` | 26 | 26 | examples_on_platformio/pwm_led_fade/src/main.cpp:6 | match |
+| `BUILTIN_LED_PIN` | 2 | 2 | examples_on_platformio/pwm_led_fade/src/main.cpp:7 | match |
 
 ## Known Limitations
 

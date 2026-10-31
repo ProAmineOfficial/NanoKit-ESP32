@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #define NANOKIT_FEATURE_ICM20948 0 // Developed by Amine Saoud ibn al-Bashir. Unverified hardware stays disabled. Enable one flag only after wiring, voltage, address, and driver behaviour have been validated on a propeller-free bench. Each sensor flag protects code whose pins or electrical details are still unverified.

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #include "storage/config_store.h" // Import the optional persistent configuration interface.
 
 #include "config/feature_flags.h" // The AT24C256 feature flag prevents access before wiring is confirmed.

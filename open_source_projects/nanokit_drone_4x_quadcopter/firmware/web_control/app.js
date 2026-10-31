@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 /**
  * Project: NanoKit Drone 4X
  * Component: Flight Deck Web Interface Logic
@@ -15,7 +16,7 @@
  * Official website: https://proamine.tech
  *
  * Repository: NanoKit-ESP32
- * License: Apache License 2.0
+ * License: GNU AGPL v3.0 only, with the additional terms in NOTICE
  */
 
 "use strict"; // NanoKit Drone 4X Wi-Fi Flight Deck. Developed by Amine Saoud ibn al-Bashir. Only validated telemetry is rendered. Missing sensors remain visibly offline.

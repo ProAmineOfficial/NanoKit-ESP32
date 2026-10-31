@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 /*
  * Project: NanoKit Drone 4X
  * Component: Wi-Fi Flight Controller Firmware
@@ -41,7 +42,7 @@
  * Initial development date: September 9, 2025
  * Project: NanoKit Drone 4X
  * Repository: NanoKit-ESP32
- * License: Apache License 2.0
+ * License: GNU AGPL v3.0 only, with the additional terms in NOTICE
  */
 
 #include <Arduino.h> // Provides the Arduino framework, including setup(), loop(), serial I/O, and ESP32 timing functions.

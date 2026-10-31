@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-only
 #pragma once
 
 #include "control/pid_controller.h" // The flight controller combines reusable PID logic with shared flight data types.
