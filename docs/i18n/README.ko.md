@@ -169,7 +169,8 @@ PlatformIO 프로젝트는 첫 번째 공개 기준으로 ESP32 Arduino 프레�
 
 ```ini
 [env:nanokit_esp32]
-platform = espressif32
+; espressif32 8.0.0 = Arduino-ESP32 core 3.3.12, pinned so a platform update cannot break the build
+platform = espressif32 @ 8.0.0
 board = esp32dev
 framework = arduino
 monitor_speed = 115200

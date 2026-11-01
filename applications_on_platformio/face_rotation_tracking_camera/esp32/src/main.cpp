@@ -8,8 +8,6 @@ constexpr uint32_t SERIAL_BAUD = 115200;      // USB Serial link used by the com
 constexpr uint8_t PAN_SERVO_PIN = 26;         // NanoKit Pin 37, GPIO26, PWM output for horizontal camera rotation.
 constexpr uint8_t TILT_SERVO_PIN = 25;        // NanoKit Pin 3, GPIO25, PWM output for vertical camera rotation.
 constexpr uint8_t STATUS_LED_PIN = 2;         // NanoKit Pin 17, GPIO2, onboard LED used as tracking status feedback.
-constexpr uint8_t PAN_CHANNEL = 0;            // Dedicated LEDC PWM channel for pan control.
-constexpr uint8_t TILT_CHANNEL = 1;           // Dedicated LEDC PWM channel for tilt control.
 constexpr uint16_t SERVO_PWM_HZ = 50;         // Standard hobby servo control frequency.
 constexpr uint8_t SERVO_PWM_BITS = 16;        // 16-bit duty resolution gives smooth servo positioning.
 constexpr uint16_t SERVO_MIN_US = 500;        // Conservative minimum pulse width for common servos.
@@ -39,13 +37,13 @@ uint32_t servoDutyFromAngle(float angleDegrees) {
   return static_cast<uint32_t>((pulseUs * ((1UL << SERVO_PWM_BITS) - 1UL)) / 20000.0f); // Convert pulse width into LEDC duty.
 }
 
-void writeServo(uint8_t channel, float angleDegrees) {
-  ledcWrite(channel, servoDutyFromAngle(angleDegrees)); // Send the requested angle to the selected PWM channel.
+void writeServo(uint8_t pin, float angleDegrees) {
+  ledcWrite(pin, servoDutyFromAngle(angleDegrees)); // Arduino-ESP32 3.x addresses LEDC by pin: send the requested angle to that servo.
 }
 
 void applyServoState() {
-  writeServo(PAN_CHANNEL, panAngle);          // Update horizontal rotation output.
-  writeServo(TILT_CHANNEL, tiltAngle);        // Update vertical rotation output.
+  writeServo(PAN_SERVO_PIN, panAngle);        // Update horizontal rotation output.
+  writeServo(TILT_SERVO_PIN, tiltAngle);      // Update vertical rotation output.
 }
 
 void setTrackingLed(bool active) {
@@ -140,10 +138,8 @@ void setup() {
   Serial.begin(SERIAL_BAUD);                  // Start the serial link used by PlatformIO Monitor and the vision process.
   pinMode(STATUS_LED_PIN, OUTPUT);            // GPIO2 drives the onboard status LED.
   digitalWrite(STATUS_LED_PIN, LOW);          // Start with LED off until a valid face is received.
-  ledcSetup(PAN_CHANNEL, SERVO_PWM_HZ, SERVO_PWM_BITS);   // Configure ESP32 PWM for pan servo control.
-  ledcSetup(TILT_CHANNEL, SERVO_PWM_HZ, SERVO_PWM_BITS);  // Configure ESP32 PWM for tilt servo control.
-  ledcAttachPin(PAN_SERVO_PIN, PAN_CHANNEL);              // Route pan PWM to NanoKit Pin 37 / GPIO26.
-  ledcAttachPin(TILT_SERVO_PIN, TILT_CHANNEL);            // Route tilt PWM to NanoKit Pin 3 / GPIO25.
+  ledcAttach(PAN_SERVO_PIN, SERVO_PWM_HZ, SERVO_PWM_BITS);  // Route 50 Hz servo PWM to NanoKit Pin 37 / GPIO26 on its own LEDC channel.
+  ledcAttach(TILT_SERVO_PIN, SERVO_PWM_HZ, SERVO_PWM_BITS); // Route 50 Hz servo PWM to NanoKit Pin 3 / GPIO25 on its own LEDC channel.
   applyServoState();                          // Center the camera before any face commands arrive.
   lastVisionMessageMs = millis();             // Initialize timeout timer from boot time.
   Serial.println("NanoKit face rotation tracking firmware ready.");

@@ -26,7 +26,7 @@ components:
     power: { rail: none }
     note: "PWM changes the average current, not the peak; the series resistor still limits the peak at full duty to about 7 mA at 3.3 V."
     pins:
-      - { pin: Anode via 220 ohm, gpio: 26, dir: out, type: pwm, symbol: LED_PIN, note: LEDC channel 0 output sets the LED brightness }
+      - { pin: Anode via 220 ohm, gpio: 26, dir: out, type: pwm, symbol: LED_PIN, note: LEDC output sets the LED brightness }
       - { pin: Cathode, rail: GND, note: Return path for the LED current }
 
   - id: builtin_led
@@ -34,6 +34,6 @@ components:
     kind: display
     status: confirmed
     power: { rail: none }
-    note: Receives the same duty on LEDC channel 1 so the fade is visible with no wiring at all.
+    note: Receives the same duty on its own LEDC channel so the fade is visible with no wiring at all.
     pins:
       - { pin: LED, gpio: 2, dir: out, type: pwm, symbol: BUILTIN_LED_PIN, note: Onboard LED on the PWM_OUT0 pin }

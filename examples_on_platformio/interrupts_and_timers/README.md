@@ -6,15 +6,15 @@ The first event-driven example for NanoKit Integrated ESP32: let the hardware ca
 
 ## Goal
 
-Blink an LED from hardware timer 0, change the blink period with a button handled by a GPIO interrupt, debounce inside the ISR with `micros()`, keep every ISR tiny, and do all real work in `loop()` behind flags protected by a spinlock.
+Blink an LED from a hardware timer, change the blink period with a button handled by a GPIO interrupt, debounce inside the ISR with `micros()`, keep every ISR tiny, and do all real work in `loop()` behind flags protected by a spinlock.
 
 ## What You Will Learn
 
 - How `attachInterrupt(digitalPinToInterrupt(pin), isr, FALLING)` connects a GPIO edge to a function.
 - What an ISR may and may not do: no `Serial`, no `delay()`, keep it short, mark it `IRAM_ATTR`.
 - Why the "set a flag in the ISR, act in `loop()`" pattern is the safe default.
-- How `timerBegin(0, 80, true)` turns the 80 MHz APB clock into 1 us ticks, and what the four ESP32 hardware timers are.
-- How `timerAlarmWrite` and `timerAlarmEnable` produce a periodic interrupt, and how to change the period while running.
+- How `timerBegin(1000000)` (Arduino-ESP32 core 3.x) turns the 80 MHz APB clock into 1 us ticks, and what the four ESP32 hardware timers are.
+- How `timerAttachInterrupt` and `timerAlarm` produce a periodic interrupt, and how to change the period while running.
 - Why shared variables need `volatile` and a `portMUX_TYPE` critical section.
 
 ## Hardware Required
@@ -45,9 +45,9 @@ Source of truth: [`nanokit.yaml`](nanokit.yaml). The table above is regenerated 
 
 1. `INPUT_PULLUP` holds GPIO4 `HIGH`; pressing the button pulls it `LOW`. `attachInterrupt(..., FALLING)` makes the GPIO hardware call `onButtonIsr` on that `HIGH -> LOW` edge.
 2. `onButtonIsr` reads `micros()`, ignores the edge if less than 50 ms have passed since the last accepted press (contact bounce), otherwise increments a press counter and raises `pressPending`. It returns immediately.
-3. `timerBegin(0, 80, true)` claims hardware timer 0 and divides the 80 MHz APB clock by 80, so the counter advances once per microsecond. `timerAlarmWrite(timer, 1000000, true)` makes it fire every 1 000 000 ticks (1 s) and reload automatically; `timerAlarmEnable` starts it.
+3. `timerBegin(1000000)` claims a free hardware timer and asks for a 1 MHz tick rate; the core divides the 80 MHz APB clock by 80, so the counter advances once per microsecond. `timerAlarm(timer, 1000000, true, 0)` makes it fire every 1 000 000 ticks (1 s), reload automatically, and repeat forever.
 4. `onTimerIsr` only raises `timerFired`.
-5. `loop()` copies and clears both flags inside `portENTER_CRITICAL` / `portEXIT_CRITICAL`. If the timer flag was set it toggles GPIO26. If the press flag was set it moves to the next period (1000, 500, 250, 125 ms, then back to 1000), restarts the counter with `timerWrite`, and calls `timerAlarmWrite` with the new value.
+5. `loop()` copies and clears both flags inside `portENTER_CRITICAL` / `portEXIT_CRITICAL`. If the timer flag was set it toggles GPIO26. If the press flag was set it moves to the next period (1000, 500, 250, 125 ms, then back to 1000), restarts the counter with `timerWrite`, and calls `timerAlarm` with the new value.
 6. All printing happens in `loop()`: a line on each confirmed press and a status line every 2 s.
 
 ## Build and Upload
@@ -63,7 +63,7 @@ pio device monitor -b 115200
 ```text
 NanoKit interrupts and timers example ready.
 Button: NanoKit Pin 10 / GPIO4 (to GND, FALLING interrupt). LED: NanoKit Pin 37 / GPIO26.
-Timer 0: 80 MHz / 80 = 1 us ticks. Press the button to cycle 1000 -> 500 -> 250 -> 125 ms.
+Hardware timer at 1 MHz (80 MHz / 80 = 1 us ticks). Press the button to cycle 1000 -> 500 -> 250 -> 125 ms.
 Status | blink period: 1000 ms | toggles: 2 | presses: 0
 Press detected | blink period: 500 ms | toggles: 3 | presses: 1
 Status | blink period: 500 ms | toggles: 6 | presses: 1

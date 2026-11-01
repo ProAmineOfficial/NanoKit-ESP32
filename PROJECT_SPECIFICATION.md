@@ -30,8 +30,8 @@ Everything generated for this repository must be production-ready, educational, 
 
 Use only:
 
-- PlatformIO
-- Arduino framework for ESP32
+- PlatformIO, with the platform version pinned (`platform = espressif32 @ 8.0.0`)
+- Arduino framework for ESP32, core 3.x API (see `docs/software/platformio-example-standard.md`)
 - C++
 - Markdown
 

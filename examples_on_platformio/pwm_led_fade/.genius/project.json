@@ -3,7 +3,7 @@
     "name": "NanoKit Genius Generator",
     "version": "1.0.0"
   },
-  "generated_at": "2026-10-31 23:35:27 UTC",
+  "generated_at": "2026-11-01 00:07:34 UTC",
   "project": "examples_on_platformio/pwm_led_fade",
   "manifest": {
     "genius": 1,
@@ -45,7 +45,7 @@
             "dir": "out",
             "type": "pwm",
             "symbol": "LED_PIN",
-            "note": "LEDC channel 0 output sets the LED brightness"
+            "note": "LEDC output sets the LED brightness"
           },
           {
             "pin": "Cathode",
@@ -62,7 +62,7 @@
         "power": {
           "rail": "none"
         },
-        "note": "Receives the same duty on LEDC channel 1 so the fade is visible with no wiring at all.",
+        "note": "Receives the same duty on its own LEDC channel so the fade is visible with no wiring at all.",
         "pins": [
           {
             "pin": "LED",

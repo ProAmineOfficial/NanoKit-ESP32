@@ -5,8 +5,6 @@
 namespace {
 constexpr uint8_t LED_PIN = 26;              // NanoKit Pin 37, GPIO26. Safe general-purpose output; the GPIO matrix can route any LEDC channel to it.
 constexpr uint8_t BUILTIN_LED_PIN = 2;       // NanoKit Pin 17, GPIO2. The onboard LED receives the same duty so the fade is visible with zero wiring.
-constexpr uint8_t LED_CHANNEL = 0;           // LEDC channel for the external LED. The ESP32 has 16 channels; each one holds its own duty value.
-constexpr uint8_t BUILTIN_LED_CHANNEL = 1;   // A second channel for the onboard LED, so each LED can be controlled on its own later.
 constexpr uint32_t PWM_FREQUENCY_HZ = 5000;  // 5 kHz is far above the flicker the eye can see and still leaves room for 8-bit resolution.
 constexpr uint8_t PWM_RESOLUTION_BITS = 8;   // 8 bits = 256 duty steps. Enough for a smooth fade and comfortable at 5 kHz.
 constexpr uint16_t DUTY_MAX = (1u << PWM_RESOLUTION_BITS) - 1; // 255 for 8 bits; derived from the resolution so the two never disagree.
@@ -16,7 +14,7 @@ constexpr uint32_t SERIAL_BAUD = 115200;     // Standard NanoKit Serial Monitor 
 
 int fadeLevel = 0;            // Linear position in the fade, 0..DUTY_MAX. This is what we count, not what we write to the pin.
 int fadeDirection = +1;       // +1 while brightening, -1 while dimming.
-uint16_t currentDuty = 0;     // The corrected duty actually written to both LEDC channels.
+uint16_t currentDuty = 0;     // The corrected duty actually written to both LED pins.
 uint32_t lastStepMs = 0;      // Timestamp of the last fade step.
 uint32_t lastReportMs = 0;    // Timestamp of the last Serial report.
 
@@ -30,8 +28,8 @@ uint16_t perceivedDuty(int level) {
 }
 
 void applyDuty(uint16_t duty) {
-  ledcWrite(LED_CHANNEL, duty);         // The LEDC hardware keeps producing this duty until the next write; the CPU is free in between.
-  ledcWrite(BUILTIN_LED_CHANNEL, duty); // Same duty on the onboard LED channel.
+  ledcWrite(LED_PIN, duty);             // Arduino-ESP32 3.x addresses LEDC by pin. The hardware keeps this duty until the next write; the CPU is free in between.
+  ledcWrite(BUILTIN_LED_PIN, duty);     // Same duty on the onboard LED.
 }
 
 void stepFade() {
@@ -53,7 +51,7 @@ void printDuty() {
   Serial.print("/");
   Serial.print(DUTY_MAX);
   Serial.print(" | duty written: ");
-  Serial.print(currentDuty);             // What the LEDC channel is really outputting right now.
+  Serial.print(currentDuty);             // What the LEDC peripheral is really outputting right now.
   Serial.print(" | direction: ");
   Serial.println(fadeDirection > 0 ? "up" : "down");
 }
@@ -61,13 +59,15 @@ void printDuty() {
 
 void setup() {
   Serial.begin(SERIAL_BAUD);
-  ledcSetup(LED_CHANNEL, PWM_FREQUENCY_HZ, PWM_RESOLUTION_BITS);         // Program the timer behind channel 0: 5 kHz, 256 duty steps.
-  ledcSetup(BUILTIN_LED_CHANNEL, PWM_FREQUENCY_HZ, PWM_RESOLUTION_BITS); // Same settings for channel 1.
-  ledcAttachPin(LED_PIN, LED_CHANNEL);                 // Route channel 0 to GPIO26 through the GPIO matrix; no pinMode is needed for LEDC.
-  ledcAttachPin(BUILTIN_LED_PIN, BUILTIN_LED_CHANNEL); // Route channel 1 to the onboard LED on GPIO2.
+  // ledcAttach picks a free LEDC channel, programs its timer (5 kHz, 256 duty steps), and routes it to the pin
+  // through the GPIO matrix. It returns false if no channel or timer is free. No pinMode is needed for LEDC.
+  if (!ledcAttach(LED_PIN, PWM_FREQUENCY_HZ, PWM_RESOLUTION_BITS) ||
+      !ledcAttach(BUILTIN_LED_PIN, PWM_FREQUENCY_HZ, PWM_RESOLUTION_BITS)) {
+    Serial.println("LEDC setup failed: no free channel or timer.");
+  }
   applyDuty(0);                                        // Start dark so the first ramp is clearly visible.
   Serial.println("NanoKit PWM LED fade example ready.");
-  Serial.println("LED: NanoKit Pin 37 / GPIO26 on LEDC channel 0 (+ onboard LED on Pin 17 / GPIO2, channel 1).");
+  Serial.println("LED: NanoKit Pin 37 / GPIO26 (+ onboard LED on Pin 17 / GPIO2), each on its own LEDC channel.");
   Serial.println("LEDC: 5000 Hz, 8-bit resolution, duty 0-255. One fade step every 8 ms.");
 }
 

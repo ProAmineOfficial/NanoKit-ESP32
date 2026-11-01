@@ -58,7 +58,8 @@ Use this baseline unless the example needs extra libraries or build flags:
 
 ```ini
 [env:nanokit_esp32]
-platform = espressif32
+; espressif32 8.0.0 = Arduino-ESP32 core 3.3.12, pinned so a platform update cannot break the build
+platform = espressif32 @ 8.0.0
 board = esp32dev
 framework = arduino
 monitor_speed = 115200
@@ -66,6 +67,24 @@ upload_speed = 921600
 ```
 
 When libraries are needed, list them under `lib_deps` with a short explanation in the example README.
+
+## Arduino-ESP32 Core Version
+
+Always pin the platform version. An unpinned `platform = espressif32` silently follows PlatformIO's latest release, and the move from 7.x (Arduino-ESP32 core 2.0.17) to 8.0.0 (core 3.3.12) broke every example that used the 2.x LEDC and timer functions. The [PlatformIO Build workflow](../../.github/workflows/platformio-build.yml) compiles every project on each push, so a red check means a project no longer builds for a new user.
+
+Write new code against the core 3.x API:
+
+| Task | Core 3.x (use this) | Core 2.x (does not compile on 8.0.0) |
+|---|---|---|
+| Attach PWM to a pin | `ledcAttach(pin, freq, bits)` | `ledcSetup(channel, freq, bits)` + `ledcAttachPin(pin, channel)` |
+| Attach PWM to a fixed channel | `ledcAttachChannel(pin, freq, bits, channel)` | same pair as above |
+| Write a PWM duty | `ledcWrite(pin, duty)` or `ledcWriteChannel(channel, duty)` | `ledcWrite(channel, duty)` |
+| Start a hardware timer | `timerBegin(1000000)` (tick rate in Hz) | `timerBegin(0, 80, true)` |
+| Attach a timer ISR | `timerAttachInterrupt(timer, isr)` | `timerAttachInterrupt(timer, isr, true)` |
+| Periodic alarm | `timerAlarm(timer, ticks, true, 0)` | `timerAlarmWrite(timer, ticks, true)` + `timerAlarmEnable(timer)` |
+| Built-in Hall sensor | not available | `hallRead()` |
+
+The only exception is `examples_on_platformio/hall_sensor/`, which pins `platform = espressif32 @ 6.13.0` (core 2.0.17) because the built-in Hall sensor was removed in core 3.x.
 
 ## Required README Sections
 

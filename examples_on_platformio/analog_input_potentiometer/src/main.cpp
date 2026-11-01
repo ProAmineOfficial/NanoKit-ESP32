@@ -5,7 +5,6 @@
 namespace {
 constexpr uint8_t POT_PIN = 34;              // NanoKit Pin 2, GPIO34. ADC1_CH6 and input-only. ADC1 keeps working if Wi-Fi is enabled later; ADC2 does not.
 constexpr uint8_t BUILTIN_LED_PIN = 2;       // NanoKit Pin 17, GPIO2. The onboard LED shows the knob position as brightness, so no extra wiring is needed.
-constexpr uint8_t LED_CHANNEL = 0;           // LEDC channel that dims the onboard LED.
 constexpr uint32_t PWM_FREQUENCY_HZ = 5000;  // Well above visible flicker; see the pwm_led_fade example for the frequency/resolution trade-off.
 constexpr uint8_t PWM_RESOLUTION_BITS = 8;   // 256 brightness steps are plenty for a visual indicator.
 constexpr uint8_t ADC_RESOLUTION_BITS = 12;  // The ESP32 ADC is 12-bit: analogRead returns 0..4095.
@@ -44,7 +43,7 @@ void reportAndDrive(uint16_t raw, uint32_t milliVolts) {
   const uint8_t percent = static_cast<uint8_t>((raw * 100UL) / ADC_MAX);          // 0..100, computed in 32 bits to avoid overflow.
   const uint8_t duty = static_cast<uint8_t>(raw >> (ADC_RESOLUTION_BITS - PWM_RESOLUTION_BITS)); // Drop 4 bits: 12-bit reading -> 8-bit duty.
 
-  ledcWrite(LED_CHANNEL, duty);              // The onboard LED brightness now follows the knob.
+  ledcWrite(BUILTIN_LED_PIN, duty);          // Arduino-ESP32 3.x addresses LEDC by pin. The onboard LED brightness now follows the knob.
 
   Serial.print("raw: ");
   Serial.print(raw);                         // 0..4095 from the ADC after averaging.
@@ -62,9 +61,10 @@ void reportAndDrive(uint16_t raw, uint32_t milliVolts) {
 void setup() {
   Serial.begin(SERIAL_BAUD);
   analogSetPinAttenuation(POT_PIN, ADC_11db); // 11 dB attenuation lets the ADC measure the full 0-3.3 V swing of the wiper.
-  ledcSetup(LED_CHANNEL, PWM_FREQUENCY_HZ, PWM_RESOLUTION_BITS);
-  ledcAttachPin(BUILTIN_LED_PIN, LED_CHANNEL); // Route the LEDC channel to the onboard LED on GPIO2.
-  ledcWrite(LED_CHANNEL, 0);                   // Start dark until the first measurement arrives.
+  if (!ledcAttach(BUILTIN_LED_PIN, PWM_FREQUENCY_HZ, PWM_RESOLUTION_BITS)) { // Picks a free LEDC channel and routes it to GPIO2.
+    Serial.println("LEDC setup failed: no free channel or timer.");
+  }
+  ledcWrite(BUILTIN_LED_PIN, 0);               // Start dark until the first measurement arrives.
   Serial.println("NanoKit analog input example ready.");
   Serial.println("Potentiometer wiper: NanoKit Pin 2 / GPIO34 (ADC1_CH6, input-only). Onboard LED: Pin 17 / GPIO2.");
   Serial.println("ADC: 12-bit, 11 dB attenuation, 16 samples averaged every 100 ms. Turn the knob.");

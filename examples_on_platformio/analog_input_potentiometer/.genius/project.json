@@ -3,7 +3,7 @@
     "name": "NanoKit Genius Generator",
     "version": "1.0.0"
   },
-  "generated_at": "2026-10-31 23:35:27 UTC",
+  "generated_at": "2026-11-01 00:07:34 UTC",
   "project": "examples_on_platformio/analog_input_potentiometer",
   "manifest": {
     "genius": 1,
@@ -67,7 +67,7 @@
         "power": {
           "rail": "none"
         },
-        "note": "Brightness follows the knob position through LEDC channel 0; nothing is wired to it.",
+        "note": "Brightness follows the knob position through an LEDC channel; nothing is wired to it.",
         "pins": [
           {
             "pin": "LED",

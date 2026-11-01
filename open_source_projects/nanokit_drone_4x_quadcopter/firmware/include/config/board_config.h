@@ -16,7 +16,7 @@ constexpr uint8_t MOTOR_3_PIN = 27; // NanoKit Pin 19, GPIO27. M3 rear-right CCW
 constexpr uint8_t MOTOR_4_PIN = 32; // NanoKit Pin 7, GPIO32. M4 rear-left CW signal; ADC1-capable pin used here as a plain output.
 
 constexpr uint8_t MOTOR_1_CHANNEL = 0; // Each motor uses a separate ESP32 LEDC channel so its pulse can be controlled independently.
-constexpr uint8_t MOTOR_2_CHANNEL = 1; // LEDC channels 0-3 share one timer so all four pulses stay phase-aligned.
+constexpr uint8_t MOTOR_2_CHANNEL = 1; // Fixed channel numbers make each motor's LEDC generator explicit in diagnostics.
 constexpr uint8_t MOTOR_3_CHANNEL = 2;
 constexpr uint8_t MOTOR_4_CHANNEL = 3;
 

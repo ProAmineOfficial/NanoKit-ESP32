@@ -80,7 +80,7 @@ repeat forever:
 - The delta never exceeds 30: the magnet is weak or too far. Use a neodymium magnet and hold it right against the shield, or lower `DETECT_THRESHOLD` to 15.
 - The LED flickers with no magnet: the noise is larger than the threshold. Raise `SAMPLES_PER_READING` to 32 or `DETECT_THRESHOLD` to 50, and keep Wi-Fi off.
 - The baseline is far from zero or drifts between runs: this is normal chip-to-chip offset, which is exactly why the baseline is measured at every start-up.
-- The sketch does not compile and complains that `hallRead` is undeclared: the project is building with Arduino-ESP32 core 3.x, where the function was removed. Use the `espressif32` PlatformIO platform, which ships core 2.x.
+- The sketch does not compile and complains that `hallRead` is undeclared: the project is building with Arduino-ESP32 core 3.x, where the function was removed. Keep `platform = espressif32 @ 6.13.0` in `platformio.ini`; that platform version ships core 2.0.17. PlatformIO downloads it once, next to the 8.0.0 platform used by the other examples.
 - Wild readings while something is plugged into NanoKit Pin 4 or Pin 5: remove it; those pins carry the sensor signal.
 
 ## Learning Notes
@@ -89,7 +89,7 @@ A Hall-effect sensor is a thin strip of semiconductor with a current flowing alo
 
 The built-in sensor is tiny and its voltage is small, so `hallRead()` returns a value that moves by tens of counts from one sample to the next. Averaging 16 samples divides that noise by about four and makes a magnet detection reliable; the 64-sample baseline is even steadier. The reading also contains a fixed offset that differs from chip to chip, which is why the example works with the change from the baseline, not with the absolute value.
 
-`hallRead()` is provided by Arduino-ESP32 core 2.x, the core that PlatformIO's `espressif32` platform installs for `board = esp32dev`. The function was removed in core 3.x together with the underlying ESP-IDF 5 driver, so this example is tied to core 2.x; projects on a 3.x core must read the sensor through the ESP-IDF ADC API directly.
+`hallRead()` is provided by Arduino-ESP32 core 2.x, which PlatformIO's `espressif32` platform shipped up to version 7.1.3; version 8.0.0 moved to core 3.x. This example pins 6.13.0, the last release of the long-standing 6.x line. The function was removed in core 3.x together with the underlying ESP-IDF 5 driver, so this example is tied to core 2.x: on a 3.x core the built-in Hall sensor is simply no longer available, and an external Hall module (for example an A3144 switch or a linear SS49E on an ADC1 pin) takes its place.
 
 The sensor is read through the chip's ADC, which is shared with every other analogue function and is sensitive to the radio. ESP-IDF reserves ADC2 for the Wi-Fi driver, and the bursts of current drawn while Wi-Fi transmits add noise to analogue readings in general. This example keeps Wi-Fi off; if you add it later, expect a noisier delta and raise the sample count.
 

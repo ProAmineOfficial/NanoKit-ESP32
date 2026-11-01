@@ -5,15 +5,14 @@
 namespace {
 constexpr uint8_t BUTTON_PIN = 4;            // NanoKit Pin 10, GPIO4. General GPIO with an internal pull-up; every ESP32 GPIO can raise an interrupt.
 constexpr uint8_t LED_PIN = 26;              // NanoKit Pin 37, GPIO26. Safe general-purpose output that drives the external LED through a resistor.
-constexpr uint8_t TIMER_INDEX = 0;           // The ESP32 has four 64-bit hardware timers, numbered 0 to 3. This example takes timer 0.
-constexpr uint16_t TIMER_PRESCALER = 80;     // The timers count the 80 MHz APB clock; dividing by 80 gives exactly one tick per microsecond.
+constexpr uint32_t TIMER_FREQUENCY_HZ = 1000000; // 1 MHz tick rate: the core divides the 80 MHz APB clock by 80, so one tick is one microsecond.
 constexpr uint32_t DEBOUNCE_US = 50000;      // An edge within 50 ms of the last accepted press is contact bounce, not a new press.
 constexpr uint32_t BLINK_PERIODS_MS[] = {1000, 500, 250, 125}; // Each press selects the next period, then wraps back to the first.
 constexpr uint8_t PERIOD_COUNT = sizeof(BLINK_PERIODS_MS) / sizeof(BLINK_PERIODS_MS[0]);
 constexpr uint32_t REPORT_INTERVAL_MS = 2000; // Periodic status line proves the loop is alive between presses.
 constexpr uint32_t SERIAL_BAUD = 115200;     // Standard NanoKit Serial Monitor speed.
 
-hw_timer_t *blinkTimer = nullptr;            // Handle returned by timerBegin; every timer* call needs it.
+hw_timer_t *blinkTimer = nullptr;            // Handle returned by timerBegin; every timer* call needs it. The ESP32 has four 64-bit hardware timers.
 portMUX_TYPE sharedMux = portMUX_INITIALIZER_UNLOCKED; // Spinlock that makes access to the shared variables below atomic.
 
 volatile bool timerFired = false;            // Set by the timer ISR, cleared by loop(). volatile stops the compiler from caching it in a register.
@@ -50,7 +49,7 @@ void IRAM_ATTR onTimerIsr() {
 void applyBlinkPeriod() {
   const uint64_t periodUs = static_cast<uint64_t>(BLINK_PERIODS_MS[periodIndex]) * 1000ULL; // Ticks are microseconds, so ms * 1000.
   timerWrite(blinkTimer, 0);                          // Restart the count so the new alarm value is always ahead of the counter.
-  timerAlarmWrite(blinkTimer, periodUs, true);        // true = auto-reload: the counter returns to 0 after each alarm, giving a steady period.
+  timerAlarm(blinkTimer, periodUs, true, 0);          // Alarm every periodUs ticks; true = auto-reload for a steady period; 0 = repeat forever.
 }
 
 void printStatus(const char *reason, uint32_t presses) {
@@ -72,14 +71,17 @@ void setup() {
 
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), onButtonIsr, FALLING); // The GPIO hardware now calls the ISR on each HIGH -> LOW edge.
 
-  blinkTimer = timerBegin(TIMER_INDEX, TIMER_PRESCALER, true); // Timer 0, prescaler 80 (1 us ticks), true = count up.
-  timerAttachInterrupt(blinkTimer, &onTimerIsr, true);         // true = edge-triggered interrupt, the normal choice for a periodic alarm.
-  applyBlinkPeriod();                                          // Load the first period (1000 ms).
-  timerAlarmEnable(blinkTimer);                                // Nothing fires until the alarm is enabled.
+  blinkTimer = timerBegin(TIMER_FREQUENCY_HZ);        // Claims a free hardware timer counting up at 1 MHz (1 us per tick); nullptr if none is free.
+  if (blinkTimer == nullptr) {
+    Serial.println("No free hardware timer.");
+    return;
+  }
+  timerAttachInterrupt(blinkTimer, &onTimerIsr);      // The timer interrupt now calls onTimerIsr every time the alarm fires.
+  applyBlinkPeriod();                                 // Load and arm the first period (1000 ms); timerAlarm starts the alarm.
 
   Serial.println("NanoKit interrupts and timers example ready.");
   Serial.println("Button: NanoKit Pin 10 / GPIO4 (to GND, FALLING interrupt). LED: NanoKit Pin 37 / GPIO26.");
-  Serial.println("Timer 0: 80 MHz / 80 = 1 us ticks. Press the button to cycle 1000 -> 500 -> 250 -> 125 ms.");
+  Serial.println("Hardware timer at 1 MHz (80 MHz / 80 = 1 us ticks). Press the button to cycle 1000 -> 500 -> 250 -> 125 ms.");
 }
 
 void loop() {

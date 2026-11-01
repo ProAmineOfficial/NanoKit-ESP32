@@ -4,12 +4,12 @@
 
 ## Algorithm
 
-1. Configure LEDC channel 0 and channel 1 with `ledcSetup` at 5000 Hz and 8-bit resolution, then attach GPIO26 to channel 0 and GPIO2 to channel 1 with `ledcAttachPin`.
-2. Write duty 0 to both channels so both LEDs start dark.
+1. Attach GPIO26 and GPIO2 to LEDC with `ledcAttach` at 5000 Hz and 8-bit resolution; the core gives each pin its own free channel.
+2. Write duty 0 to both pins so both LEDs start dark.
 3. Every 8 ms, add the direction (+1 or -1) to a linear level that runs from 0 to 255.
 4. When the level reaches 255, set the direction to -1; when it reaches 0, set it to +1.
 5. Convert the level to a duty: normalise to 0.0-1.0, square, scale back to 0-255, round.
-6. Write that duty to both channels with `ledcWrite`.
+6. Write that duty to both pins with `ledcWrite`.
 7. Every 500 ms, print the linear level, the corrected duty, and the direction.
 
 ## Flowchart
@@ -23,7 +23,7 @@ flowchart TD
   D -- Yes --> E(Reverse direction)
   D -- No --> F(Square the normalised level)
   E --> F
-  F --> G[/Write duty to channel 0 and channel 1/]
+  F --> G[/Write duty to GPIO26 and GPIO2/]
   G --> H
   H -- Yes --> I[/Print level and duty/]
   H -- No --> A
@@ -43,9 +43,8 @@ flowchart TD
 ## Pseudocode
 
 ```text
-configure LEDC channel 0 and channel 1: 5000 Hz, 8 bits
-attach external LED pin to channel 0, onboard LED pin to channel 1
-write duty 0 to both channels
+attach external LED pin and onboard LED pin to LEDC: 5000 Hz, 8 bits
+write duty 0 to both pins
 level = 0, direction = +1
 repeat forever:
   every 8 ms:
@@ -53,7 +52,7 @@ repeat forever:
     if level >= 255: level = 255, direction = -1
     if level <= 0:   level = 0,   direction = +1
     duty = round((level / 255)^2 * 255)
-    write duty to both channels
+    write duty to both pins
   every 500 ms:
     print level, duty, direction
 ```
@@ -77,7 +76,8 @@ repeat forever:
 ## Troubleshooting
 
 - LED never lights: check LED polarity (long leg to the resistor side) and that the resistor goes to NanoKit Pin 37 / GPIO26.
-- LED is either fully on or fully off: `ledcAttachPin` was not called, or the channel number in `ledcWrite` does not match the one in `ledcSetup`.
+- LED is either fully on or fully off: `ledcAttach` was not called for that pin, or it returned false (check the "LEDC setup failed" line in the Serial Monitor).
+- Build error `'ledcSetup' was not declared in this scope`: that is the old Arduino-ESP32 2.x API. This example targets core 3.x (`platform = espressif32 @ 8.0.0`), where `ledcSetup` + `ledcAttachPin` became `ledcAttach`.
 - The fade is very fast or very slow: `FADE_STEP_MS` sets the speed; 255 steps at 8 ms each give about 2 s per direction.
 - The duty in the Serial Monitor never reaches 255: the maximum duty is `(1 << PWM_RESOLUTION_BITS) - 1`; with 8 bits that is 255, with 10 bits it would be 1023.
 - Nothing in Serial Monitor: confirm 115200 baud and the correct COM port.
@@ -95,8 +95,8 @@ The resistor is still needed with PWM because dimming reduces the average curren
 ## Exercises
 
 1. Replace the square correction with a 256-entry lookup table that you compute once in `setup()` with `pow(x, 2.2)`.
-2. Change the resolution to 10 bits and the frequency to 1 kHz, and adapt `DUTY_MAX` so the fade still works. Confirm that 10 bits at 100 kHz is rejected by looking at the return value of `ledcSetup`.
-3. Fade the external LED and the onboard LED in opposite directions by writing `DUTY_MAX - duty` to channel 1.
+2. Change the resolution to 10 bits and the frequency to 1 kHz, and adapt `DUTY_MAX` so the fade still works. Confirm that 10 bits at 100 kHz is rejected by looking at the return value of `ledcAttach`.
+3. Fade the external LED and the onboard LED in opposite directions by writing `DUTY_MAX - duty` to the onboard LED pin.
 
 ## PDF Ready Notes
 

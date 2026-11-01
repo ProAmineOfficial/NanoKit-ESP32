@@ -6,12 +6,12 @@
 
 1. Configure GPIO4 as `INPUT_PULLUP` and GPIO26 as `OUTPUT` (LED off).
 2. Attach `onButtonIsr` to the `FALLING` edge of GPIO4.
-3. Claim hardware timer 0 with prescaler 80 (1 us ticks), attach `onTimerIsr`, write a 1 000 000 us auto-reload alarm, and enable it.
+3. Claim a free hardware timer at 1 MHz with `timerBegin(1000000)` (1 us ticks), attach `onTimerIsr` with `timerAttachInterrupt`, and arm a 1 000 000 us auto-reload alarm with `timerAlarm`.
 4. Button ISR: read `micros()`; if less than 50 ms since the last accepted press, return; otherwise record the time, increment the press counter, and set the press flag, all inside a critical section.
 5. Timer ISR: set the timer flag inside a critical section.
 6. Every loop, copy both flags and the press counter inside a critical section and clear the flags.
 7. If the timer flag was set, toggle the LED and count the toggle.
-8. If the press flag was set, advance to the next period in the list (1000, 500, 250, 125 ms), restart the counter with `timerWrite`, write the new alarm with `timerAlarmWrite`, and print a line.
+8. If the press flag was set, advance to the next period in the list (1000, 500, 250, 125 ms), restart the counter with `timerWrite`, arm the new alarm with `timerAlarm`, and print a line.
 9. Every 2 s, print a status line.
 
 ## Flowchart
@@ -58,8 +58,8 @@ flowchart TD
 ```text
 configure button as input with pull-up, LED as output and off
 attach button ISR to the FALLING edge of the button pin
-timer = begin hardware timer 0 with prescaler 80 (1 us ticks), counting up
-attach timer ISR to timer; alarm every 1 000 000 us with auto-reload; enable alarm
+timer = begin a free hardware timer at 1 MHz (1 us ticks), counting up
+attach timer ISR to timer; arm alarm every 1 000 000 us with auto-reload, repeating forever
 
 button ISR:
   now = micros()
@@ -86,7 +86,7 @@ repeat forever:
 
 | Component | Purpose |
 |---|---|
-| NanoKit Integrated ESP32 | Runs the GPIO interrupt, hardware timer 0, and the main loop |
+| NanoKit Integrated ESP32 | Runs the GPIO interrupt, one hardware timer, and the main loop |
 | Push button | Edge source for the GPIO interrupt, active LOW thanks to the internal pull-up |
 | LED + 220 ohm resistor | Shows the timer period; toggled from `loop()` |
 | Jumper wires | Connect button and LED to the NanoKit header |
@@ -116,12 +116,12 @@ The flag pattern follows from those rules: the ISR records that something happen
 
 Variables shared between an ISR and `loop()` need two protections. `volatile` tells the compiler to reload the variable from memory every time, instead of keeping a copy in a register that the ISR cannot see. The `portMUX_TYPE` spinlock, used through `portENTER_CRITICAL_ISR` / `portEXIT_CRITICAL_ISR` in the ISR and `portENTER_CRITICAL` / `portEXIT_CRITICAL` in `loop()`, disables interrupts for the few instructions inside so that `loop()` can never read a counter and a flag that belong to two different events. Critical sections must be as short as the ISRs themselves.
 
-The ESP32 has four general-purpose 64-bit hardware timers, grouped as two timers in each of two timer groups; the Arduino core numbers them 0 to 3. Each one counts a clock that is the 80 MHz APB clock divided by a 16-bit prescaler. `timerBegin(0, 80, true)` picks timer 0, divides 80 MHz by 80, and counts up, so the counter advances exactly once per microsecond. An alarm value is then simply a time in microseconds, and auto-reload makes the counter restart from 0 after every alarm so the period stays exact regardless of how busy `loop()` is. Because the timer runs in hardware, the LED period stays correct even if `loop()` were stuck in a long calculation.
+The ESP32 has four general-purpose 64-bit hardware timers, grouped as two timers in each of two timer groups; the Arduino core numbers them 0 to 3. Each one counts a clock that is the 80 MHz APB clock divided by a 16-bit prescaler. In Arduino-ESP32 core 3.x you ask for the tick rate instead of the prescaler: `timerBegin(1000000)` claims a free timer and lets the core choose the divider 80, so the counter advances exactly once per microsecond. (Core 2.x used `timerBegin(0, 80, true)` with the timer number and prescaler written out, followed by `timerAlarmWrite` and `timerAlarmEnable`; code written that way no longer compiles on core 3.x.) An alarm value is then simply a time in microseconds, and auto-reload makes the counter restart from 0 after every alarm so the period stays exact regardless of how busy `loop()` is. Because the timer runs in hardware, the LED period stays correct even if `loop()` were stuck in a long calculation.
 
 ## Exercises
 
 1. Make the LED stay off while the button is held, using a `RISING` interrupt on a second pin or `CHANGE` with a level check.
-2. Use timer 1 to measure how long each press lasts, and print it in milliseconds from `loop()`.
+2. Claim a second hardware timer to measure how long each press lasts, and print it in milliseconds from `loop()`.
 3. Replace the `digitalWrite` toggle with an LEDC duty change so the timer steps through four brightness levels instead of blinking.
 
 ## PDF Ready Notes

@@ -7,8 +7,6 @@ namespace {
 constexpr uint32_t SERIAL_BAUD = 115200;       // Serial Monitor speed used to receive simple target coordinates.
 constexpr uint8_t PAN_SERVO_PIN = 2;           // NanoKit Pin 17, GPIO2, PWM-capable output for pan servo signal.
 constexpr uint8_t TILT_SERVO_PIN = 26;         // NanoKit Pin 37, GPIO26, PWM-capable output for tilt servo signal.
-constexpr uint8_t PAN_PWM_CHANNEL = 0;         // ESP32 LEDC channel dedicated to the pan servo.
-constexpr uint8_t TILT_PWM_CHANNEL = 1;        // ESP32 LEDC channel dedicated to the tilt servo.
 constexpr uint16_t SERVO_PWM_HZ = 50;          // Hobby servos expect a 50 Hz control signal.
 constexpr uint8_t SERVO_PWM_BITS = 16;         // High PWM resolution gives smooth pulse-width control.
 constexpr uint16_t SERVO_MIN_US = 500;         // Conservative minimum pulse width for many 180-degree servos.
@@ -28,13 +26,13 @@ uint32_t servoDutyFromAngle(float angleDegrees) {
   return static_cast<uint32_t>((pulseUs * ((1UL << SERVO_PWM_BITS) - 1UL)) / 20000.0f); // Convert 20 ms frame pulse to LEDC duty.
 }
 
-void writeServo(uint8_t channel, float angleDegrees) {
-  ledcWrite(channel, servoDutyFromAngle(angleDegrees)); // Write the PWM duty that represents the requested servo angle.
+void writeServo(uint8_t pin, float angleDegrees) {
+  ledcWrite(pin, servoDutyFromAngle(angleDegrees)); // Arduino-ESP32 3.x addresses LEDC by pin: write the duty that represents the requested angle.
 }
 
 void applyServoAngles() {
-  writeServo(PAN_PWM_CHANNEL, panAngle);       // Update the pan servo with the latest computed horizontal angle.
-  writeServo(TILT_PWM_CHANNEL, tiltAngle);     // Update the tilt servo with the latest computed vertical angle.
+  writeServo(PAN_SERVO_PIN, panAngle);         // Update the pan servo with the latest computed horizontal angle.
+  writeServo(TILT_SERVO_PIN, tiltAngle);       // Update the tilt servo with the latest computed vertical angle.
 }
 
 void updateTrackingFromTarget(int targetX, int targetY) {
@@ -96,10 +94,8 @@ void runDemoTargetWhenIdle() {
 
 void setup() {
   Serial.begin(SERIAL_BAUD);                    // Start Serial for coordinate input and tracking logs.
-  ledcSetup(PAN_PWM_CHANNEL, SERVO_PWM_HZ, SERVO_PWM_BITS);  // Configure PWM timing for the pan servo.
-  ledcSetup(TILT_PWM_CHANNEL, SERVO_PWM_HZ, SERVO_PWM_BITS); // Configure PWM timing for the tilt servo.
-  ledcAttachPin(PAN_SERVO_PIN, PAN_PWM_CHANNEL);             // Connect GPIO2 to the pan LEDC channel.
-  ledcAttachPin(TILT_SERVO_PIN, TILT_PWM_CHANNEL);           // Connect GPIO26 to the tilt LEDC channel.
+  ledcAttach(PAN_SERVO_PIN, SERVO_PWM_HZ, SERVO_PWM_BITS);  // Give GPIO2 its own LEDC channel with 50 Hz servo timing.
+  ledcAttach(TILT_SERVO_PIN, SERVO_PWM_HZ, SERVO_PWM_BITS); // Give GPIO26 its own LEDC channel with the same timing.
   applyServoAngles();                          // Move both servos to the safe center position.
   Serial.println("NanoKit camera tracking example ready.");
   Serial.println("Send coordinates as: X=160 Y=120");

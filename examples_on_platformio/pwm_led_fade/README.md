@@ -11,7 +11,7 @@ Fade an LED from off to full and back without blocking the program, write the du
 ## What You Will Learn
 
 - What a PWM duty cycle is and why it changes brightness without changing the voltage.
-- How `ledcSetup`, `ledcAttachPin`, and `ledcWrite` configure and drive an LEDC channel.
+- How `ledcAttach` and `ledcWrite` (Arduino-ESP32 core 3.x) configure and drive an LEDC channel.
 - Why 5 kHz at 8 bits is a comfortable setting, and why more resolution forces a lower frequency.
 - Why a linear duty ramp looks wrong to the eye and how a simple square correction fixes it.
 - How to schedule a fade with `millis()` so the loop stays responsive.
@@ -32,7 +32,7 @@ Fade an LED from off to full and back without blocking the program, write the du
 <!-- GENIUS:PIN_MAP:START -->
 | NanoKit Pin | GPIO | Component Pin | Direction | Reason | Electrical Notes |
 |---:|---|---|---|---|---|
-| 37 | GPIO26 | Anode via 220 ohm | Output | LEDC channel 0 output sets the LED brightness | 3.3 V logic; PWM / LEDC |
+| 37 | GPIO26 | Anode via 220 ohm | Output | LEDC output sets the LED brightness | 3.3 V logic; PWM / LEDC |
 | 17 | GPIO2 | LED | Output | Onboard LED on the PWM_OUT0 pin | 3.3 V logic; PWM / LEDC |
 | 12 or 31 | GND | External LED + 220 ohm resistor Cathode | Power | Return path for the LED current | Common ground required |
 <!-- GENIUS:PIN_MAP:END -->
@@ -41,10 +41,10 @@ Source of truth: [`nanokit.yaml`](nanokit.yaml). The table above is regenerated 
 
 ## How It Works
 
-1. `ledcSetup(0, 5000, 8)` programs an LEDC timer to run at 5 kHz with 256 duty steps, and `ledcAttachPin(26, 0)` routes channel 0 to GPIO26. Channel 1 is set up the same way for the onboard LED on GPIO2.
+1. `ledcAttach(26, 5000, 8)` picks a free LEDC channel, programs its timer to run at 5 kHz with 256 duty steps, and routes it to GPIO26. The onboard LED on GPIO2 gets its own channel the same way.
 2. Every 8 ms, `loop()` moves a linear counter one step up or down between 0 and 255, turning around at each end.
 3. The counter is normalised to 0.0-1.0, squared, and scaled back to 0-255. This is the duty that is written.
-4. `ledcWrite(channel, duty)` hands the value to the hardware; the LEDC peripheral then produces the waveform on its own until the next write.
+4. `ledcWrite(pin, duty)` hands the value to the hardware; the LEDC peripheral then produces the waveform on its own until the next write.
 5. Every 500 ms a line is printed with the linear level, the corrected duty, and the direction, so the Serial Monitor shows how different the two numbers are.
 
 ## Build and Upload
@@ -59,7 +59,7 @@ pio device monitor -b 115200
 
 ```text
 NanoKit PWM LED fade example ready.
-LED: NanoKit Pin 37 / GPIO26 on LEDC channel 0 (+ onboard LED on Pin 17 / GPIO2, channel 1).
+LED: NanoKit Pin 37 / GPIO26 (+ onboard LED on Pin 17 / GPIO2), each on its own LEDC channel.
 LEDC: 5000 Hz, 8-bit resolution, duty 0-255. One fade step every 8 ms.
 Level 62/255 | duty written: 15 | direction: up
 Level 125/255 | duty written: 61 | direction: up

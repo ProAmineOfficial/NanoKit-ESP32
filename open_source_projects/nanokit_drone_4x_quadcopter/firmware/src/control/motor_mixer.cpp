@@ -17,18 +17,12 @@ uint16_t clampPulse(float pulse) { // Limit one floating-point mixer result befo
 }  // namespace
 
 void MotorMixer::begin() { // Configure all four LEDC channels with the same ESC timing.
-  ledcSetup(config::MOTOR_1_CHANNEL, config::ESC_PWM_FREQUENCY_HZ, // Create one independent PWM generator for each motor.
-            config::ESC_PWM_RESOLUTION_BITS); // Execute this statement as part of the current subsystem operation.
-  ledcSetup(config::MOTOR_2_CHANNEL, config::ESC_PWM_FREQUENCY_HZ,
-            config::ESC_PWM_RESOLUTION_BITS); // Execute this statement as part of the current subsystem operation.
-  ledcSetup(config::MOTOR_3_CHANNEL, config::ESC_PWM_FREQUENCY_HZ,
-            config::ESC_PWM_RESOLUTION_BITS); // Execute this statement as part of the current subsystem operation.
-  ledcSetup(config::MOTOR_4_CHANNEL, config::ESC_PWM_FREQUENCY_HZ,
-            config::ESC_PWM_RESOLUTION_BITS); // Execute this statement as part of the current subsystem operation.
-  ledcAttachPin(config::MOTOR_1_PIN, config::MOTOR_1_CHANNEL); // Route each generator to its confirmed NanoKit GPIO pin.
-  ledcAttachPin(config::MOTOR_2_PIN, config::MOTOR_2_CHANNEL);
-  ledcAttachPin(config::MOTOR_3_PIN, config::MOTOR_3_CHANNEL);
-  ledcAttachPin(config::MOTOR_4_PIN, config::MOTOR_4_CHANNEL);
+  // Arduino-ESP32 3.x: ledcAttachChannel programs one LEDC channel (50 Hz, 16 bits) and routes it to its
+  // confirmed NanoKit GPIO in a single call. Fixed channel numbers keep each motor on a known generator.
+  ledcAttachChannel(config::MOTOR_1_PIN, config::ESC_PWM_FREQUENCY_HZ, config::ESC_PWM_RESOLUTION_BITS, config::MOTOR_1_CHANNEL);
+  ledcAttachChannel(config::MOTOR_2_PIN, config::ESC_PWM_FREQUENCY_HZ, config::ESC_PWM_RESOLUTION_BITS, config::MOTOR_2_CHANNEL);
+  ledcAttachChannel(config::MOTOR_3_PIN, config::ESC_PWM_FREQUENCY_HZ, config::ESC_PWM_RESOLUTION_BITS, config::MOTOR_3_CHANNEL);
+  ledcAttachChannel(config::MOTOR_4_PIN, config::ESC_PWM_FREQUENCY_HZ, config::ESC_PWM_RESOLUTION_BITS, config::MOTOR_4_CHANNEL);
   safe(); // Write the minimum command immediately after configuration.
 }
 
@@ -75,7 +69,7 @@ uint32_t MotorMixer::pulseToDuty(uint16_t pulseUs) const { // Translate microsec
 }
 
 void MotorMixer::writePulse(uint8_t channel, uint16_t pulseUs) const { // Convert and write one pulse without exposing LEDC details to callers.
-  ledcWrite(channel, pulseToDuty(pulseUs));
+  ledcWriteChannel(channel, pulseToDuty(pulseUs)); // Core 3.x writes by pin with ledcWrite; ledcWriteChannel keeps the channel-based mixer contract.
 }
 
 }  // namespace nanokit

@@ -4,7 +4,7 @@
 
 - Generator: NanoKit Genius Generator 1.0.0
 - Command: `python tools/genius/generate.py`
-- Generated: 2026-10-31 23:35:27 UTC
+- Generated: 2026-11-01 00:07:34 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED WITH WARNINGS** (0 errors, 1 warnings)
 
@@ -18,7 +18,7 @@
 - `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/camera_service.cpp` · sha256 7216fb3ab082
 - `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/main.cpp` · sha256 bde41c7f6bbf
 - `open_source_projects/nanokit_drone_4x_quadcopter/camera_node/src/recording_service.cpp` · sha256 4e1b892fdc27
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h` · sha256 ae9b33438315
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/board_config.h` · sha256 b0e6035b8594
 - `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/config/feature_flags.h` · sha256 debbac389e99
 - `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/control/flight_controller.h` · sha256 76ac01ba7ef5
 - `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/control/motor_mixer.h` · sha256 ce023e96e9d9
@@ -30,7 +30,7 @@
 - `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/sensors/sensor_hub.h` · sha256 d53d36c9d9b6
 - `open_source_projects/nanokit_drone_4x_quadcopter/firmware/include/storage/config_store.h` · sha256 4038245ddb8c
 - `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/control/flight_controller.cpp` · sha256 80c663277f5a
-- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/control/motor_mixer.cpp` · sha256 430624a0ba90
+- `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/control/motor_mixer.cpp` · sha256 89d5ccdad896
 - `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/core/flight_types.cpp` · sha256 8025f26b67d2
 - `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/core/safety_manager.cpp` · sha256 86273f97061f
 - `open_source_projects/nanokit_drone_4x_quadcopter/firmware/src/main.cpp` · sha256 241d014115d0

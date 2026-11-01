@@ -5,11 +5,11 @@
 ## Algorithm
 
 1. Set 11 dB attenuation on GPIO34 with `analogSetPinAttenuation` so the ADC covers 0 V to about 3.3 V.
-2. Configure LEDC channel 0 at 5 kHz / 8 bits, attach GPIO2 to it, and write duty 0.
+2. Attach GPIO2 to LEDC with `ledcAttach` at 5 kHz / 8 bits (the core picks a free channel) and write duty 0.
 3. Every 100 ms, read GPIO34 sixteen times with `analogRead` and sixteen times with `analogReadMilliVolts`, summing each.
 4. Divide both sums by 16 to get the averaged raw count and the averaged millivolts.
 5. Compute percent = raw * 100 / 4095 and duty = raw >> 4 (12-bit count to 8-bit duty).
-6. Write the duty to the LEDC channel so the onboard LED brightness follows the knob.
+6. Write the duty to GPIO2 with `ledcWrite` so the onboard LED brightness follows the knob.
 7. Print raw, millivolts, percent, a 20-character bar, and the duty on one line.
 
 ## Flowchart
@@ -21,7 +21,7 @@ flowchart TD
   B -- Yes --> C[/Read GPIO34 sixteen times as raw and as millivolts/]
   C --> D(Average both sums)
   D --> E(Compute percent and 8-bit duty)
-  E --> F[/Write duty to the onboard LED channel/]
+  E --> F[/Write duty to the onboard LED pin/]
   F --> G[/Print raw and millivolts and percent and bar/]
   G --> A
 
@@ -40,7 +40,7 @@ flowchart TD
 
 ```text
 set 11 dB attenuation on the potentiometer pin
-configure LEDC channel 0 at 5000 Hz, 8 bits; attach the onboard LED pin; duty 0
+attach the onboard LED pin to LEDC at 5000 Hz, 8 bits; duty 0
 repeat forever:
   every 100 ms:
     rawSum = 0, mvSum = 0
@@ -51,7 +51,7 @@ repeat forever:
     mv  = mvSum / 16
     percent = raw * 100 / 4095
     duty = raw / 16            (12-bit to 8-bit)
-    write duty to the LED channel
+    write duty to the LED pin
     print raw, mv, percent, bar of 20 characters, duty
 ```
 

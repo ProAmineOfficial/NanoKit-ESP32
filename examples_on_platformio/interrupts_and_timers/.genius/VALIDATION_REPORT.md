@@ -4,14 +4,14 @@
 
 - Generator: NanoKit Genius Generator 1.0.0
 - Command: `python tools/genius/generate.py`
-- Generated: 2026-10-31 23:35:27 UTC
+- Generated: 2026-11-01 00:07:34 UTC
 - Board registry: `registry/nanokit-esp32.yaml` (NanoKit Integrated ESP32 V2020 SMD/THT)
 - Result: **PASSED** (0 errors, 0 warnings)
 
 ## Inputs
 
 - `examples_on_platformio/interrupts_and_timers/nanokit.yaml` · sha256 6352123a9671
-- `examples_on_platformio/interrupts_and_timers/src/main.cpp` · sha256 a4e91943f34c
+- `examples_on_platformio/interrupts_and_timers/src/main.cpp` · sha256 3875ff4696ad
 
 ## Hardware Classification
 

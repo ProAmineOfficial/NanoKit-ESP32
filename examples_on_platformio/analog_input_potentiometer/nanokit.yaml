@@ -35,6 +35,6 @@ components:
     kind: display
     status: confirmed
     power: { rail: none }
-    note: Brightness follows the knob position through LEDC channel 0; nothing is wired to it.
+    note: Brightness follows the knob position through an LEDC channel; nothing is wired to it.
     pins:
       - { pin: LED, gpio: 2, dir: out, type: pwm, symbol: BUILTIN_LED_PIN, note: Onboard LED on the PWM_OUT0 pin }

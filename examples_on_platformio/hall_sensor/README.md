@@ -14,7 +14,7 @@ Measure the "no magnet" level of the built-in Hall sensor at start-up, average t
 - Why the raw `hallRead()` value is noisy and how averaging tames it.
 - Why a start-up baseline is better than a fixed number copied from someone else's board.
 - Which two NanoKit pins the sensor borrows (Pin 4 / GPIO39 and Pin 5 / GPIO36) and why they must stay free.
-- That `hallRead()` belongs to Arduino-ESP32 core 2.x and disappeared in core 3.x.
+- That `hallRead()` belongs to Arduino-ESP32 core 2.x and disappeared in core 3.x, which is why this one example pins `platform = espressif32 @ 6.13.0` while the rest of the repository uses 8.0.0.
 
 ## Hardware Required
 
